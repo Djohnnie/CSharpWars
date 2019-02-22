@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpWars.DataAccess\CSharpWars.DataAccess.csproj" />
+    <ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
+    <ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
+    <ProjectReference Include="..\CSharpWars.Model\CSharpWars.Model.csproj" />
+  </ItemGroup>
+
+</Project>
