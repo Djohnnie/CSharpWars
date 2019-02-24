@@ -1,4 +1,4 @@
-﻿namespace CSharpWars.Model
+﻿namespace CSharpWars.Enums
 {
     public enum Orientation
     {

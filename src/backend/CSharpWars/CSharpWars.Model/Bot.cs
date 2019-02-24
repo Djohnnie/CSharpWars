@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharpWars.Enums;
 
 namespace CSharpWars.Model
 {
