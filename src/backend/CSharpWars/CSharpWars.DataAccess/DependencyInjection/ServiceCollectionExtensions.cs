@@ -11,6 +11,7 @@ namespace CSharpWars.DataAccess.DependencyInjection
         {
             serviceCollection.AddDbContext<CSharpWarsDbContext>();
             serviceCollection.AddScoped<IRepository<Player>, PlayerRepository>();
+            serviceCollection.AddScoped<IRepository<Bot>, BotRepository>();
         }
     }
 }

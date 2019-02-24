@@ -1,11 +1,11 @@
 ﻿using System;
 using CSharpWars.Enums;
 
-namespace CSharpWars.Model
+namespace CSharpWars.DtoModel
 {
-    public class Bot : ModelBase
+    public class BotDto
     {
-        public Int32 SysId { get; set; }
+        public Guid Id { get; set; }
         public String Name { get; set; }
         public Int32 LocationX { get; set; }
         public Int32 LocationY { get; set; }
@@ -17,6 +17,5 @@ namespace CSharpWars.Model
         public String Script { get; set; }
         public String Memory { get; set; }
         public Move PreviousMove { get; set; }
-        public virtual Player Team { get; set; }
     }
 }

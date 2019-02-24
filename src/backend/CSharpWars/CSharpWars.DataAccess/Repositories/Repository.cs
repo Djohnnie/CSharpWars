@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CSharpWars.DataAccess.Repositories.Interfaces;
 using CSharpWars.Model;
@@ -20,6 +23,11 @@ namespace CSharpWars.DataAccess.Repositories
         public async Task<IEnumerable<TModel>> GetAll()
         {
             return await _dbSet.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<TModel>> Find(Expression<Func<TModel, Boolean>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
         }
     }
 }

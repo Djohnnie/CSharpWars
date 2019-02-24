@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using CSharpWars.DtoModel;
 using CSharpWars.Model;
 
@@ -21,12 +20,12 @@ namespace CSharpWars.Mapping
 
         public override Player Map(PlayerDto dto)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<Player>(dto);
         }
 
         public override PlayerDto Map(Player model)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<PlayerDto>(model);
         }
     }
 }

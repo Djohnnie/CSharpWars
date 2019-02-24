@@ -4,8 +4,8 @@ using CSharpWars.DtoModel;
 
 namespace CSharpWars.Logic.Interfaces
 {
-    public interface IPlayerLogic : ILogic
+    public interface IBotLogic : ILogic
     {
-        Task<IEnumerable<PlayerDto>> GetAllPlayers();
+        Task<IEnumerable<BotDto>> GetAllActiveBots();
     }
 }

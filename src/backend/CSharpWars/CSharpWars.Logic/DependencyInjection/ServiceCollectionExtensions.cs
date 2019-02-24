@@ -13,6 +13,7 @@ namespace CSharpWars.Logic.DependencyInjection
             serviceCollection.ConfigureMapping();
             serviceCollection.AddTransient<IArenaLogic, ArenaLogic>();
             serviceCollection.AddTransient<IPlayerLogic, PlayerLogic>();
+            serviceCollection.AddTransient<IBotLogic, BotLogic>();
         }
     }
 }

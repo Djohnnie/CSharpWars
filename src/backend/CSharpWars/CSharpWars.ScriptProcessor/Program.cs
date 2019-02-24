@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Common.Tools;
+using CSharpWars.ScriptProcessor.DependencyInjection;
+using CSharpWars.ScriptProcessor.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using static System.Console;
+using static System.Convert;
+using static System.Environment;
 
 namespace CSharpWars.ScriptProcessor
 {
@@ -10,14 +17,28 @@ namespace CSharpWars.ScriptProcessor
 
         static void Main(string[] args)
         {
+            WriteLine("CSharp Wars Processing Console");
+            WriteLine("------------------------------");
+            WriteLine();
+            WriteLine("Press any key to exit!");
+            WriteLine();
+
             MainAsync().GetAwaiter().GetResult();
         }
 
         static async Task MainAsync()
         {
-            //Processor p = new Processor();
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.ConfigurationHelper(c =>
+            {
+                c.ConnectionString = GetEnvironmentVariable("CONNECTION_STRING");
+                c.ArenaSize = ToInt32(GetEnvironmentVariable("ARENA_SIZE"));
+            });
+            serviceCollection.ConfigureScriptProcessor();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var processor = serviceProvider.GetService<IProcessor>();
 
-            while (true)
+            while (!Console.KeyAvailable)
             {
                 var start = DateTime.UtcNow;
 
@@ -25,7 +46,7 @@ namespace CSharpWars.ScriptProcessor
                 {
                     using (var sw = new SimpleStopwatch())
                     {
-                        //await p.GoPublic();
+                        await processor.Go();
                         Console.WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
                     }
                 }
