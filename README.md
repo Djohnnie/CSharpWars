@@ -1,5 +1,7 @@
 # The Making of CSharpWars
 
+![CSharp Wars Logo](https://www.djohnnie.be/csharpwars/logo.png "CSharp Wars Logo")
+
 ## Part 1 - Forming the Idea
 
 Placeholder
