@@ -11,5 +11,7 @@ namespace CSharpWars.DataAccess.Repositories.Interfaces
         Task<IEnumerable<TModel>> GetAll();
 
         Task<IEnumerable<TModel>> Find(Expression<Func<TModel, Boolean>> predicate);
+
+        Task<TModel> Create(TModel toCreate);
     }
 }

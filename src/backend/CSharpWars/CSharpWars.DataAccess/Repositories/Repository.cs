@@ -29,5 +29,13 @@ namespace CSharpWars.DataAccess.Repositories
         {
             return await _dbSet.Where(predicate).ToListAsync();
         }
+
+        public async Task<TModel> Create(TModel toCreate)
+        {
+            toCreate.Id = Guid.NewGuid();
+            await _dbSet.AddAsync(toCreate);
+            await _dbContext.SaveChangesAsync();
+            return toCreate;
+        }
     }
 }

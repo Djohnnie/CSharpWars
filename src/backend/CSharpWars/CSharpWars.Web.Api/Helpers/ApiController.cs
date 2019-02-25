@@ -35,6 +35,15 @@ namespace CSharpWars.Web.Api.Helpers
             });
         }
 
+        protected async Task<IActionResult> Created<TResult>(Func<TLogic, Task<TResult>> logicCall)
+        {
+            return await Try(async () =>
+            {
+                var result = await logicCall(_logic);
+                return result != null ? Created("", result) : (ActionResult)NotFound();
+            });
+        }
+
         private async Task<IActionResult> Try(Func<Task<IActionResult>> action)
         {
             try

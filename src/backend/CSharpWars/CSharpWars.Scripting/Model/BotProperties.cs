@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 
 namespace CSharpWars.Scripting.Model
@@ -37,6 +38,23 @@ namespace CSharpWars.Scripting.Model
             CurrentStamina = currentStamina;
             Memory = memory;
             Messages = messages;
+        }
+
+        public static BotProperties Build(BotDto bot, ArenaDto arena)
+        {
+            return new BotProperties(
+                arena.Width,
+                arena.Height,
+                bot.LocationX,
+                bot.LocationY,
+                bot.Orientation,
+                bot.PreviousMove,
+                bot.MaximumHealth,
+                bot.CurrentHealth,
+                bot.MaximumStamina,
+                bot.CurrentStamina,
+                new Dictionary<string, string>(),
+                new List<string>());
         }
     }
 }

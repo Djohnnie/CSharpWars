@@ -7,5 +7,7 @@ namespace CSharpWars.Logic.Interfaces
     public interface IBotLogic : ILogic
     {
         Task<IEnumerable<BotDto>> GetAllActiveBots();
+
+        Task<BotDto> CreateBot(BotToCreateDto bot);
     }
 }

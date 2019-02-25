@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CSharpWars.Common\CSharpWars.Common.csproj" />
+    <ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
     <ProjectReference Include="..\CSharpWars.Enums\CSharpWars.Enums.csproj" />
   </ItemGroup>
 
