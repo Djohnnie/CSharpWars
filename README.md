@@ -16,6 +16,8 @@ I have been working as a software development consultant and C# and .NET teacher
 
 ### Game?
 
+![Text Balloon 1](https://www.djohnnie.be/csharpwars/balloon1.png "Text Balloon 1")
+
 The easiest idea for a game that can be scripted using .NET and C# is a deathmatch game where players fight a match inside an arena. Each player can script one, or even multiple robots inside the arena. Once a robot has been scripted and deployed into the arena, its future is entirely dependent of the script. It cannot be changed, and it cannot be revoked.
 
 ### Technology?
