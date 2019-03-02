@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
@@ -33,7 +34,7 @@ namespace CSharpWars.Tests.Scripting
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsSetsCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, Move expectedMove)
+        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, Moves expectedMove)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -44,13 +45,13 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            Assert.Equal(Move.Idling, originalMove);
+            Assert.Equal(Moves.Idling, originalMove);
             Assert.Equal(expectedMove, botProperties.CurrentMove);
         }
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsIgnoresCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Ignores_CurrentMove_If_Not_Idling(Action<ScriptGlobals> action, Move originalMove)
+        public void ScriptGlobals_Action_Correctly_Ignores_CurrentMove_If_Not_Idling(Action<ScriptGlobals> action, Moves originalMove)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -61,54 +62,54 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            Assert.NotEqual(Move.Idling, originalMove);
+            Assert.NotEqual(Moves.Idling, originalMove);
             Assert.Equal(originalMove, botProperties.CurrentMove);
         }
 
         private BotProperties BuildBotProperties()
         {
-            return new BotProperties(
-                10,
-                20,
-                1,
-                2,
-                Orientation.North,
-                Move.Idling,
-                100,
-                99,
-                250,
-                150,
-                new Dictionary<string, string>(),
-                new List<string>());
+            var bot = new BotDto
+            {
+                LocationX = 1,
+                LocationY = 2,
+                Orientation = Orientations.North,
+                PreviousMove = Moves.Idling,
+                MaximumHealth = 100,
+                CurrentHealth = 99,
+                MaximumStamina = 250,
+                CurrentStamina = 150
+            };
+            var arena = new ArenaDto { Width = 10, Height = 20 };
+            return BotProperties.Build(bot, arena);
         }
 
-        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Move>
+        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Moves>
         {
             public ScriptGlobalsSetsCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), Move.MovingForward);
-                Add(g => g.TurnLeft(), Move.TurningLeft);
-                Add(g => g.TurnRight(), Move.TurningRight);
-                Add(g => g.TurnAround(), Move.TurningAround);
-                Add(g => g.SelfDestruct(), Move.SelfDestruct);
-                Add(g => g.MeleeAttack(), Move.MeleeAttack);
-                Add(g => g.RangedAttack(0, 0), Move.RangedAttack);
-                Add(g => g.Teleport(0, 0), Move.Teleport);
+                Add(g => g.MoveForward(), Moves.WalkForward);
+                Add(g => g.TurnLeft(), Moves.TurningLeft);
+                Add(g => g.TurnRight(), Moves.TurningRight);
+                Add(g => g.TurnAround(), Moves.TurningAround);
+                Add(g => g.SelfDestruct(), Moves.SelfDestruct);
+                Add(g => g.MeleeAttack(), Moves.MeleeAttack);
+                Add(g => g.RangedAttack(0, 0), Moves.RangedAttack);
+                Add(g => g.Teleport(0, 0), Moves.Teleport);
             }
         }
 
-        private class ScriptGlobalsIgnoresCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Move>
+        private class ScriptGlobalsIgnoresCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Moves>
         {
             public ScriptGlobalsIgnoresCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), Move.MeleeAttack);
-                Add(g => g.TurnLeft(), Move.MovingForward);
-                Add(g => g.TurnRight(), Move.MovingForward);
-                Add(g => g.TurnAround(), Move.MovingForward);
-                Add(g => g.SelfDestruct(), Move.MovingForward);
-                Add(g => g.MeleeAttack(), Move.MovingForward);
-                Add(g => g.RangedAttack(0, 0), Move.MovingForward);
-                Add(g => g.Teleport(0, 0), Move.MovingForward);
+                Add(g => g.MoveForward(), Moves.MeleeAttack);
+                Add(g => g.TurnLeft(), Moves.WalkForward);
+                Add(g => g.TurnRight(), Moves.WalkForward);
+                Add(g => g.TurnAround(), Moves.WalkForward);
+                Add(g => g.SelfDestruct(), Moves.WalkForward);
+                Add(g => g.MeleeAttack(), Moves.WalkForward);
+                Add(g => g.RangedAttack(0, 0), Moves.WalkForward);
+                Add(g => g.Teleport(0, 0), Moves.WalkForward);
             }
         }
     }

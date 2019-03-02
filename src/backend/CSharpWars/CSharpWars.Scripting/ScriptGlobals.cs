@@ -19,8 +19,8 @@ namespace CSharpWars.Scripting
         public Int32 Height => _50437079C366407D978Fe4Afd60C535F.Height;
         public Int32 X => _50437079C366407D978Fe4Afd60C535F.X;
         public Int32 Y => _50437079C366407D978Fe4Afd60C535F.Y;
-        public Orientation Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
-        public Move LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
+        public Orientations Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
+        public Moves LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
         public Int32 MaximumPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.MaximumPhysicalHealth;
         public Int32 CurrentPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.CurrentPhysicalHealth;
         public Int32 MaximumStamina => _50437079C366407D978Fe4Afd60C535F.MaximumStamina;
@@ -30,39 +30,33 @@ namespace CSharpWars.Scripting
 
         #region <| Constants |>
 
-        // Damage inflicted on melee attack.
-        public const Int16 MELEE_DAMAGE = 10;
-        // Damage inflicted on melee attack from behind.
-        public const Int16 MELEE_BACKSTAB_DAMAGE = 15;
-        // Damage inflicted on ranged attack.
-        public const Int16 RANGED_DAMAGE = 1;
-        // Damage inflicted on neighboring bots, range 1, on self destruction.
-        public const Int16 SELF_DESTRUCT_MAX_DAMAGE = 50;
-        // Damage inflicted on neighboring bots, range 2, on self destruction.
-        public const Int16 SELF_DESTRUCT_MED_DAMAGE = 10;
-        // Damage inflicted on neighboring bots, range 3, on self destruction.
-        public const Int16 SELF_DESTRUCT_MIN_DAMAGE = 2;
-        // Maximum range for ranged attacks.
-        public const Int16 MAXIMUM_RANGE = 6;
-        // Maximum range for teleporting.
-        public const Int16 MAXIMUM_TELEPORT = 6;
+        public const Int32 MELEE_DAMAGE = Constants.MELEE_DAMAGE;
+        public const Int32 MELEE_BACKSTAB_DAMAGE = Constants.MELEE_BACKSTAB_DAMAGE;
+        public const Int32 RANGED_DAMAGE = Constants.RANGED_DAMAGE;
+        public const Int32 SELF_DESTRUCT_MAX_DAMAGE = Constants.SELF_DESTRUCT_MAX_DAMAGE;
+        public const Int32 SELF_DESTRUCT_MED_DAMAGE = Constants.SELF_DESTRUCT_MED_DAMAGE;
+        public const Int32 SELF_DESTRUCT_MIN_DAMAGE = Constants.SELF_DESTRUCT_MIN_DAMAGE;
+        public const Int32 MAXIMUM_RANGE = Constants.MAXIMUM_RANGE;
+        public const Int32 MAXIMUM_TELEPORT = Constants.MAXIMUM_TELEPORT;
+        public const Int32 STAMINA_ON_MOVE = Constants.STAMINA_ON_MOVE;
+        public const Int32 STAMINA_ON_TELEPORT = Constants.STAMINA_ON_TELEPORT;
 
-        public const Move IDLING = Move.Idling;
-        public const Move TURNING_LEFT = Move.TurningLeft;
-        public const Move TURNING_RIGHT = Move.TurningRight;
-        public const Move TURNING_AROUND = Move.TurningAround;
-        public const Move MOVING_FORWARD = Move.MovingForward;
-        public const Move RANGED_ATTACK = Move.RangedAttack;
-        public const Move MELEE_ATTACK = Move.MeleeAttack;
-        public const Move SELF_DESTRUCTING = Move.SelfDestruct;
-        public const Move SCRIPT_ERROR = Move.ScriptError;
-        public const Move DYING = Move.Died;
-        public const Move TELEPORTING = Move.Teleport;
+        public const Moves IDLING = Moves.Idling;
+        public const Moves TURNING_LEFT = Moves.TurningLeft;
+        public const Moves TURNING_RIGHT = Moves.TurningRight;
+        public const Moves TURNING_AROUND = Moves.TurningAround;
+        public const Moves MOVING_FORWARD = Moves.WalkForward;
+        public const Moves RANGED_ATTACK = Moves.RangedAttack;
+        public const Moves MELEE_ATTACK = Moves.MeleeAttack;
+        public const Moves SELF_DESTRUCTING = Moves.SelfDestruct;
+        public const Moves SCRIPT_ERROR = Moves.ScriptError;
+        public const Moves DYING = Moves.Died;
+        public const Moves TELEPORTING = Moves.Teleport;
 
-        public const Orientation NORTH = Orientation.North;
-        public const Orientation EAST = Orientation.East;
-        public const Orientation SOUTH = Orientation.South;
-        public const Orientation WEST = Orientation.West;
+        public const Orientations NORTH = Orientations.North;
+        public const Orientations EAST = Orientations.East;
+        public const Orientations SOUTH = Orientations.South;
+        public const Orientations WEST = Orientations.West;
 
         #endregion
 
@@ -82,7 +76,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void MoveForward()
         {
-            SetCurrentMove(Move.MovingForward);
+            SetCurrentMove(Moves.WalkForward);
         }
 
         /// <summary>
@@ -90,7 +84,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnLeft()
         {
-            SetCurrentMove(Move.TurningLeft);
+            SetCurrentMove(Moves.TurningLeft);
         }
 
         /// <summary>
@@ -98,7 +92,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnRight()
         {
-            SetCurrentMove(Move.TurningRight);
+            SetCurrentMove(Moves.TurningRight);
         }
 
         /// <summary>
@@ -106,7 +100,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnAround()
         {
-            SetCurrentMove(Move.TurningAround);
+            SetCurrentMove(Moves.TurningAround);
         }
 
         /// <summary>
@@ -114,7 +108,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void SelfDestruct()
         {
-            SetCurrentMove(Move.SelfDestruct);
+            SetCurrentMove(Moves.SelfDestruct);
         }
 
         /// <summary>
@@ -122,7 +116,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void MeleeAttack()
         {
-            SetCurrentMove(Move.MeleeAttack);
+            SetCurrentMove(Moves.MeleeAttack);
         }
 
         /// <summary>
@@ -130,7 +124,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void RangedAttack(Int32 x, Int32 y)
         {
-            SetCurrentMove(Move.RangedAttack);
+            SetCurrentMove(Moves.RangedAttack);
         }
 
         /// <summary>
@@ -138,7 +132,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void Teleport(Int32 x, Int32 y)
         {
-            SetCurrentMove(Move.Teleport);
+            SetCurrentMove(Moves.Teleport);
         }
 
         /// <summary>
@@ -199,9 +193,9 @@ namespace CSharpWars.Scripting
 
         #region <| Helper Methods |>
 
-        private void SetCurrentMove(Move currentMove)
+        private void SetCurrentMove(Moves currentMove)
         {
-            if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == Move.Idling)
+            if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == Moves.Idling)
             {
                 _50437079C366407D978Fe4Afd60C535F.CurrentMove = currentMove;
             }

@@ -1,6 +1,6 @@
 ﻿namespace CSharpWars.Enums
 {
-    public enum Move
+    public enum Moves
     {
         Idling,
 
@@ -10,7 +10,7 @@
 
         TurningAround,
 
-        MovingForward,
+        WalkForward,
 
         Teleport,
 
