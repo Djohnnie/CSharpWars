@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpWars.Web.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller:lower]")]
     [ApiController]
-    public class BotController : ApiController<IBotLogic>
+    public class BotsController : ApiController<IBotLogic>
     {
-        public BotController(IBotLogic botLogic) : base(botLogic) { }
+        public BotsController(IBotLogic botLogic) : base(botLogic) { }
 
         [HttpGet]
         public Task<IActionResult> GetAllActiveBots()
