@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CSharpWars.Enums\CSharpWars.Enums.csproj" />
     <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
+    <ProjectReference Include="..\CSharpWars.ScriptProcessor\CSharpWars.ScriptProcessor.csproj" />
   </ItemGroup>
 
 </Project>
