@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Logic;
 using CSharpWars.Logic.Interfaces;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -22,8 +23,8 @@ namespace CSharpWars.Tests.Logic
             var result = await arenaLogic.GetArena();
 
             // Assert
-            Assert.AreEqual(10, result.Width);
-            Assert.AreEqual(10, result.Height);
+            result.Width.Should().Be(10);
+            result.Height.Should().Be(10);
         }
     }
 }

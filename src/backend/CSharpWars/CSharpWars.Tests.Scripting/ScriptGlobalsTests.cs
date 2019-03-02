@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
+using FluentAssertions;
 using Xunit;
 
 namespace CSharpWars.Tests.Scripting
@@ -20,16 +20,18 @@ namespace CSharpWars.Tests.Scripting
             var scriptGlobals = new ScriptGlobals(botProperties);
 
             // Assert
-            Assert.Equal(botProperties.Width, scriptGlobals.Width);
-            Assert.Equal(botProperties.Height, scriptGlobals.Height);
-            Assert.Equal(botProperties.X, scriptGlobals.X);
-            Assert.Equal(botProperties.Y, scriptGlobals.Y);
-            Assert.Equal(botProperties.Orientation, scriptGlobals.Orientation);
-            Assert.Equal(botProperties.LastMove, scriptGlobals.LastMove);
-            Assert.Equal(botProperties.MaximumPhysicalHealth, scriptGlobals.MaximumPhysicalHealth);
-            Assert.Equal(botProperties.CurrentPhysicalHealth, scriptGlobals.CurrentPhysicalHealth);
-            Assert.Equal(botProperties.MaximumStamina, scriptGlobals.MaximumStamina);
-            Assert.Equal(botProperties.CurrentStamina, scriptGlobals.CurrentStamina);
+            scriptGlobals.Should().NotBeNull();
+            scriptGlobals.Should().BeEquivalentTo(botProperties, o => o
+                .Including(x => x.Width)
+                .Including(x => x.Height)
+                .Including(x => x.X)
+                .Including(x => x.Y)
+                .Including(x => x.Orientation)
+                .Including(x => x.LastMove)
+                .Including(x => x.MaximumPhysicalHealth)
+                .Including(x => x.CurrentPhysicalHealth)
+                .Including(x => x.MaximumStamina)
+                .Including(x => x.CurrentStamina));
         }
 
         [Theory]
@@ -45,8 +47,8 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            Assert.Equal(Moves.Idling, originalMove);
-            Assert.Equal(expectedMove, botProperties.CurrentMove);
+            originalMove.Should().Be(Moves.Idling);
+            botProperties.CurrentMove.Should().Be(expectedMove);
         }
 
         [Theory]
@@ -62,8 +64,8 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            Assert.NotEqual(Moves.Idling, originalMove);
-            Assert.Equal(originalMove, botProperties.CurrentMove);
+            originalMove.Should().Be(Moves.Idling);
+            botProperties.CurrentMove.Should().Be(originalMove);
         }
 
         private BotProperties BuildBotProperties()
