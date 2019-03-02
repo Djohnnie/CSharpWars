@@ -22,13 +22,17 @@
 
 I have been working as a software development consultant and C# and .NET teacher for the past years. Sometimes developers and students can use some extra fun to awaken their creativity and improve their enthusiasm. In order to make students have some fun while learning and make developers creative while being competitive, I wanted to create a game that can be scripted using C#.
 
-### Game?
+### Game
 
 The easiest idea for a game that can be scripted using .NET and C# is a deathmatch game where players fight a match inside an arena. Each player can script one, or even multiple robots inside the arena. Once a robot has been scripted and deployed into the arena, its future is entirely dependent of the script. It cannot be changed, and it cannot be revoked.
 
-#### Scripting
+##### Scripting
 
-#### Moves
+The game will run based on turns and all robots will execute their turn simultaniously. A single turn is based on a script that the player will write using C#. Because a robot can be deployed using one script, each turn is based on the same script. The script should be advanced enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted.
+To improve predictablilty, all attack related turns are executed first and the turns related to movement are executed last.
+The scripting context will provide the player with the needed information about his own robot, but also about the robots that are visible to his own robot. This way the robot can make descisions based on this data.
+
+##### Moves
 
 In order to give the player a variety of options, he can use a number of different moves in his scripts to make his robot walk around the arena and fight other robots. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
 
@@ -58,9 +62,25 @@ A robot has three additional things that can happen to him:
 | **Died** | This action describes that the robot died because his health reached zero or lower. |
 | **ScriptError** | This action describes that the robot crached because of a script error. |
 
-### Technology?
+### Technology
 
-Because I am a developer myself and I obviously wanted to have some fun, I took this opportunity to dive into some new technologies. At the core of the game itself, because it should be possible to script robots using C#, I looked at the **Microsoft Compiler Platform (Roslyn)**. As a total newbie I wanted to challenge myself and use the **Unity Game Engine** to create a good looking 3D client application to display the arena with fighting robots. For communication between frontent, middleware and backend I chose to use **ASP.NET Core WebApi** and **Microsoft SQL Server** for storing simple relational data.
+Because I am a developer myself and I obviously wanted to have some fun, I took this opportunity to dive into some new technologies.
+
+##### Frontend
+The game itself should have an attractive frontend to display the battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments.
+
+A web-based UI can be used for players to write C# scripts and deploy them to the game arena. Because this part of the game is not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
+
+##### Middleware
+Running C# scripts dynamicaly should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**.
+
+##### Backend
+Communication between frontends and backend can be easily provided using an HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this.
+
+Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)**.
+
+##### Deployment
+Because I want flexibility in deployment, **[Docker Containers](https://www.docker.com/)** will be used to host the backend web applications and middleware service. For building code and docker containers, **[Azure DevOps & Azure Pipelines](https://azure.microsoft.com/nl-nl/services/devops/pipelines/)** will be used.
 
 ## Part 2 - Implementing a simple API
 
