@@ -25,6 +25,9 @@ The easiest idea for a game that can be scripted using .NET and C# is a deathmat
 In order to give the player a variety of options, he can use a number of different moves in his scripts to make his robot walk around the arena and fight other robots. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
 
 A robot has five options to move around:
+
+| Move | Description |
+|------|-------------|
 | WalkForward | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point. |
 | TurnLeft | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from it's current location in the arena grid. |
 | TurnRight | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from it's current location in the arena grid. |
