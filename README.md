@@ -16,9 +16,18 @@ I have been working as a software development consultant and C# and .NET teacher
 
 ### Game?
 
-![Text Balloon 1](https://www.djohnnie.be/csharpwars/balloon1.png "Text Balloon 1")
-
 The easiest idea for a game that can be scripted using .NET and C# is a deathmatch game where players fight a match inside an arena. Each player can script one, or even multiple robots inside the arena. Once a robot has been scripted and deployed into the arena, its future is entirely dependent of the script. It cannot be changed, and it cannot be revoked.
+
+#### Scripting
+
+#### Moves
+
+In order to give the player a variety of options, he can use a number of different moves in his scripts to make his robot walk around the arena and fight other robots. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
+
+A robot has five options to move around:
+| WalkForward | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point. |
+| TurnLeft | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from it's current location in the arena grid. |
+| TurnRight | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from it's current location in the arena grid. |
 
 ### Technology?
 
