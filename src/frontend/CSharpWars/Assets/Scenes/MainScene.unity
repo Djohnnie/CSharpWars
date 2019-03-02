@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridToWorldScale: 1
-  PlatformHeight: 1
+  PlatformHeight: 0.1
 --- !u!114 &399541896
 MonoBehaviour:
   m_ObjectHideFlags: 0
