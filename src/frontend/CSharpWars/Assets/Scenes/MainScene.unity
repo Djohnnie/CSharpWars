@@ -400,6 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399541894}
   - component: {fileID: 399541895}
+  - component: {fileID: 399541896}
   m_Layer: 0
   m_Name: _Arena
   m_TagString: Untagged
@@ -434,6 +435,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8307e78e68301564f82de146bc91fd7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GridToWorldScale: 1
+  PlatformHeight: 1
+--- !u!114 &399541896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399541893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c33e085b89a3448a10df3d7dd742f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RefreshRate: 2
+  BotPrefab: {fileID: 7842690366862279663, guid: ffb0c1a0fa3145f41b55a52bf642993d,
+    type: 3}
 --- !u!1001 &492330520
 PrefabInstance:
   m_ObjectHideFlags: 0

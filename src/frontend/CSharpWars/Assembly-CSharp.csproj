@@ -62,7 +62,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\Controllers\ArenaController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BotController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BotsController.cs" />
+    <Compile Include="Assets\Scripts\Helpers\OrientationVector.cs" />
     <Compile Include="Assets\Scripts\Model\Arena.cs" />
+    <Compile Include="Assets\Scripts\Model\Bot.cs" />
+    <Compile Include="Assets\Scripts\Model\PossibleOrientations.cs" />
     <Compile Include="Assets\Scripts\Networking\ApiClient.cs" />
     <None Include="Assets\External\Fight Bot\model\Materials\roboShader.shader" />
     <None Include="Assets\Packages\RestSharp.106.6.7\lib\netstandard2.0\RestSharp.xml" />
@@ -282,6 +287,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>C:/_-_CSharpWars_-_/git/src/frontend/CSharpWars/Assets/Packages/RestSharp.106.6.7/lib/netstandard2.0/RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/_-_CSharpWars_-_/git/src/frontend/CSharpWars/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -290,9 +298,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/_-_CSharpWars_-_/git/src/frontend/CSharpWars/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>C:/_-_CSharpWars_-_/git/src/frontend/CSharpWars/Assets/Packages/RestSharp.106.6.7/lib/netstandard2.0/RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
