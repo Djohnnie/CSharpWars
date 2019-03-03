@@ -43,7 +43,9 @@ steps:
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
     
 - script: |
-    cd ./src/backend/CSharpWars/CSharpWars.Web.Api
-    docker build -t djohnnie/csharpwars-api .
-    docker login -u $(dockerId) -p $(dockerPwd)
-    docker push djohnnie/csharpwars-api
+      cd ./src/backend/CSharpWars/CSharpWars.Web.Api
+      docker build -t djohnnie/csharpwars-api .
+      docker login -u $(dockerId) -p $(dockerPwd)
+      docker push djohnnie/csharpwars-api
+    displayName: Build and Push Docker Image
+    continueOnError: true  
