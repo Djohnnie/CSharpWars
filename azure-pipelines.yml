@@ -40,7 +40,7 @@ steps:
     projects: '**/backend/**/*.csproj'
 
 - script: |
-    dotnet publish .\src\backend\CSharpWars\CSharpWars.Web.Api
+    dotnet publish .\src\backend\CSharpWars\CSharpWars.Web.Api --configuration "Release" --output ./bin/Release/publish
     
 - script: |
     docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
