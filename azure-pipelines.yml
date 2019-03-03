@@ -38,17 +38,15 @@ steps:
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
-    
-- script: 
-  displayName: Build djohnnie/csharpwars-api Docker Image
-    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
-    docker login -u $(dockerId) -p $(dockerPwd)
-    docker push djohnnie/csharpwars-api
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    projects: './src/backend/CSharpWars/CSharpWars.Web.Api/CSharpWars.Web.Api.csproj'
+    custom: 'publish'
+    arguments: '--configuration release --output bin/Release/publish/'
     
 - script: |
     docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-api
-    
-- script:
-    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
