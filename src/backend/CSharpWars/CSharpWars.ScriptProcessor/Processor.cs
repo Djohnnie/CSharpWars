@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
+using CSharpWars.Enums;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
@@ -51,15 +52,15 @@ namespace CSharpWars.ScriptProcessor
             foreach (var bot in bots)
             {
                 var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == Enums.Moves.RangedAttack)
+                if (botProperties.CurrentMove == PossibleMoves.RangedAttack)
                 {
                     Move.Build(botProperties).Go();
                 }
-                if (botProperties.CurrentMove == Enums.Moves.MeleeAttack)
+                if (botProperties.CurrentMove == PossibleMoves.MeleeAttack)
                 {
 
                 }
-                if (botProperties.CurrentMove == Enums.Moves.SelfDestruct)
+                if (botProperties.CurrentMove == PossibleMoves.SelfDestruct)
                 {
 
                 }
@@ -69,7 +70,7 @@ namespace CSharpWars.ScriptProcessor
             foreach (var bot in bots)
             {
                 var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == Enums.Moves.Teleport)
+                if (botProperties.CurrentMove == PossibleMoves.Teleport)
                 {
 
                 }
@@ -79,22 +80,22 @@ namespace CSharpWars.ScriptProcessor
             foreach (var bot in bots)
             {
                 var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == Enums.Moves.WalkForward)
+                if (botProperties.CurrentMove == PossibleMoves.WalkForward)
                 {
                     if (botProperties.CurrentStamina > 0)
                     {
 
                     }
                 }
-                if (botProperties.CurrentMove == Enums.Moves.TurningLeft)
+                if (botProperties.CurrentMove == PossibleMoves.TurningLeft)
                 {
 
                 }
-                if (botProperties.CurrentMove == Enums.Moves.TurningRight)
+                if (botProperties.CurrentMove == PossibleMoves.TurningRight)
                 {
 
                 }
-                if (botProperties.CurrentMove == Enums.Moves.TurningAround)
+                if (botProperties.CurrentMove == PossibleMoves.TurningAround)
                 {
 
                 }
@@ -115,7 +116,7 @@ namespace CSharpWars.ScriptProcessor
             }
             catch
             {
-                botProperties.CurrentMove = Enums.Moves.ScriptError;
+                botProperties.CurrentMove = PossibleMoves.ScriptError;
             }
         }
 

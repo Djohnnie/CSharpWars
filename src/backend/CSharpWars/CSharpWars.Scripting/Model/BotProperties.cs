@@ -11,8 +11,8 @@ namespace CSharpWars.Scripting.Model
         public Int32 Height { get; }
         public Int32 X { get; }
         public Int32 Y { get; }
-        public Orientations Orientation { get; }
-        public Moves LastMove { get; }
+        public PossibleOrientations Orientation { get; }
+        public PossibleMoves LastMove { get; }
         public Int32 MaximumPhysicalHealth { get; }
         public Int32 CurrentPhysicalHealth { get; }
         public Int32 MaximumStamina { get; }
@@ -21,10 +21,10 @@ namespace CSharpWars.Scripting.Model
         public List<String> Messages { get; }
         public List<Bot> Bots { get; set; }
 
-        public Moves CurrentMove { get; set; }
+        public PossibleMoves CurrentMove { get; set; }
 
 
-        private BotProperties(int width, int height, int x, int y, Orientations orientation, Moves lastMove, int maximumPhysicalHealth,
+        private BotProperties(int width, int height, int x, int y, PossibleOrientations orientation, PossibleMoves lastMove, int maximumPhysicalHealth,
             int currentPhysicalHealth, int maximumStamina, int currentStamina, Dictionary<string, string> memory, List<string> messages)
         {
             Width = width;
@@ -39,6 +39,7 @@ namespace CSharpWars.Scripting.Model
             CurrentStamina = currentStamina;
             Memory = memory;
             Messages = messages;
+            Bots = new List<Bot>();
         }
 
         public static BotProperties Build(BotDto bot, ArenaDto arena)

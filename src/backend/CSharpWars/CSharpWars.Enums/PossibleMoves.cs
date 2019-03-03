@@ -1,6 +1,6 @@
 ﻿namespace CSharpWars.Enums
 {
-    public enum Moves
+    public enum PossibleMoves
     {
         Idling,
 

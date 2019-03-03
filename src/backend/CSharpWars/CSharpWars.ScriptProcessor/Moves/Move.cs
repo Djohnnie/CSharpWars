@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.ScriptProcessor.Moves
@@ -8,16 +9,16 @@ namespace CSharpWars.ScriptProcessor.Moves
 
     public abstract class Move
     {
-        private static readonly Dictionary<Enums.Moves, Func<BotProperties, Move>> _moves = new Dictionary<Enums.Moves, Func<BotProperties, Move>>
+        private static readonly Dictionary<PossibleMoves, Func<BotProperties, Move>> _moves = new Dictionary<PossibleMoves, Func<BotProperties, Move>>
         {
-            { Enums.Moves.WalkForward, p => new WalkForward(p) },
-            { Enums.Moves.TurningLeft, p => new TurnLeft(p) },
-            { Enums.Moves.TurningRight, p => new TurnRight(p) },
-            { Enums.Moves.TurningAround, p => new TurnAround(p) },
-            { Enums.Moves.Teleport, p => new Teleport(p) },
-            { Enums.Moves.MeleeAttack, p => new MeleeAttack(p) },
-            { Enums.Moves.RangedAttack, p => new RangedAttack(p) },
-            { Enums.Moves.SelfDestruct, p => new SelfDestruct(p) }
+            { PossibleMoves.WalkForward, p => new WalkForward(p) },
+            { PossibleMoves.TurningLeft, p => new TurnLeft(p) },
+            { PossibleMoves.TurningRight, p => new TurnRight(p) },
+            { PossibleMoves.TurningAround, p => new TurnAround(p) },
+            { PossibleMoves.Teleport, p => new Teleport(p) },
+            { PossibleMoves.MeleeAttack, p => new MeleeAttack(p) },
+            { PossibleMoves.RangedAttack, p => new RangedAttack(p) },
+            { PossibleMoves.SelfDestruct, p => new SelfDestruct(p) }
         };
 
         protected readonly BotProperties BotProperties;

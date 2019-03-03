@@ -7,7 +7,7 @@ namespace CSharpWars.Scripting.Model
     {
         public Int32 X { get; set; }
         public Int32 Y { get; set; }
-        public Orientations Orientation { get; set; }
+        public PossibleOrientations Orientation { get; set; }
         public String Name { get; set; }
         public Boolean Friendly { get; set; }
     }

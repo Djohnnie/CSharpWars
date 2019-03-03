@@ -1,4 +1,5 @@
 ﻿using CSharpWars.DtoModel;
+using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 using CSharpWars.ScriptProcessor.Moves;
 using FluentAssertions;
@@ -15,7 +16,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             var bot = new BotDto { };
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena);
-            botProperties.CurrentMove = Enums.Moves.TurningRight;
+            botProperties.CurrentMove = PossibleMoves.TurningRight;
 
             // Act
             var move = Move.Build(botProperties);
@@ -23,6 +24,40 @@ namespace CSharpWars.Tests.Scripting.Moves
             // Assert
             move.Should().NotBeNull();
             move.Should().BeOfType<TurnRight>();
+        }
+
+        [Theory]
+        [ClassData(typeof(TurningRightTheoryData))]
+        public void Turning_Right_Should_Work(PossibleOrientations originOrientation, PossibleOrientations destinationOrientation)
+        {
+            // Arrange
+            var bot = new BotDto
+            {
+                Orientation = originOrientation
+            };
+            var arena = new ArenaDto { Width = 1, Height = 1 };
+            var botProperties = BotProperties.Build(bot, arena);
+            botProperties.CurrentMove = PossibleMoves.TurningRight;
+            var move = Move.Build(botProperties);
+
+            // Act
+            var botResult = move.Go();
+
+            // Assert
+            botResult.Should().NotBeNull();
+            botResult.CurrentMove.Should().Be(PossibleMoves.TurningRight);
+            botResult.Orientation.Should().Be(destinationOrientation);
+        }
+
+        private class TurningRightTheoryData : TheoryData<PossibleOrientations, PossibleOrientations>
+        {
+            public TurningRightTheoryData()
+            {
+                Add(PossibleOrientations.North, PossibleOrientations.East);
+                Add(PossibleOrientations.East, PossibleOrientations.South);
+                Add(PossibleOrientations.South, PossibleOrientations.West);
+                Add(PossibleOrientations.West, PossibleOrientations.North);
+            }
         }
     }
 }

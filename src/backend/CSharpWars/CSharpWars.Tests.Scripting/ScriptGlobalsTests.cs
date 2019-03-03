@@ -36,7 +36,7 @@ namespace CSharpWars.Tests.Scripting
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsSetsCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, Enums.Moves expectedMove)
+        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, PossibleMoves expectedMove)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -47,13 +47,13 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            originalMove.Should().Be(Enums.Moves.Idling);
+            originalMove.Should().Be(PossibleMoves.Idling);
             botProperties.CurrentMove.Should().Be(expectedMove);
         }
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsIgnoresCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Ignores_CurrentMove_If_Not_Idling(Action<ScriptGlobals> action, Enums.Moves originalMove)
+        public void ScriptGlobals_Action_Correctly_Ignores_CurrentMove_If_Not_Idling(Action<ScriptGlobals> action, PossibleMoves originalMove)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -64,7 +64,7 @@ namespace CSharpWars.Tests.Scripting
             action(scriptGlobals);
 
             // Assert
-            originalMove.Should().NotBe(Enums.Moves.Idling);
+            originalMove.Should().NotBe(PossibleMoves.Idling);
             botProperties.CurrentMove.Should().Be(originalMove);
         }
 
@@ -74,8 +74,8 @@ namespace CSharpWars.Tests.Scripting
             {
                 LocationX = 1,
                 LocationY = 2,
-                Orientation = Orientations.North,
-                PreviousMove = Enums.Moves.Idling,
+                Orientation = PossibleOrientations.North,
+                PreviousMove = PossibleMoves.Idling,
                 MaximumHealth = 100,
                 CurrentHealth = 99,
                 MaximumStamina = 250,
@@ -85,33 +85,33 @@ namespace CSharpWars.Tests.Scripting
             return BotProperties.Build(bot, arena);
         }
 
-        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Enums.Moves>
+        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves>
         {
             public ScriptGlobalsSetsCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), Enums.Moves.WalkForward);
-                Add(g => g.TurnLeft(), Enums.Moves.TurningLeft);
-                Add(g => g.TurnRight(), Enums.Moves.TurningRight);
-                Add(g => g.TurnAround(), Enums.Moves.TurningAround);
-                Add(g => g.SelfDestruct(), Enums.Moves.SelfDestruct);
-                Add(g => g.MeleeAttack(), Enums.Moves.MeleeAttack);
-                Add(g => g.RangedAttack(0, 0), Enums.Moves.RangedAttack);
-                Add(g => g.Teleport(0, 0), Enums.Moves.Teleport);
+                Add(g => g.MoveForward(), PossibleMoves.WalkForward);
+                Add(g => g.TurnLeft(), PossibleMoves.TurningLeft);
+                Add(g => g.TurnRight(), PossibleMoves.TurningRight);
+                Add(g => g.TurnAround(), PossibleMoves.TurningAround);
+                Add(g => g.SelfDestruct(), PossibleMoves.SelfDestruct);
+                Add(g => g.MeleeAttack(), PossibleMoves.MeleeAttack);
+                Add(g => g.RangedAttack(0, 0), PossibleMoves.RangedAttack);
+                Add(g => g.Teleport(0, 0), PossibleMoves.Teleport);
             }
         }
 
-        private class ScriptGlobalsIgnoresCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, Enums.Moves>
+        private class ScriptGlobalsIgnoresCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves>
         {
             public ScriptGlobalsIgnoresCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), Enums.Moves.MeleeAttack);
-                Add(g => g.TurnLeft(), Enums.Moves.WalkForward);
-                Add(g => g.TurnRight(), Enums.Moves.WalkForward);
-                Add(g => g.TurnAround(), Enums.Moves.WalkForward);
-                Add(g => g.SelfDestruct(), Enums.Moves.WalkForward);
-                Add(g => g.MeleeAttack(), Enums.Moves.WalkForward);
-                Add(g => g.RangedAttack(0, 0), Enums.Moves.WalkForward);
-                Add(g => g.Teleport(0, 0), Enums.Moves.WalkForward);
+                Add(g => g.MoveForward(), PossibleMoves.MeleeAttack);
+                Add(g => g.TurnLeft(), PossibleMoves.WalkForward);
+                Add(g => g.TurnRight(), PossibleMoves.WalkForward);
+                Add(g => g.TurnAround(), PossibleMoves.WalkForward);
+                Add(g => g.SelfDestruct(), PossibleMoves.WalkForward);
+                Add(g => g.MeleeAttack(), PossibleMoves.WalkForward);
+                Add(g => g.RangedAttack(0, 0), PossibleMoves.WalkForward);
+                Add(g => g.Teleport(0, 0), PossibleMoves.WalkForward);
             }
         }
     }

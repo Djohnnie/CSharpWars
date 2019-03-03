@@ -9,12 +9,12 @@ namespace CSharpWars.ScriptProcessor
     {
         public Int32 X { get; set; }
         public Int32 Y { get; set; }
-        public Orientations Orientation { get; set; }
+        public PossibleOrientations Orientation { get; set; }
         public Int32 CurrentPhysicalHealth { get; set; }
         public Int32 CurrentStamina { get; set; }
         public Dictionary<String, String> Memory { get; set; }
         public List<String> Messages { get; set; }
-        public Enums.Moves CurrentMove { get; set; }
+        public PossibleMoves CurrentMove { get; set; }
 
         public static BotResult Build(BotProperties botProperties)
         {
@@ -27,7 +27,7 @@ namespace CSharpWars.ScriptProcessor
                 CurrentPhysicalHealth = botProperties.CurrentPhysicalHealth,
                 Memory = botProperties.Memory,
                 Messages = botProperties.Messages,
-                CurrentMove = Enums.Moves.Idling
+                CurrentMove = PossibleMoves.Idling
             };
         }
     }

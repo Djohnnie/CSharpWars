@@ -41,7 +41,7 @@ namespace CSharpWars.Logic
         {
             var bot = _botToCreateMapper.Map(botToCreate);
             var arena = await _arenaLogic.GetArena();
-            bot.Orientation = (Orientations)_randomGenerator.Next(0, 4);
+            bot.Orientation = (PossibleOrientations)_randomGenerator.Next(0, 4);
             bot.LocationX = _randomGenerator.Next(0, arena.Width);
             bot.LocationY = _randomGenerator.Next(0, arena.Height);
             bot.CurrentHealth = bot.MaximumHealth;

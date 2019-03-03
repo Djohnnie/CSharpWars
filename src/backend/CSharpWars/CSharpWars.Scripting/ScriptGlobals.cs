@@ -19,8 +19,8 @@ namespace CSharpWars.Scripting
         public Int32 Height => _50437079C366407D978Fe4Afd60C535F.Height;
         public Int32 X => _50437079C366407D978Fe4Afd60C535F.X;
         public Int32 Y => _50437079C366407D978Fe4Afd60C535F.Y;
-        public Orientations Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
-        public Moves LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
+        public PossibleOrientations Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
+        public PossibleMoves LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
         public Int32 MaximumPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.MaximumPhysicalHealth;
         public Int32 CurrentPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.CurrentPhysicalHealth;
         public Int32 MaximumStamina => _50437079C366407D978Fe4Afd60C535F.MaximumStamina;
@@ -41,22 +41,22 @@ namespace CSharpWars.Scripting
         public const Int32 STAMINA_ON_MOVE = Constants.STAMINA_ON_MOVE;
         public const Int32 STAMINA_ON_TELEPORT = Constants.STAMINA_ON_TELEPORT;
 
-        public const Moves IDLING = Moves.Idling;
-        public const Moves TURNING_LEFT = Moves.TurningLeft;
-        public const Moves TURNING_RIGHT = Moves.TurningRight;
-        public const Moves TURNING_AROUND = Moves.TurningAround;
-        public const Moves MOVING_FORWARD = Moves.WalkForward;
-        public const Moves RANGED_ATTACK = Moves.RangedAttack;
-        public const Moves MELEE_ATTACK = Moves.MeleeAttack;
-        public const Moves SELF_DESTRUCTING = Moves.SelfDestruct;
-        public const Moves SCRIPT_ERROR = Moves.ScriptError;
-        public const Moves DYING = Moves.Died;
-        public const Moves TELEPORTING = Moves.Teleport;
+        public const PossibleMoves IDLING = PossibleMoves.Idling;
+        public const PossibleMoves TURNING_LEFT = PossibleMoves.TurningLeft;
+        public const PossibleMoves TURNING_RIGHT = PossibleMoves.TurningRight;
+        public const PossibleMoves TURNING_AROUND = PossibleMoves.TurningAround;
+        public const PossibleMoves MOVING_FORWARD = PossibleMoves.WalkForward;
+        public const PossibleMoves RANGED_ATTACK = PossibleMoves.RangedAttack;
+        public const PossibleMoves MELEE_ATTACK = PossibleMoves.MeleeAttack;
+        public const PossibleMoves SELF_DESTRUCTING = PossibleMoves.SelfDestruct;
+        public const PossibleMoves SCRIPT_ERROR = PossibleMoves.ScriptError;
+        public const PossibleMoves DYING = PossibleMoves.Died;
+        public const PossibleMoves TELEPORTING = PossibleMoves.Teleport;
 
-        public const Orientations NORTH = Orientations.North;
-        public const Orientations EAST = Orientations.East;
-        public const Orientations SOUTH = Orientations.South;
-        public const Orientations WEST = Orientations.West;
+        public const PossibleOrientations NORTH = PossibleOrientations.North;
+        public const PossibleOrientations EAST = PossibleOrientations.East;
+        public const PossibleOrientations SOUTH = PossibleOrientations.South;
+        public const PossibleOrientations WEST = PossibleOrientations.West;
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void MoveForward()
         {
-            SetCurrentMove(Moves.WalkForward);
+            SetCurrentMove(PossibleMoves.WalkForward);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnLeft()
         {
-            SetCurrentMove(Moves.TurningLeft);
+            SetCurrentMove(PossibleMoves.TurningLeft);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnRight()
         {
-            SetCurrentMove(Moves.TurningRight);
+            SetCurrentMove(PossibleMoves.TurningRight);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void TurnAround()
         {
-            SetCurrentMove(Moves.TurningAround);
+            SetCurrentMove(PossibleMoves.TurningAround);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void SelfDestruct()
         {
-            SetCurrentMove(Moves.SelfDestruct);
+            SetCurrentMove(PossibleMoves.SelfDestruct);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void MeleeAttack()
         {
-            SetCurrentMove(Moves.MeleeAttack);
+            SetCurrentMove(PossibleMoves.MeleeAttack);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void RangedAttack(Int32 x, Int32 y)
         {
-            SetCurrentMove(Moves.RangedAttack);
+            SetCurrentMove(PossibleMoves.RangedAttack);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void Teleport(Int32 x, Int32 y)
         {
-            SetCurrentMove(Moves.Teleport);
+            SetCurrentMove(PossibleMoves.Teleport);
         }
 
         /// <summary>
@@ -193,9 +193,9 @@ namespace CSharpWars.Scripting
 
         #region <| Helper Methods |>
 
-        private void SetCurrentMove(Moves currentMove)
+        private void SetCurrentMove(PossibleMoves currentMove)
         {
-            if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == Moves.Idling)
+            if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == PossibleMoves.Idling)
             {
                 _50437079C366407D978Fe4Afd60C535F.CurrentMove = currentMove;
             }

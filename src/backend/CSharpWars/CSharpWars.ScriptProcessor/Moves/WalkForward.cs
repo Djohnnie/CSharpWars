@@ -4,38 +4,51 @@ using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {
+    /// <summary>
+    /// Class containing logic for walking forward.
+    /// </summary>
+    /// <remarks>
+    /// Performing this move makes the robot walk forward in the direction he is currently oriented.
+    /// This move consumes one stamina point.
+    /// </remarks>
     public class WalkForward : Move
     {
-        public WalkForward(BotProperties botProperties) : base(botProperties)
-        {
-        }
+        public WalkForward(BotProperties botProperties) : base(botProperties) { }
 
         public override BotResult Go()
         {
+            // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
-            var destinationX = BotProperties.X;
-            var destinationY = BotProperties.Y;
 
-            switch (BotProperties.Orientation)
+            // Only perform move if enough stamina is available.
+            if (BotProperties.CurrentStamina - Constants.STAMINA_ON_MOVE >= 0)
             {
-                case Orientations.North:
-                    destinationY--;
-                    break;
-                case Orientations.East:
-                    destinationX++;
-                    break;
-                case Orientations.South:
-                    destinationY++;
-                    break;
-                case Orientations.West:
-                    destinationX--;
-                    break;
-            }
+                var destinationX = BotProperties.X;
+                var destinationY = BotProperties.Y;
 
-            if (BotProperties.CurrentStamina - Constants.STAMINA_ON_MOVE >= 0 && !WillCollide(destinationX, destinationY))
-            {
-                botResult.CurrentStamina -= Constants.STAMINA_ON_MOVE;
-                botResult.CurrentMove = Enums.Moves.WalkForward;
+                switch (BotProperties.Orientation)
+                {
+                    case PossibleOrientations.North:
+                        destinationY--;
+                        break;
+                    case PossibleOrientations.East:
+                        destinationX++;
+                        break;
+                    case PossibleOrientations.South:
+                        destinationY++;
+                        break;
+                    case PossibleOrientations.West:
+                        destinationX--;
+                        break;
+                }
+
+                if (!WillCollide(destinationX, destinationY))
+                {
+                    botResult.CurrentStamina -= Constants.STAMINA_ON_MOVE;
+                    botResult.CurrentMove = PossibleMoves.WalkForward;
+                    botResult.X = destinationX;
+                    botResult.Y = destinationY;
+                }
             }
 
             return botResult;
