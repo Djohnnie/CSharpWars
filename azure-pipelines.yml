@@ -22,21 +22,33 @@ steps:
     version: '3.0.100-preview-010184'
 
 - task: DotNetCoreCLI@2
+  displayName: Restore NuGet packages
   inputs:
     command: 'restore'
     projects: '**/backend/**/*.csproj'
 
 - task: DotNetCoreCLI@2
+  displayName: Build Solution
   inputs:
     command: 'build'
     projects: '**/backend/**/*.csproj'
 
 - task: DotNetCoreCLI@2
+  displayName: Run UnitTests
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
     
 - script: 
+  displayName: Build djohnnie/csharpwars-api Docker Image
     docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-api
+    
+- script: |
+    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
+    docker login -u $(dockerId) -p $(dockerPwd)
+    docker push djohnnie/csharpwars-api
+    
+- script:
+    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
