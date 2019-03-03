@@ -11,6 +11,7 @@ namespace CSharpWars.Web.Api.DependencyInjection
         public static void ConfigureWebApi(this IServiceCollection services)
         {
             services.ConfigureLogic();
+            services.AddMemoryCache();
             services.AddMvc().AddNewtonsoftJson();
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>
             {
