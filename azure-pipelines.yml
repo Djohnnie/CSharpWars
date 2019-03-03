@@ -43,6 +43,7 @@ steps:
     dotnet publish .\src\backend\CSharpWars\CSharpWars.Web.Api --configuration "Release" --output ./bin/Release/publish
     
 - script: |
-    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
+    cd ./src/backend/CSharpWars/CSharpWars.Web.Api
+    docker build -t djohnnie/csharpwars-api .
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-api
