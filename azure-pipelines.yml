@@ -40,7 +40,7 @@ steps:
     projects: '**/backend/**/*.csproj'
 
 - script: |
-    dotnet publish .\src\backend\CSharpWars\CSharpWars.Web.Api --configuration "Release" --output ./bin/Release/publish
+    dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
     
 - script: |
     cd ./src/backend/CSharpWars/CSharpWars.Web.Api
