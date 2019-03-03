@@ -39,11 +39,8 @@ steps:
     command: 'test'
     projects: '**/backend/**/*.csproj'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    projects: './src/backend/CSharpWars/CSharpWars.Web.Api/*.csproj'
-    configuration: 'release'
+- script: |
+    dotnet publish .\src\backend\CSharpWars\CSharpWars.Web.Api
     
 - script: |
     docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
