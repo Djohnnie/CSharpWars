@@ -17,6 +17,7 @@ variables:
 steps:
 
 - task: DotNetCoreInstaller@0
+  displayName: Install latest version of .NET Core (3.0.100-preview-010184)
   inputs:
     version: '3.0.100-preview-010184'
 
@@ -36,4 +37,6 @@ steps:
     projects: '**/backend/**/*.csproj'
     
 - script: 
-    docker build -t djohnnie/csharpwars.webapi ./backend/CSharpWars/CSharpWars.Web.Api
+    docker build -t djohnnie/csharpwars-api ./src/backend/CSharpWars/CSharpWars.Web.Api
+    docker login -u $(dockerId) -p $(dockerPwd)
+    docker push djohnnie/csharpwars-api
