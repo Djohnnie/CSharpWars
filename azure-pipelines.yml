@@ -34,3 +34,6 @@ steps:
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
+    
+- script: 
+    docker build -t djohnnie/csharpwars.webapi ./backend/CSharpWars/CSharpWars.Web.Api
