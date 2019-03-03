@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CSharpWars.Mapping.Interfaces
 {
@@ -8,10 +6,10 @@ namespace CSharpWars.Mapping.Interfaces
     {
         TModel Map(TDto dto);
 
-        IEnumerable<TModel> Map(IEnumerable<TDto> dtos);
+        IList<TModel> Map(IList<TDto> dtos);
 
         TDto Map(TModel model);
 
-        IEnumerable<TDto> Map(IEnumerable<TModel> models);
+        IList<TDto> Map(IList<TModel> models);
     }
 }

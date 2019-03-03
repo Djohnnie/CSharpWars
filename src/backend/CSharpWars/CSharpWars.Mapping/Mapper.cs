@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using CSharpWars.Mapping.Interfaces;
@@ -8,18 +7,26 @@ namespace CSharpWars.Mapping
 {
     public abstract class Mapper<TModel, TDto> : IMapper<TModel, TDto>
     {
-        public abstract TModel Map(TDto dto);
+        protected IMapper _mapper;
 
-        public IEnumerable<TModel> Map(IEnumerable<TDto> dtos)
+        public TModel Map(TDto dto)
         {
-            return dtos?.Select(Map);
+            return _mapper.Map<TModel>(dto);
         }
 
-        public abstract TDto Map(TModel model);
-
-        public IEnumerable<TDto> Map(IEnumerable<TModel> models)
+        public IList<TModel> Map(IList<TDto> dtos)
         {
-            return models?.Select(Map);
+            return dtos?.Select(Map).ToList();
+        }
+
+        public TDto Map(TModel model)
+        {
+            return _mapper.Map<TDto>(model);
+        }
+
+        public IList<TDto> Map(IList<TModel> models)
+        {
+            return models?.Select(Map).ToList();
         }
     }
 }

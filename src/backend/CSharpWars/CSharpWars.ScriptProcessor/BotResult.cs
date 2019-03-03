@@ -10,7 +10,7 @@ namespace CSharpWars.ScriptProcessor
         public Int32 X { get; set; }
         public Int32 Y { get; set; }
         public PossibleOrientations Orientation { get; set; }
-        public Int32 CurrentPhysicalHealth { get; set; }
+        public Int32 CurrentHealth { get; set; }
         public Int32 CurrentStamina { get; set; }
         public Dictionary<String, String> Memory { get; set; }
         public List<String> Messages { get; set; }
@@ -24,7 +24,7 @@ namespace CSharpWars.ScriptProcessor
                 Y = botProperties.Y,
                 Orientation = botProperties.Orientation,
                 CurrentStamina = botProperties.CurrentStamina,
-                CurrentPhysicalHealth = botProperties.CurrentPhysicalHealth,
+                CurrentHealth = botProperties.CurrentHealth,
                 Memory = botProperties.Memory,
                 Messages = botProperties.Messages,
                 CurrentMove = PossibleMoves.Idling

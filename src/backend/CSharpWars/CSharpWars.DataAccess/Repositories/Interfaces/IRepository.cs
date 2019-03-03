@@ -8,10 +8,12 @@ namespace CSharpWars.DataAccess.Repositories.Interfaces
 {
     public interface IRepository<TModel> where TModel : ModelBase
     {
-        Task<IEnumerable<TModel>> GetAll();
+        Task<IList<TModel>> GetAll();
 
-        Task<IEnumerable<TModel>> Find(Expression<Func<TModel, Boolean>> predicate);
+        Task<IList<TModel>> Find(Expression<Func<TModel, Boolean>> predicate);
 
         Task<TModel> Create(TModel toCreate);
+
+        Task Update(IList<TModel> toUpdate);
     }
 }

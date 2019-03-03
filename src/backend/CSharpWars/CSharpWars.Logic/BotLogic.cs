@@ -31,7 +31,7 @@ namespace CSharpWars.Logic
             _arenaLogic = arenaLogic;
         }
 
-        public async Task<IEnumerable<BotDto>> GetAllActiveBots()
+        public async Task<IList<BotDto>> GetAllActiveBots()
         {
             var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0);
             return _botMapper.Map(activeBots);
@@ -50,6 +50,12 @@ namespace CSharpWars.Logic
             bot = await _botRepository.Create(bot);
             var createdBot = _botMapper.Map(bot);
             return createdBot;
+        }
+
+        public async Task UpdateBots(IList<BotDto> bots)
+        {
+            var botEntities = _botMapper.Map(bots);
+            await _botRepository.Update(botEntities);
         }
     }
 }

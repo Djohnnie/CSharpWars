@@ -21,8 +21,8 @@ namespace CSharpWars.Scripting
         public Int32 Y => _50437079C366407D978Fe4Afd60C535F.Y;
         public PossibleOrientations Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
         public PossibleMoves LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
-        public Int32 MaximumPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.MaximumPhysicalHealth;
-        public Int32 CurrentPhysicalHealth => _50437079C366407D978Fe4Afd60C535F.CurrentPhysicalHealth;
+        public Int32 MaximumHealth => _50437079C366407D978Fe4Afd60C535F.MaximumHealth;
+        public Int32 CurrentHealth => _50437079C366407D978Fe4Afd60C535F.CurrentHealth;
         public Int32 MaximumStamina => _50437079C366407D978Fe4Afd60C535F.MaximumStamina;
         public Int32 CurrentStamina => _50437079C366407D978Fe4Afd60C535F.CurrentStamina;
 

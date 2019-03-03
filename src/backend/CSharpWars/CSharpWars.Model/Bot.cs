@@ -5,7 +5,6 @@ namespace CSharpWars.Model
 {
     public class Bot : ModelBase
     {
-        public Int32 SysId { get; set; }
         public String Name { get; set; }
         public Int32 LocationX { get; set; }
         public Int32 LocationY { get; set; }

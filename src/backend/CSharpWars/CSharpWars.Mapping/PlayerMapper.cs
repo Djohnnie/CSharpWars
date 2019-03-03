@@ -6,8 +6,6 @@ namespace CSharpWars.Mapping
 {
     public class PlayerMapper : Mapper<Player, PlayerDto>
     {
-        private readonly IMapper _mapper;
-
         public PlayerMapper()
         {
             var config = new MapperConfiguration(cfg =>
@@ -16,16 +14,6 @@ namespace CSharpWars.Mapping
                 cfg.CreateMap<PlayerDto, Player>();
             });
             _mapper = config.CreateMapper();
-        }
-
-        public override Player Map(PlayerDto dto)
-        {
-            return _mapper.Map<Player>(dto);
-        }
-
-        public override PlayerDto Map(Player model)
-        {
-            return _mapper.Map<PlayerDto>(model);
         }
     }
 }

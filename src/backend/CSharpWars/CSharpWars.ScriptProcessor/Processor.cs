@@ -48,58 +48,21 @@ namespace CSharpWars.ScriptProcessor
             await Task.WhenAll(botProcessing);
 
             // Postprocessing
-            // 1. Attacks
+            // Attacks + Teleports + Movements
             foreach (var bot in bots)
             {
                 var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == PossibleMoves.RangedAttack)
-                {
-                    Move.Build(botProperties).Go();
-                }
-                if (botProperties.CurrentMove == PossibleMoves.MeleeAttack)
-                {
-
-                }
-                if (botProperties.CurrentMove == PossibleMoves.SelfDestruct)
-                {
-
-                }
+                var botResult = Move.Build(botProperties).Go();
+                bot.Orientation = botResult.Orientation;
+                bot.LocationX = botResult.X;
+                bot.LocationY = botResult.Y;
+                bot.CurrentHealth = botResult.CurrentHealth;
+                bot.CurrentStamina = botResult.CurrentStamina;
+                bot.PreviousMove = botResult.CurrentMove;
             }
 
-            // 2. Teleports
-            foreach (var bot in bots)
-            {
-                var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == PossibleMoves.Teleport)
-                {
-
-                }
-            }
-
-            // 3. Movements
-            foreach (var bot in bots)
-            {
-                var botProperties = _botProperties[bot.Id];
-                if (botProperties.CurrentMove == PossibleMoves.WalkForward)
-                {
-                    if (botProperties.CurrentStamina > 0)
-                    {
-
-                    }
-                }
-                if (botProperties.CurrentMove == PossibleMoves.TurningLeft)
-                {
-
-                }
-                if (botProperties.CurrentMove == PossibleMoves.TurningRight)
-                {
-
-                }
-                if (botProperties.CurrentMove == PossibleMoves.TurningAround)
-                {
-
-                }
-            }
+            // Update
+            await _botLogic.UpdateBots(bots);
 
             // 4. Cleanup
             _botProperties.Clear();

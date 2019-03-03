@@ -6,6 +6,6 @@ namespace CSharpWars.Logic.Interfaces
 {
     public interface IPlayerLogic : ILogic
     {
-        Task<IEnumerable<PlayerDto>> GetAllPlayers();
+        Task<IList<PlayerDto>> GetAllPlayers();
     }
 }

@@ -28,8 +28,8 @@ namespace CSharpWars.Tests.Scripting
                 .Including(x => x.Y)
                 .Including(x => x.Orientation)
                 .Including(x => x.LastMove)
-                .Including(x => x.MaximumPhysicalHealth)
-                .Including(x => x.CurrentPhysicalHealth)
+                .Including(x => x.MaximumHealth)
+                .Including(x => x.CurrentHealth)
                 .Including(x => x.MaximumStamina)
                 .Including(x => x.CurrentStamina));
         }

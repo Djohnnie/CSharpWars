@@ -19,7 +19,7 @@ namespace CSharpWars.Logic
             _playerMapper = playerMapper;
         }
 
-        public async Task<IEnumerable<PlayerDto>> GetAllPlayers()
+        public async Task<IList<PlayerDto>> GetAllPlayers()
         {
             var players = await _playerRepository.GetAll();
             return _playerMapper.Map(players);

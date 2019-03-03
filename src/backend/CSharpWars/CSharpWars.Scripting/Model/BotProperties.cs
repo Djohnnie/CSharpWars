@@ -13,8 +13,8 @@ namespace CSharpWars.Scripting.Model
         public Int32 Y { get; }
         public PossibleOrientations Orientation { get; }
         public PossibleMoves LastMove { get; }
-        public Int32 MaximumPhysicalHealth { get; }
-        public Int32 CurrentPhysicalHealth { get; }
+        public Int32 MaximumHealth { get; }
+        public Int32 CurrentHealth { get; }
         public Int32 MaximumStamina { get; }
         public Int32 CurrentStamina { get; }
         public Dictionary<String, String> Memory { get; }
@@ -24,8 +24,8 @@ namespace CSharpWars.Scripting.Model
         public PossibleMoves CurrentMove { get; set; }
 
 
-        private BotProperties(int width, int height, int x, int y, PossibleOrientations orientation, PossibleMoves lastMove, int maximumPhysicalHealth,
-            int currentPhysicalHealth, int maximumStamina, int currentStamina, Dictionary<string, string> memory, List<string> messages)
+        private BotProperties(int width, int height, int x, int y, PossibleOrientations orientation, PossibleMoves lastMove, int maximumHealth,
+            int currentHealth, int maximumStamina, int currentStamina, Dictionary<string, string> memory, List<string> messages)
         {
             Width = width;
             Height = height;
@@ -33,8 +33,8 @@ namespace CSharpWars.Scripting.Model
             Y = y;
             Orientation = orientation;
             LastMove = lastMove;
-            MaximumPhysicalHealth = maximumPhysicalHealth;
-            CurrentPhysicalHealth = currentPhysicalHealth;
+            MaximumHealth = maximumHealth;
+            CurrentHealth = currentHealth;
             MaximumStamina = maximumStamina;
             CurrentStamina = currentStamina;
             Memory = memory;
