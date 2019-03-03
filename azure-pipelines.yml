@@ -47,5 +47,3 @@ steps:
       docker build -t djohnnie/csharpwars-api .
       docker login -u $(dockerId) -p $(dockerPwd)
       docker push djohnnie/csharpwars-api
-    displayName: 'Build and Push Docker Image'
-    continueOnError: true  
