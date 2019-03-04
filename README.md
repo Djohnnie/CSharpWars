@@ -32,7 +32,7 @@ I have been working as a software development consultant and C# and .NET teacher
 
 ### Game
 
-The most interesting idea that I could think of for a game that can be scripted using .NET and C# is a death match game where players fight a match inside a square and empty arena. Each player can script one or more robots inside the arena using his knowledge of basic programming logic. Once a robot has been fully scripted and deployed into the arena, its future is entirely dependent on the script. The script cannot be changed and it cannot be revoked. The scripting itself is used to move the robot around the arena and to fight robots from other players by making the correct decisions based on data fed to the robot script. A robot wins if it can stay alive in a "last man standing" kind of tournament. The purpose in this game is not to win, but to write an intelligent script, which is harder than you would think.
+The most interesting idea that I could think of for a game that can be scripted using .NET and C# is a deathmatch game where players fight a match inside a square and empty arena. Each player can script one or more robots inside the arena using his knowledge of basic programming logic. Once a robot has been fully scripted and deployed into the arena, its future is entirely dependent on the script. The script cannot be changed and it cannot be revoked. The scripting itself is used to move the robot around the arena and to fight robots from other players by making the correct decisions based on data fed to the robot script. A robot wins if it can stay alive in a "last man standing" kind of tournament. The purpose in this game is not to win, but to write an intelligent script, which is harder than you would think.
 
 ##### Scripting
 
