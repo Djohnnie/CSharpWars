@@ -14,10 +14,8 @@
 ## Table of Contents
 
 * [Part 1 - Forming the Idea](#part-1---forming-the-idea)
-* [Part 2 - Implementing a simple API](#part-2---implementing-a-simple-api)
+* [Part 2 - Implementing a simple HTTP API and the Scripting Middleware](#part-2---implementing-a-simple-http-api-and-the-scripting-middleware)
 * [Part 3 - Implementing a Unity3D Client](#part-3---implementing-a-unity3d-client)
-* [Part 4 - Implementing a Scripting Middleware](#part-4---implementing-a-scripting-middleware)
-* [Part 5 - Putting everything together](#part-5---putting-everything-together)
 * [Appendix I - Project Structure](#appendix-i---project-structure)
 * [Appendix II - Setup and Run](#appendix-ii---setup-and-run)
 
@@ -28,7 +26,7 @@
 
 ### Context
 
-I have been working as a software development consultant and C# and .NET teacher for over 10 years. Developers and students can use some extra fun to awaken their creativity and improve their enthusiasm and spark. In order to make students have some fun while learning and make developers creative while being competitive, I created a simple game that can be scripted using C#. Creating this game was a challenge for me because it provided me with the opportunity to learn and experiment with some new technologies. I keep this idea for a scripting game around and alive as a playground to use in schools and on company teambuilding events.
+I have been working as a software development consultant and C# and .NET teacher for over 10 years. Developers and students can use some extra fun to awaken their creativity and improve their enthusiasm and spark. In order to make students have some fun while learning and make developers creative while being competitive, I created a simple game that can be scripted using C#. Creating this game was a fun challenge for me because it provided me with the opportunity to learn and experiment with some new technologies. I keep this idea for a scripting game around and alive as a playground to use in schools and on company teambuilding events.
 
 ### Game
 
@@ -75,21 +73,13 @@ Because I want flexibility in deployment, I use **[Docker Containers](https://ww
 
 ### Finally
 
-In the next 4 chapters, I will discuss development of the frontend, middleware and backend components in more detail.
+In the next chapter, I will discuss development of the backend HTTP API and scripting middleware in more detail.
 
-## Part 2 - Implementing a simple API
+## Part 2 - Implementing a simple HTTP API and the Scripting Middleware
 
 Coming soon...
 
 ## Part 3 - Implementing a Unity3D Client
-
-Coming soon...
-
-## Part 4 - Implementing a Scripting Middleware
-
-Coming soon...
-
-## Part 5 - Putting everything together
 
 Coming soon...
 
