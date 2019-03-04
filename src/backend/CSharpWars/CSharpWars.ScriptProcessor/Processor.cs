@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -48,11 +49,22 @@ namespace CSharpWars.ScriptProcessor
             await Task.WhenAll(botProcessing);
 
             // Postprocessing
-            // Attacks + Teleports + Movements
-            foreach (var bot in bots)
+            PostProcess(bots);
+
+            // Update
+            await _botLogic.UpdateBots(bots);
+
+            // 4. Cleanup
+            _botProperties.Clear();
+        }
+
+        private void PostProcess(IList<BotDto> bots)
+        {
+            var botProperties = _botProperties.Values.OrderBy(x => x.CurrentMove, new MoveComparer());
+            foreach (var botProperty in botProperties)
             {
-                var botProperties = _botProperties[bot.Id];
-                var botResult = Move.Build(botProperties).Go();
+                var bot = bots.Single(x => x.Id == botProperty.BotId);
+                var botResult = Move.Build(botProperty).Go();
                 bot.Orientation = botResult.Orientation;
                 bot.LocationX = botResult.X;
                 bot.LocationY = botResult.Y;
@@ -60,12 +72,29 @@ namespace CSharpWars.ScriptProcessor
                 bot.CurrentStamina = botResult.CurrentStamina;
                 bot.PreviousMove = botResult.CurrentMove;
             }
+        }
 
-            // Update
-            await _botLogic.UpdateBots(bots);
+        private class MoveComparer : IComparer<PossibleMoves>
+        {
+            private readonly Dictionary<PossibleMoves, Int32> _weights = new Dictionary<PossibleMoves, Int32>
+            {
+                { PossibleMoves.Idling, 0 },
+                { PossibleMoves.Died, 0 },
+                { PossibleMoves.ScriptError, 0 },
+                { PossibleMoves.RangedAttack, 1 },
+                { PossibleMoves.MeleeAttack, 2 },
+                { PossibleMoves.SelfDestruct, 3 },
+                { PossibleMoves.Teleport, 4 },
+                { PossibleMoves.WalkForward, 5 },
+                { PossibleMoves.TurningLeft, 6 },
+                { PossibleMoves.TurningRight, 6 },
+                { PossibleMoves.TurningAround, 6 }
+            };
 
-            // 4. Cleanup
-            _botProperties.Clear();
+            public Int32 Compare(PossibleMoves x, PossibleMoves y)
+            {
+                return _weights[y].CompareTo(_weights[x]);
+            }
         }
 
         private async Task BotProcessingFactory(BotDto bot)
