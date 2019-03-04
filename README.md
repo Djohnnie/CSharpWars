@@ -42,7 +42,7 @@ step++;
 StoreInMemory( "STEP" , step );
 ```
 
-The game-loop will run based on turns and all robots will execute their turn simultaneously. A single turn is based on the C# script that the player has written. Because a robot can be deployed using one script, each turn is based on the same script. The script should be intelligent enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted and eventually executed by the game-loop.
+The game-loop will run based on turns and all robots will execute their turn simultaneously. A single turn is based on the C# script that the player has written. Because a robot can be deployed using one script only, each turn is based on the same script. The script should be intelligent enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted and eventually executed by the game-loop.
 To improve predictability, all attack related turns are executed first and the turns related to movement are executed last.
 The scripting context will provide the player with the needed information about his own robot, but also about the robots that are visible to his robot.
 
