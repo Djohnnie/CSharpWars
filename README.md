@@ -82,20 +82,24 @@ A robot has three additional implicit moves that can occur:
 Because I am not a game developer, but I obviously wanted to have some fun, I used some technologies that are completely new to me. For other components and technologies, I used familiar stuff, but just went bleeding edge and used the latest preview versions available.
 
 ##### Frontend
-The game itself should have an attractive frontend to display the battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments.
+The game itself should have an attractive frontend to display the death match battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments, combined with C# to write its game logic. The Unity Game Engine can compile to native Windows applications, but also supports a wide range of other platforms including WebGL.
 
-A web-based UI can be used for players to write C# scripts and deploy them to the game arena. Because this part of the game is not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
+A web-based UI can be used for players to write C# scripts and deploy them to the game arena. Because this part of the game is currently not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
 
 ##### Middleware
-Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**.
+Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. By feeding the compiled C# script some context, the script itself can alter this context which I can then feed to the game-loop. For simplicity and flexibility, this middleware game-loop logic will be implemented as a Console Application.
 
 ##### Backend
-Communication between frontends and backend can be easily provided using an HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this.
+Communication between frontends and backend can be easily provided using a simple HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this. The frontent game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
 
-Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)**.
+Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)** or **[Azure SQL](https://azure.microsoft.com/nl-nl/free/sql-database)**.
 
 ##### Deployment
 Because I want flexibility in deployment, **[Docker Containers](https://www.docker.com/)** will be used to host the backend web applications and middleware service. For building code and Docker containers, **[Azure DevOps & Azure Pipelines](https://azure.microsoft.com/nl-nl/services/devops/pipelines/)** will be used.
+
+### Finally
+
+In the next 4 chapters, I will discuss development of the frontend, middleware and backend components in detail.
 
 ## Part 2 - Implementing a simple API
 
