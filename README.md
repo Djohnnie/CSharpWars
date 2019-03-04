@@ -65,7 +65,7 @@ A robot has three options to fight other robots (or fight thin air if you're doi
 
 | Move | Description |
 |------|-------------|
-| **``` MeleeAttack(); ```** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage then punchin a robot in the face. |
+| **``` MeleeAttack(); ```** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage than punching a robot in the face. |
 | **``` RangedAttack(...); ```** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
 | **``` SelfDestruct(); ```** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots in your vicinity. This attack should only be used in extreme hopeless situations, or by kamikaze players. |
 
@@ -90,7 +90,7 @@ A web-based UI can be used for players to write C# scripts and deploy them to th
 Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. By feeding the compiled C# script some context, the script itself can alter this context which I can then feed to the game-loop. For simplicity and flexibility, this middleware game-loop logic will be implemented as a Console Application.
 
 ##### Backend
-Communication between frontends and backend can be easily provided using a simple HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this. The frontent game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
+Communication between frontends and backend can be easily provided using a simple HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this. The frontend game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
 
 Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)** or **[Azure SQL](https://azure.microsoft.com/nl-nl/free/sql-database)**.
 
