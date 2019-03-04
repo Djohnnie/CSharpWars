@@ -4,8 +4,14 @@
 
 | Build | Status |
 |-------|--------|
-| CI | [![Build Status](https://involvedcloud.visualstudio.com/CSharp-Wars/_apis/build/status/Djohnnie.CSharpWars?branchName=master)](https://involvedcloud.visualstudio.com/CSharp-Wars/_build/latest?definitionId=54&branchName=master) |
+| CSharpWars CI | [![Build Status](https://involvedcloud.visualstudio.com/CSharp-Wars/_apis/build/status/Djohnnie.CSharpWars?branchName=master)](https://involvedcloud.visualstudio.com/CSharp-Wars/_build/latest?definitionId=54&branchName=master) |
 
+| Docker Hub | | |
+|------------|--------------|----------------|
+| [djohnnie/csharpwars-api](https://hub.docker.com/r/djohnnie/csharpwars-api) | [![](https://images.microbadger.com/badges/image/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/version/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get your own version badge on microbadger.com") |
+| [djohnnie/csharpwars-processor](https://hub.docker.com/r/djohnnie/csharpwars-processor) | [![](https://images.microbadger.com/badges/image/djohnnie/csharpwars-processor.svg)](https://microbadger.com/images/djohnnie/csharpwars-processor "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/version/djohnnie/csharpwars-processor.svg)](https://microbadger.com/images/djohnnie/csharpwars-processor "Get your own version badge on microbadger.com") |
+
+## Table of Contents
 
 * [Part 1 - Forming the Idea](#part-1---forming-the-idea)
 * [Part 2 - Implementing a simple API](#part-2---implementing-a-simple-api)
@@ -58,9 +64,9 @@ A robot has three additional things that can happen to him:
 
 | Move | Description |
 |------|-------------|
-| **Idling** | This action describes that the robot did not perform a move and thus stays in the exact same position. |
+| **Idling** | This action describes that the robot did not perform a move and thus stays in the exact same position. This can occur if the script did not call a move action, or the move action could not be executed. |
 | **Died** | This action describes that the robot died because his health reached zero or lower. |
-| **ScriptError** | This action describes that the robot crashed because of a script error. |
+| **ScriptError** | This action describes that the robot crashed because of a script error. Typically these script errors are caused by unhandled exceptions. |
 
 ### Technology
 
