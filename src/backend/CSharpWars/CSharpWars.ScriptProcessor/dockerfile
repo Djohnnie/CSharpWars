@@ -1,4 +1,4 @@
-﻿FROM microsoft/dotnet:3.0-aspnetcore-runtime
+﻿FROM microsoft/dotnet:3.0
 
 # Set the working directory
 WORKDIR /app
@@ -6,11 +6,9 @@ WORKDIR /app
 # Copy the app
 COPY bin/Release/publish /app
 
-EXPOSE 5000
-
 ENV TZ=Europe/Brussels
 ENV CONNECTION_STRING=...
 ENV ARENA_SIZE=...
 
 # Start the app
-ENTRYPOINT ["dotnet", "CSharpWars.Web.Api.dll"]
+ENTRYPOINT ["dotnet", "CSharpWars.ScriptProcessor.exe"]
