@@ -8,7 +8,8 @@
 
 | Docker Hub | | |
 |------------|--------------|----------------|
-| [djohnnie/csharpwars-api](https://hub.docker.com/r/djohnnie/csharpwars-api) | [![](https://images.microbadger.com/badges/image/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/version/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get your own version badge on microbadger.com") |
+| [djohnnie/csharpwars-api](https://hub.docker.com/r/djohnnie/csharpwars-api) | [![](https://images.microbadger.com/badges/image/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get 
+own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/version/djohnnie/csharpwars-api.svg)](https://microbadger.com/images/djohnnie/csharpwars-api "Get your own version badge on microbadger.com") |
 | [djohnnie/csharpwars-processor](https://hub.docker.com/r/djohnnie/csharpwars-processor) | [![](https://images.microbadger.com/badges/image/djohnnie/csharpwars-processor.svg)](https://microbadger.com/images/djohnnie/csharpwars-processor "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/version/djohnnie/csharpwars-processor.svg)](https://microbadger.com/images/djohnnie/csharpwars-processor "Get your own version badge on microbadger.com") |
 
 ## Table of Contents
@@ -49,7 +50,7 @@ The scripting context will provide the player with the needed information about 
 
 A robot can walk around the arena and fight other robots in order to win by combining basic C#, .NET logic and a list of predefined moves. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
 
-In a single turn, your robot can walk forward, turn 90 degrees in each direction or completely turn around 180 degrees. You can even teleport your robot to another location within a predefined range to be able to cover more distance. Actually moving to another location will drain stamina from your available pool, turning on the spot will be free. Additionally you can fight using a melee kick or hit, or you can throw objects within a predefined range to cause damage and drain health from your opponents. If you are a kamikaze, you can even make your robot self destruct and cause mayhem to all robots in your vicinity. Because the same script is run on each turn, it could be helpful to store and persist data between turns. Each robot will also be able to see the space in front of him by looking to the arena. This will give you the data needed to pursue the demise of your worst enemy within the arena!
+In a single turn, the players' robot can walk forward, turn 90 degrees in each direction or completely turn around 180 degrees. The player can even teleport its robot to another location within a predefined range to be able to cover more distance. Actually moving to another location will drain stamina from its available pool, but turning on the spot will be free. Additionally the player can make its robot fight using a melee kick or hit, or throw objects within a predefined range to cause damage and drain health from its opponents. If the players' robot is a kamikaze, he can even make it self destruct and cause mayhem to all robots in its vicinity. Because the same script is run on each turn, it could be helpful to store and persist data between turns. Each robot will also be able to see the space in front of him by looking to the arena. This will provide the robot the data needed to pursue the demise of its worst enemy within the arena!
 
 ### Technology
 
@@ -58,13 +59,17 @@ Because I am not a game developer, but I obviously wanted to have some fun, I us
 ##### Frontend
 The game itself should have an attractive frontend to display the death match battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments, combined with C# to write its game logic. The Unity Game Engine can compile to native Windows applications, but also supports a wide range of other platforms including WebGL.
 
-A web-based UI can be used for players to write C# scripts and deploy them to the game arena. Because this part of the game is currently not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
+The arena has a space theme and shows a 2 dimensional grid floating among the stars. The camera will slowly rotate around the arena to provide a 360 degree view on the ongoing battle. Robots will be represented by animated models of robots that move on this floating grid and perform their turns simultaniously with a pause of a few seconds between each turn. The game client will only present the arena and the player is not able to interact with the robots.
+
+The player can use a web-based UI to write C# scripts and deploy them to the game arena. Because this part of the game is currently not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
 
 ##### Middleware
-Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. If I feed the compiled C# script some context, the script itself can alter this context which I can then feed to the game-loop. For simplicity and flexibility, I will implement this middleware game-loop logic as a Console Application.
+Running C# scripts dynamically is doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. If I feed the compiled C# script some context, the script itself can alter this context which I can then feed into the game-loop. For simplicity and flexibility, I will implement this middleware game-loop logic as a Console Application.
+
+Visual Studio and other tools use The **Microsoft Compiler Platform** primarily for C# compilation, Intellisense and code validation. Because the watch and immediate window in Visual Studio also use the C# compiler, the platform also provides scripting possibilities on top of C#. I will use this part of the platform to compile the players' C# script and run it as part of the game-loop. If the arena contains more than one robot, the game-loop will run all compiled C# scripts in parallel and evaluate the results to update the game-state.
 
 ##### Backend
-I will provide communication between frontends and backend using a simple HTTP based technology like **[ASP.NET Core WebApi](https://github.com/dotnet/core)**. The frontend game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
+I will provide communication between frontends and backend using a simple HTTP based technology like **[ASP.NET Core WebApi](https://github.com/dotnet/core)**. The frontend game client should be able to poll the game-state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
 
 Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)** or **[Azure SQL](https://azure.microsoft.com/nl-nl/free/sql-database)**.
 
