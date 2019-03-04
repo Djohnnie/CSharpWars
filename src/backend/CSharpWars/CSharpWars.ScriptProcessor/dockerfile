@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/core/sdk:3.0-bionic
+﻿FROM mcr.microsoft.com/dotnet/core/runntime:3.0-bionic
 
 # Set the working directory
 WORKDIR /app
