@@ -28,11 +28,11 @@
 
 ### Context
 
-I have been working as a software development consultant and C# and .NET teacher for the past years. Sometimes developers and students can use some extra fun to awaken their creativity and improve their enthusiasm. In order to make students have some fun while learning and make developers creative while being competitive, I wanted to create a game that can be scripted using C#.
+I have been working as a software development consultant and C# and .NET teacher for more than 10 years. Sometimes developers and students can use some extra fun to awaken their creativity and improve their enthusiasm. In order to make students have some fun while learning and make developers creative while being competitive, I created a simple game that can be scripted using C#. Creating this game was also a challenge for myself because it provided me with the opportunity to learn and experiment with some new technologies. I will keep this idea for a scripting game, which is not entirely unique, around and alive as a playground to be used in school and on company teambuilding events.
 
 ### Game
 
-The easiest idea for a game that can be scripted using .NET and C# is a death match game where players fight a match inside an arena. Each player can script one, or even multiple robots inside the arena. Once a robot has been scripted and deployed into the arena, its future is entirely dependent of the script. It cannot be changed, and it cannot be revoked.
+The easiest idea for a game that can be scripted using .NET and C# is a death match game where players fight a match inside a square and empty arena. Each player can script one or multiple robots inside the arena using his knowledge of basic C# logic. Once a robot has been fully scripted and deployed into the arena, its future is entirely dependent on the script. The script cannot be changed and it cannot be revoked. The scripting itself is used to move the robot around the arena and to fight robots from other players by making the correct decisions based on data fed to the robot script. A robot wins if it can stay alive in a "last man standing" kind of tournament. The purpose in this game is not to win, but to write an intelligent script, which is harder than you would think.
 
 ##### Scripting
 
@@ -43,43 +43,43 @@ step++;
 StoreInMemory( "STEP" , step );
 ```
 
-The game will run based on turns and all robots will execute their turn simultaneously. A single turn is based on a script that the player will write using C#. Because a robot can be deployed using one script, each turn is based on the same script. The script should be advanced enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted.
+The game-loop will run based on turns and all robots will execute their turn simultaneously. A single turn is based on the C# script that the player has written. Because a robot can be deployed using one script, each turn is based on the same script. The script should be intelligent enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted and eventually executed by the game-loop.
 To improve predictability, all attack related turns are executed first and the turns related to movement are executed last.
-The scripting context will provide the player with the needed information about his own robot, but also about the robots that are visible to his own robot. This way the robot can make decisions based on this data.
+The scripting context will provide the player with the needed information about his own robot, but also about the robots that are visible to his robot.
 
 ##### Moves
 
-In order to give the player a variety of options, he can use a number of different moves in his scripts to make his robot walk around the arena and fight other robots. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
+By combining basic C#, .NET logic and a list of predefined moved, a robot can walk around the arena and fight other robots in order to win. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
 
-A robot has five options to move around:
+A robot has five options to move around the arena:
 
 | Move | Description |
 |------|-------------|
-| **``` WalkForward(); ```** | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point. |
+| **``` WalkForward(); ```** | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point which is deducted from his stamina pool. |
 | **``` TurnLeft(); ```** | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
 | **``` TurnRight(); ```** | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
 | **``` TurnAround(); ```** | Performing this move makes the robot turn 180°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **``` Teleport( x: 8, y: 7 ); ```** | Performing this move makes the robot jump to a new location within a predefined range, keeping the same orientation. This move consumes 20 points of stamina. |
+| **``` Teleport(...); ```** | Performing this move makes the robot jump to a new location within a predefined range, keeping the same orientation. This move consumes multiple points of stamina which are deducted from his stamina pool. Apart from being able to move vast distances over only one turn, a fun twist to this action is that jumping on top of another robot will also cause some damage and teleport the other robot to your original position. Teleporting to a position beyond the predefined range can cause unexpected results. |
 
-A robot has three options to fight:
+A robot has three options to fight other robots (or fight thin air if you're doing it wrong):
 
 | Move | Description |
 |------|-------------|
 | **``` MeleeAttack(); ```** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage then punchin a robot in the face. |
-| **``` RangedAttack( x: 3, y: 9 ); ```** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
-| **``` SelfDestruct(); ```** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots surrounding you. This attack is only used in extreme hopeless situations. |
+| **``` RangedAttack(...); ```** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
+| **``` SelfDestruct(); ```** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots in your vicinity. This attack should only be used in extreme hopeless situations, or by kamikaze players. |
 
-A robot has three additional things that can happen to him:
+A robot has three additional implicit moves that can occur:
 
-| Move | Description |
+| Implicit Move | Description |
 |------|-------------|
-| **``` Idling ```** | This action describes that the robot did not perform a move and thus stays in the exact same position. This can occur if the script did not call a move action, or the move action could not be executed. |
-| **``` Died ```** | This action describes that the robot died because his health reached zero or lower. |
-| **``` ScriptError ```** | This action describes that the robot crashed because of a script error. Typically these script errors are caused by unhandled exceptions. |
+| **``` Idling ```** | This action describes that the robot did not perform a move and thus stays in the exact same position looking at the falling stars fly by. This can occur if the script did not call a move action, or the move action could not be executed because he was blocked by other robots. |
+| **``` Died ```** | This action describes that the robot died because his health reached zero or lower by getting hit in the face too many times. |
+| **``` ScriptError ```** | This action describes that the robot crashed because of a script error. Typically script errors are caused by unhandled exceptions or infinite loops. |
 
 ### Technology
 
-Because I am a developer myself and I obviously wanted to have some fun, I took this opportunity to dive into some new technologies.
+Because I am not a game developer, but I obviously wanted to have some fun, I used some technologies that are completely new to me. For other components and technologies, I used familiar stuff, but just went bleeding edge and used the latest preview versions available.
 
 ##### Frontend
 The game itself should have an attractive frontend to display the battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments.
