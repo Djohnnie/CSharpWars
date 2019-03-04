@@ -59,7 +59,7 @@ Because I am not a game developer, but I obviously wanted to have some fun, I us
 ##### Frontend
 The game itself should have an attractive frontend to display the deathmatch battle of robots inside the arena. The **[Unity Game Engine](https://unity3d.com/)** promises to provide a quick and easy platform to create stunning 3D environments, combined with C# to write its game logic. The Unity Game Engine can compile to native Windows applications, but also supports a wide range of other platforms including WebGL.
 
-The arena has a space theme and shows a 2 dimensional grid floating among the stars. The camera will slowly rotate around the arena to provide a 360 degree view on the ongoing battle. Robots are represented by animated models of robots that move on this floating grid and perform their turns simultaniously with a pause of a few seconds between each turn. The game client will only present the arena and the player is not able to interact with the robots.
+The arena has a space theme and shows a two-dimensional grid floating among the stars. The camera will slowly rotate around the arena to provide a 360 degree view on the ongoing battle. Robots are represented by animated models of robots that move on this floating grid and perform their turns simultaniously with a pause of a few seconds between each turn. The game client will only present the arena and the player is not able to interact with the robots.
 
 The player can use a web-based UI to write C# scripts and deploy them to the game arena. Because this part of the game is currently not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
 
