@@ -24,6 +24,8 @@
 
 ## Part 1 - Forming the Idea
 
+![CSharpWars Banner](https://www.djohnnie.be/csharpwars/banner.jpg "CSharpWars Banner")
+
 ### Context
 
 I have been working as a software development consultant and C# and .NET teacher for the past years. Sometimes developers and students can use some extra fun to awaken their creativity and improve their enthusiasm. In order to make students have some fun while learning and make developers creative while being competitive, I wanted to create a game that can be scripted using C#.
@@ -33,6 +35,13 @@ I have been working as a software development consultant and C# and .NET teacher
 The easiest idea for a game that can be scripted using .NET and C# is a death match game where players fight a match inside an arena. Each player can script one, or even multiple robots inside the arena. Once a robot has been scripted and deployed into the arena, its future is entirely dependent of the script. It cannot be changed, and it cannot be revoked.
 
 ##### Scripting
+
+```c#
+var step = LoadFromMemory<Int32>( "STEP" );
+if( step % 3 == 0 ) { TurnLeft(); } else { WalkForward(); }
+step++;
+StoreInMemory( "STEP" , step );
+```
 
 The game will run based on turns and all robots will execute their turn simultaneously. A single turn is based on a script that the player will write using C#. Because a robot can be deployed using one script, each turn is based on the same script. The script should be advanced enough to execute the correct move for the correct conditions, but only one move (the first) for each turn will be accepted.
 To improve predictability, all attack related turns are executed first and the turns related to movement are executed last.
@@ -46,27 +55,27 @@ A robot has five options to move around:
 
 | Move | Description |
 |------|-------------|
-| **WalkForward** | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point. |
-| **TurnLeft** | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **TurnRight** | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **TurnAround** | Performing this move makes the robot turn 180°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **Teleport** | Performing this move makes the robot jump to a new location within a predefined range, keeping the same orientation. This move consumes 20 points of stamina. |
+| **``` WalkForward(); ```** | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point. |
+| **``` TurnLeft(); ```** | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` TurnRight(); ```** | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` TurnAround(); ```** | Performing this move makes the robot turn 180°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` Teleport( x: 8, y: 7 ); ```** | Performing this move makes the robot jump to a new location within a predefined range, keeping the same orientation. This move consumes 20 points of stamina. |
 
 A robot has three options to fight:
 
 | Move | Description |
 |------|-------------|
-| **MeleeAttack** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage then punchin a robot in the face. |
-| **RangedAttack** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
-| **SelfDestruct** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots surrounding you. This attack is only used in extreme hopeless situations. |
+| **``` MeleeAttack(); ```** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage then punchin a robot in the face. |
+| **``` RangedAttack( x: 3, y: 9 ); ```** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
+| **``` SelfDestruct(); ```** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots surrounding you. This attack is only used in extreme hopeless situations. |
 
 A robot has three additional things that can happen to him:
 
 | Move | Description |
 |------|-------------|
-| **Idling** | This action describes that the robot did not perform a move and thus stays in the exact same position. This can occur if the script did not call a move action, or the move action could not be executed. |
-| **Died** | This action describes that the robot died because his health reached zero or lower. |
-| **ScriptError** | This action describes that the robot crashed because of a script error. Typically these script errors are caused by unhandled exceptions. |
+| **``` Idling ```** | This action describes that the robot did not perform a move and thus stays in the exact same position. This can occur if the script did not call a move action, or the move action could not be executed. |
+| **``` Died ```** | This action describes that the robot died because his health reached zero or lower. |
+| **``` ScriptError ```** | This action describes that the robot crashed because of a script error. Typically these script errors are caused by unhandled exceptions. |
 
 ### Technology
 
