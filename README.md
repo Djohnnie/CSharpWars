@@ -28,11 +28,11 @@
 
 ### Context
 
-I have been working as a software development consultant and C# and .NET teacher for more than 10 years. Sometimes developers and students can use some extra fun to awaken their creativity and improve their enthusiasm. In order to make students have some fun while learning and make developers creative while being competitive, I created a simple game that can be scripted using C#. Creating this game was also a challenge for myself because it provided me with the opportunity to learn and experiment with some new technologies. I will keep this idea for a scripting game, which is not entirely unique, around and alive as a playground to be used in school and on company teambuilding events.
+I have been working as a software development consultant and C# and .NET teacher for over 10 years. Developers and students can use some extra fun to awaken their creativity and improve their enthusiasm and spark. In order to make students have some fun while learning and make developers creative while being competitive, I created a simple game that can be scripted using C#. Creating this game was a challenge for me because it provided me with the opportunity to learn and experiment with some new technologies. I keep this idea for a scripting game around and alive as a playground to use in schools and on company teambuilding events.
 
 ### Game
 
-The easiest idea for a game that can be scripted using .NET and C# is a death match game where players fight a match inside a square and empty arena. Each player can script one or multiple robots inside the arena using his knowledge of basic C# logic. Once a robot has been fully scripted and deployed into the arena, its future is entirely dependent on the script. The script cannot be changed and it cannot be revoked. The scripting itself is used to move the robot around the arena and to fight robots from other players by making the correct decisions based on data fed to the robot script. A robot wins if it can stay alive in a "last man standing" kind of tournament. The purpose in this game is not to win, but to write an intelligent script, which is harder than you would think.
+The easiest idea for a game that can be scripted using .NET and C# is a death match game where players fight a match inside a square and empty arena. Each player can script one or more robots inside the arena using his knowledge of basic programming logic. Once a robot has been fully scripted and deployed into the arena, its future is entirely dependent on the script. The script cannot be changed and it cannot be revoked. The scripting itself is used to move the robot around the arena and to fight robots from other players by making the correct decisions based on data fed to the robot script. A robot wins if it can stay alive in a "last man standing" kind of tournament. The purpose in this game is not to win, but to write an intelligent script, which is harder than you would think.
 
 ##### Scripting
 
@@ -49,25 +49,25 @@ The scripting context will provide the player with the needed information about 
 
 ##### Moves
 
-By combining basic C#, .NET logic and a list of predefined moved, a robot can walk around the arena and fight other robots in order to win. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
+A robot can walk around the arena and fight other robots in order to win, by combining basic C#, .NET logic and a list of predefined moves. Because a robot is governed by a health and stamina property, his time in the arena is limited and he must use his stamina wisely and take care of his health.
 
 A robot has five options to move around the arena:
 
 | Move | Description |
 |------|-------------|
-| **``` WalkForward(); ```** | Performing this move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point which is deducted from his stamina pool. |
-| **``` TurnLeft(); ```** | Performing this move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **``` TurnRight(); ```** | Performing this move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **``` TurnAround(); ```** | Performing this move makes the robot turn 180°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
-| **``` Teleport(...); ```** | Performing this move makes the robot jump to a new location within a predefined range, keeping the same orientation. This move consumes multiple points of stamina which are deducted from his stamina pool. Apart from being able to move vast distances over only one turn, a fun twist to this action is that jumping on top of another robot will also cause some damage and teleport the other robot to your original position. Teleporting to a position beyond the predefined range can cause unexpected results. |
+| **``` WalkForward(); ```** | This move makes the robot walk forward in the direction he is currently oriented. This move consumes one stamina point which is deducted from his stamina pool. |
+| **``` TurnLeft(); ```** | This move makes the robot turn anti-clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` TurnRight(); ```** | This move makes the robot turn clockwise by 90°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` TurnAround(); ```** | This move makes the robot turn 180°. This move does not consume stamina because the robot will not move away from its current location in the arena grid. |
+| **``` Teleport(...); ```** | This move makes the robot jump to a new location within a predefined range, keeping the same orientation and consuming multiple points of stamina which are deducted from his stamina pool. Apart from being able to move vast distances over only one turn, a fun twist to this action is that jumping on top of another robot will also cause some damage and teleport the other robot to your original position. Teleporting to a position beyond the predefined range can cause unexpected results. |
 
 A robot has three options to fight other robots (or fight thin air if you're doing it wrong):
 
 | Move | Description |
 |------|-------------|
-| **``` MeleeAttack(); ```** | Performing this attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage than punching a robot in the face. |
-| **``` RangedAttack(...); ```** | Performing this attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
-| **``` SelfDestruct(); ```** | Performing this attack kills your robot instantly, causing a huge amount of damage to the robots in your vicinity. This attack should only be used in extreme hopeless situations, or by kamikaze players. |
+| **``` MeleeAttack(); ```** | This attack makes the robot punch whatever is in front of him. The amount of damage caused is dependent on the orientation of the victim. Performing a backstab melee attack does more damage than punching a robot in the face. |
+| **``` RangedAttack(...); ```** | This attack makes the robot throw an object to a specific location, causing minimal damage. The ranged attack is limited in range and trying to throw beyond this limit can cause unexpected results. |
+| **``` SelfDestruct(); ```** | This attack kills your robot instantly, causing a huge amount of damage to the robots in your vicinity. This attack should only be used in extreme hopeless situations, or by kamikaze players. |
 
 A robot has three additional implicit moves that can occur:
 
@@ -87,19 +87,19 @@ The game itself should have an attractive frontend to display the death match ba
 A web-based UI can be used for players to write C# scripts and deploy them to the game arena. Because this part of the game is currently not the main focus of this project, I will keep it simple and develop it using **[ASP.NET Core MVC](https://github.com/dotnet/core)**.
 
 ##### Middleware
-Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. By feeding the compiled C# script some context, the script itself can alter this context which I can then feed to the game-loop. For simplicity and flexibility, this middleware game-loop logic will be implemented as a Console Application.
+Running C# scripts dynamically should be doable using the **[Microsoft Compiler Platform (Roslyn)](https://github.com/dotnet/roslyn)**. This framework provides access to the C# Compiler by feeding it C# code as-a-string. If I feed the compiled C# script some context, the script itself can alter this context which I can then feed to the game-loop. For simplicity and flexibility, I will implement this middleware game-loop logic as a Console Application.
 
 ##### Backend
-Communication between frontends and backend can be easily provided using a simple HTTP based technology. I will use **[ASP.NET Core WebApi](https://github.com/dotnet/core)** to implement this. The frontend game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
+I will provide communication between frontends and backend using a simple HTTP based technology like **[ASP.NET Core WebApi](https://github.com/dotnet/core)**. The frontend game client should be able to poll the game state and the frontend web client should be able to deploy new robots and scripts to the game-loop.
 
 Data will be stored in a single relation database using **[Microsoft SQL Server for Linux on Docker](https://hub.docker.com/_/microsoft-mssql-server)** or **[Azure SQL](https://azure.microsoft.com/nl-nl/free/sql-database)**.
 
 ##### Deployment
-Because I want flexibility in deployment, **[Docker Containers](https://www.docker.com/)** will be used to host the backend web applications and middleware service. For building code and Docker containers, **[Azure DevOps & Azure Pipelines](https://azure.microsoft.com/nl-nl/services/devops/pipelines/)** will be used.
+Because I want flexibility in deployment, I use **[Docker Containers](https://www.docker.com/)** to host the backend web applications and middleware service. I use **[Azure DevOps & Azure Pipelines](https://azure.microsoft.com/nl-nl/services/devops/pipelines/)** to automatically compile code, run unit tests and build Docker containers.
 
 ### Finally
 
-In the next 4 chapters, I will discuss development of the frontend, middleware and backend components in detail.
+In the next 4 chapters, I will discuss development of the frontend, middleware and backend components in more detail.
 
 ## Part 2 - Implementing a simple API
 
