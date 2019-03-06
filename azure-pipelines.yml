@@ -38,6 +38,12 @@ steps:
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
+    arguments: '--collect "Code coverage"'
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
 
 - script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
