@@ -38,13 +38,13 @@ steps:
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*'
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*%2c[CSharpWars.Tests.*]*'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'publish coverage results'
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/cobertura.xml'
+    summaryFileLocation: '**/coverage.cobertura.xml'
 
 - script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
