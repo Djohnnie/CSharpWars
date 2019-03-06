@@ -17,14 +17,14 @@ variables:
 steps:
 
 - task: DotNetCoreInstaller@0
-  displayName: Install latest version of .NET Core (2.1.300)
-  inputs:
-    version: '2.1.300'
-
-- task: DotNetCoreInstaller@0
   displayName: Install latest version of .NET Core (3.0.100-preview-010184)
   inputs:
     version: '3.0.100-preview-010184'
+
+- task: DotNetCoreInstaller@0
+  displayName: Install latest version of .NET Core (2.1.300)
+  inputs:
+    version: '2.1.300'
 
 - task: DotNetCoreCLI@2
   displayName: Restore NuGet packages
