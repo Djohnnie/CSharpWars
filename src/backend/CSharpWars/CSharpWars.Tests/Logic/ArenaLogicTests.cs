@@ -3,15 +3,14 @@ using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Logic;
 using CSharpWars.Logic.Interfaces;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace CSharpWars.Tests.Logic
 {
-    [TestClass]
     public class ArenaLogicTests
     {
-        [TestMethod]
+        [Fact]
         public async Task ArenaLogic_GetArena_Should_Return_An_Arena_Of_Size_10x10()
         {
             // Arrange
