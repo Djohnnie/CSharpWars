@@ -48,11 +48,11 @@ steps:
 
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.0.15
-    .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\backend\CSharpWars\CSharpWars.Tests\coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)\src\backend\CSharpWars\CSharpWars.Tests\results'
+    pathtoPublish: '$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results'
 
 - script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
