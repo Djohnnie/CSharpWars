@@ -74,7 +74,7 @@ namespace CSharpWars.Scripting
         /// <summary>
         /// Calling this method will move the player one position forward.
         /// </summary>
-        public void MoveForward()
+        public void WalkForward()
         {
             SetCurrentMove(PossibleMoves.WalkForward);
         }

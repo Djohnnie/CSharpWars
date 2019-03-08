@@ -34,7 +34,7 @@ namespace CSharpWars.Web.Api.Helpers
                     if (!_memoryCache.TryGetValue(logicCall.Method.Name, out TResult result))
                     {
                         result = await logicCall(_logic);
-                        _memoryCache.Set(logicCall.Method.Name, result, TimeSpan.FromSeconds(2));
+                        _memoryCache.Set(logicCall.Method.Name, result, TimeSpan.FromSeconds(1));
                     }
                     return result != null ? Ok(result) : (ActionResult)NotFound();
                 }

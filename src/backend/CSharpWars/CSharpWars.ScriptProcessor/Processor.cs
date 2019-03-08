@@ -71,6 +71,7 @@ namespace CSharpWars.ScriptProcessor
                 bot.CurrentHealth = botResult.CurrentHealth;
                 bot.CurrentStamina = botResult.CurrentStamina;
                 bot.Move = botResult.CurrentMove;
+                bot.Memory = botResult.Memory.Serialize();
             }
         }
 

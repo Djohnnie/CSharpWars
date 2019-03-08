@@ -89,7 +89,7 @@ namespace CSharpWars.Tests.Scripting
         {
             public ScriptGlobalsSetsCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), PossibleMoves.WalkForward);
+                Add(g => g.WalkForward(), PossibleMoves.WalkForward);
                 Add(g => g.TurnLeft(), PossibleMoves.TurningLeft);
                 Add(g => g.TurnRight(), PossibleMoves.TurningRight);
                 Add(g => g.TurnAround(), PossibleMoves.TurningAround);
@@ -104,7 +104,7 @@ namespace CSharpWars.Tests.Scripting
         {
             public ScriptGlobalsIgnoresCurrentMoveTheoryData()
             {
-                Add(g => g.MoveForward(), PossibleMoves.MeleeAttack);
+                Add(g => g.WalkForward(), PossibleMoves.MeleeAttack);
                 Add(g => g.TurnLeft(), PossibleMoves.WalkForward);
                 Add(g => g.TurnRight(), PossibleMoves.WalkForward);
                 Add(g => g.TurnAround(), PossibleMoves.WalkForward);
