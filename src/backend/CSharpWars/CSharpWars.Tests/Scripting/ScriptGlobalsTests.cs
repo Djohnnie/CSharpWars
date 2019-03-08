@@ -72,10 +72,10 @@ namespace CSharpWars.Tests.Scripting
         {
             var bot = new BotDto
             {
-                LocationX = 1,
-                LocationY = 2,
+                X = 1,
+                Y = 2,
                 Orientation = PossibleOrientations.North,
-                PreviousMove = PossibleMoves.Idling,
+                Move = PossibleMoves.Idling,
                 MaximumHealth = 100,
                 CurrentHealth = 99,
                 MaximumStamina = 250,

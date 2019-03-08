@@ -45,8 +45,8 @@ namespace CSharpWars.Logic
             var bot = _botToCreateMapper.Map(botToCreate);
             var arena = await _arenaLogic.GetArena();
             bot.Orientation = _randomHelper.Get<PossibleOrientations>();
-            bot.LocationX = _randomHelper.Get(arena.Width);
-            bot.LocationY = _randomHelper.Get(arena.Height);
+            bot.X = _randomHelper.Get(arena.Width);
+            bot.Y = _randomHelper.Get(arena.Height);
             bot.CurrentHealth = bot.MaximumHealth;
             bot.CurrentStamina = bot.MaximumStamina;
             bot.Memory = new Dictionary<String, String>().Serialize();

@@ -32,8 +32,8 @@ namespace CSharpWars.DataAccess.Migrations
                     SysId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    LocationX = table.Column<int>(nullable: false),
-                    LocationY = table.Column<int>(nullable: false),
+                    X = table.Column<int>(nullable: false),
+                    Y = table.Column<int>(nullable: false),
                     Orientation = table.Column<int>(nullable: false),
                     MaximumHealth = table.Column<int>(nullable: false),
                     CurrentHealth = table.Column<int>(nullable: false),
@@ -41,7 +41,7 @@ namespace CSharpWars.DataAccess.Migrations
                     CurrentStamina = table.Column<int>(nullable: false),
                     Script = table.Column<string>(nullable: true),
                     Memory = table.Column<string>(nullable: true),
-                    PreviousMove = table.Column<int>(nullable: false),
+                    Move = table.Column<int>(nullable: false),
                     TeamId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>

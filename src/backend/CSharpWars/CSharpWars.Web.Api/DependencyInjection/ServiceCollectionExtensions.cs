@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using CSharpWars.Common.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using CSharpWars.Logic.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -10,6 +11,7 @@ namespace CSharpWars.Web.Api.DependencyInjection
     {
         public static void ConfigureWebApi(this IServiceCollection services)
         {
+            services.ConfigureCommon();
             services.ConfigureLogic();
             services.AddMemoryCache();
             services.AddMvc().AddNewtonsoftJson();

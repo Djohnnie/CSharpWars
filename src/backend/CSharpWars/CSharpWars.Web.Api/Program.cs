@@ -16,8 +16,6 @@ namespace CSharpWars.Web.Api
                 {
                     webBuilder.UseUrls("http://*:5000");
                     webBuilder.UseKestrel();
-                    webBuilder.UseIIS();
-                    webBuilder.UseIISIntegration();
                     webBuilder.UseStartup<Startup>();
                 });
     }

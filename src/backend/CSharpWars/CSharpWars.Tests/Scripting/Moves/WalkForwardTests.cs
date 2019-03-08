@@ -32,7 +32,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         public void Walking_Forward_Without_Stamina_Should_Be_Ignored()
         {
             // Arrange
-            var bot = new BotDto { LocationX = 1, LocationY = 1 };
+            var bot = new BotDto { X = 1, Y = 1 };
             var arena = new ArenaDto { Width = 3, Height = 3 };
             var botProperties = BotProperties.Build(bot, arena);
             botProperties.CurrentMove = PossibleMoves.WalkForward;
@@ -94,8 +94,8 @@ namespace CSharpWars.Tests.Scripting.Moves
             // Arrange
             var bot = new BotDto
             {
-                LocationX = 1,
-                LocationY = 1,
+                X = 1,
+                Y = 1,
                 Orientation = orientation,
                 CurrentHealth = 100,
                 CurrentStamina = 100

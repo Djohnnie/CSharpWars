@@ -83,8 +83,8 @@ namespace CSharpWars.Tests.Logic
             result.Should().NotBeNull();
             result.Name.Should().Be(botToCreateDto.Name);
             result.Orientation.Should().Be(PossibleOrientations.South);
-            result.LocationX.Should().Be(2);
-            result.LocationY.Should().Be(2);
+            result.X.Should().Be(2);
+            result.Y.Should().Be(2);
             result.MaximumHealth.Should().Be(botToCreateDto.MaximumHealth);
             result.CurrentHealth.Should().Be(botToCreateDto.MaximumHealth);
             result.MaximumStamina.Should().Be(botToCreateDto.MaximumStamina);

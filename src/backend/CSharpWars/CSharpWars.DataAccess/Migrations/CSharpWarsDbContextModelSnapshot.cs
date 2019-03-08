@@ -15,7 +15,7 @@ namespace CSharpWars.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0-preview.19074.3")
+                .HasAnnotation("ProductVersion", "3.0.0-preview3.19153.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,21 +28,17 @@ namespace CSharpWars.DataAccess.Migrations
 
                     b.Property<int>("CurrentStamina");
 
-                    b.Property<int>("LocationX");
-
-                    b.Property<int>("LocationY");
-
                     b.Property<int>("MaximumHealth");
 
                     b.Property<int>("MaximumStamina");
 
                     b.Property<string>("Memory");
 
+                    b.Property<int>("Move");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("Orientation");
-
-                    b.Property<int>("PreviousMove");
 
                     b.Property<string>("Script");
 
@@ -51,6 +47,10 @@ namespace CSharpWars.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid?>("TeamId");
+
+                    b.Property<int>("X");
+
+                    b.Property<int>("Y");
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);

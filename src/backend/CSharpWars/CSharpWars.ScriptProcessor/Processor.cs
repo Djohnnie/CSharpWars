@@ -66,11 +66,11 @@ namespace CSharpWars.ScriptProcessor
                 var bot = bots.Single(x => x.Id == botProperty.BotId);
                 var botResult = Move.Build(botProperty).Go();
                 bot.Orientation = botResult.Orientation;
-                bot.LocationX = botResult.X;
-                bot.LocationY = botResult.Y;
+                bot.X = botResult.X;
+                bot.Y = botResult.Y;
                 bot.CurrentHealth = botResult.CurrentHealth;
                 bot.CurrentStamina = botResult.CurrentStamina;
-                bot.PreviousMove = botResult.CurrentMove;
+                bot.Move = botResult.CurrentMove;
             }
         }
 

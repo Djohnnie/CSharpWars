@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using CSharpWars.Common.Configuration;
 using CSharpWars.Common.Configuration.Interfaces;
+using CSharpWars.Common.Helpers;
 using CSharpWars.Common.Helpers.Interfaces;
 
 namespace CSharpWars.Common.DependencyInjection
@@ -20,7 +21,7 @@ namespace CSharpWars.Common.DependencyInjection
 
         public static void ConfigureCommon(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IRandomHelper, IRandomHelper>();
+            serviceCollection.AddSingleton<IRandomHelper, RandomHelper>();
         }
     }
 }

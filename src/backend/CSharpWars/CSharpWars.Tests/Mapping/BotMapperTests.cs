@@ -19,14 +19,14 @@ namespace CSharpWars.Tests.Mapping
             {
                 Id = Guid.NewGuid(),
                 Name = "BotName",
-                LocationX = 5,
-                LocationY = 6,
+                X = 5,
+                Y = 6,
                 Orientation = PossibleOrientations.South,
                 MaximumHealth = 100,
                 CurrentHealth = 98,
                 MaximumStamina = 200,
                 CurrentStamina = 123,
-                PreviousMove = PossibleMoves.MeleeAttack
+                Move = PossibleMoves.MeleeAttack
             };
 
             // Act
@@ -37,14 +37,14 @@ namespace CSharpWars.Tests.Mapping
                 properties => properties
                     .Including(x => x.Id)
                     .Including(x => x.Name)
-                    .Including(x => x.LocationX)
-                    .Including(x => x.LocationY)
+                    .Including(x => x.X)
+                    .Including(x => x.Y)
                     .Including(x => x.Orientation)
                     .Including(x => x.MaximumHealth)
                     .Including(x => x.CurrentHealth)
                     .Including(x => x.MaximumStamina)
                     .Including(x => x.CurrentStamina)
-                    .Including(x => x.PreviousMove));
+                    .Including(x => x.Move));
         }
 
         [Fact]
@@ -56,14 +56,14 @@ namespace CSharpWars.Tests.Mapping
             {
                 Id = Guid.NewGuid(),
                 Name = "BotName",
-                LocationX = 5,
-                LocationY = 6,
+                X = 5,
+                Y = 6,
                 Orientation = PossibleOrientations.South,
                 MaximumHealth = 100,
                 CurrentHealth = 98,
                 MaximumStamina = 200,
                 CurrentStamina = 123,
-                PreviousMove = PossibleMoves.MeleeAttack
+                Move = PossibleMoves.MeleeAttack
             };
 
             // Act
@@ -74,14 +74,14 @@ namespace CSharpWars.Tests.Mapping
                 properties => properties
                     .Including(x => x.Id)
                     .Including(x => x.Name)
-                    .Including(x => x.LocationX)
-                    .Including(x => x.LocationY)
+                    .Including(x => x.X)
+                    .Including(x => x.Y)
                     .Including(x => x.Orientation)
                     .Including(x => x.MaximumHealth)
                     .Including(x => x.CurrentHealth)
                     .Including(x => x.MaximumStamina)
                     .Including(x => x.CurrentStamina)
-                    .Including(x => x.PreviousMove));
+                    .Including(x => x.Move));
         }
     }
 }
