@@ -40,25 +40,20 @@ steps:
     projects: '**/backend/**/*.csproj'
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*%2c[CSharpWars.Tests.*]*'
 
-- task: PublishCodeCoverageResults@1
-  displayName: 'publish coverage results'
-  inputs:
-    codeCoverageTool: 'cobertura'
-    summaryFileLocation: '**/coverage.cobertura.xml'
-
 - script: |
     dotnet tool install djohnnie-custom-coverage-reportgenerator-globaltool --tool-path . --version 0.1.0
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results" "-reporttypes:HTMLInline;HTMLChart"
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
 
 - task: PublishCodeCoverageResults@1
   inputs:
     summaryFileLocation: $(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/coverage.cobertura.xml
     reportDirectory: $(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results
     codecoverageTool: cobertura
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results'
 
 - script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
