@@ -28,6 +28,7 @@
     <ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
     <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
     <ProjectReference Include="..\CSharpWars.ScriptProcessor\CSharpWars.ScriptProcessor.csproj" />
+    <ProjectReference Include="..\CSharpWars.Tests.Framework\CSharpWars.Tests.Framework.csproj" />
   </ItemGroup>
 
 </Project>

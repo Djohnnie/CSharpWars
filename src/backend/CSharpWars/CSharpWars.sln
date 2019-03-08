@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Scripting", "CSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Enums", "CSharpWars.Enums\CSharpWars.Enums.csproj", "{E80E719C-47BD-4D7B-9039-7057F1E96EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpWars.Tests", "CSharpWars.Tests\CSharpWars.Tests.csproj", "{C4701F70-97DD-4C4B-A351-4BB45D6F6941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Tests", "CSharpWars.Tests\CSharpWars.Tests.csproj", "{C4701F70-97DD-4C4B-A351-4BB45D6F6941}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpWars.Tests.Framework", "CSharpWars.Tests.Framework\CSharpWars.Tests.Framework.csproj", "{98C91621-2820-4F3B-8FFC-0D1D4E1447A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{C4701F70-97DD-4C4B-A351-4BB45D6F6941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4701F70-97DD-4C4B-A351-4BB45D6F6941}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4701F70-97DD-4C4B-A351-4BB45D6F6941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{96657273-AC9B-46E4-A846-5EDDD5E82E36} = {D9E69A62-2FED-4C1B-93FC-6339D57255FC}
 		{E80E719C-47BD-4D7B-9039-7057F1E96EC9} = {EAB57015-4DAC-4B95-97A9-365B4948787A}
 		{C4701F70-97DD-4C4B-A351-4BB45D6F6941} = {0A98A61E-627A-404C-AF36-BE45C686FDA8}
+		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3} = {0A98A61E-627A-404C-AF36-BE45C686FDA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E06EEE3-AA5D-461B-89D6-B7A76FD4DA45}
