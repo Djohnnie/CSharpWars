@@ -1,10 +1,10 @@
-using System;
 using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Web.Api.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using static System.Convert;
 using static System.Environment;
@@ -33,17 +33,14 @@ namespace CSharpWars.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting(routes =>
-            {
-                routes.MapApplication();
-            });
+            app.UseRouting(routes => { routes.MapControllers(); });
 
             app.UseAuthorization();
 
@@ -53,12 +50,12 @@ namespace CSharpWars.Web.Api
             {
                 c.RouteTemplate = "docs/{documentName}/swagger.json";
             });
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/docs/v1/swagger.json", "CSharpWars");
-                c.RoutePrefix = "docs";
-                c.DocExpansion(DocExpansion.List);
-            });
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/docs/v1/swagger.json", "CSharpWars");
+            //    c.RoutePrefix = "docs";
+            //    c.DocExpansion(DocExpansion.List);
+            //});
         }
     }
 }
