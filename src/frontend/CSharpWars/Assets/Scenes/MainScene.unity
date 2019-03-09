@@ -449,9 +449,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c33e085b89a3448a10df3d7dd742f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefreshRate: 1
+  RefreshRate: 2
   BotPrefab: {fileID: 7842690366862279663, guid: ffb0c1a0fa3145f41b55a52bf642993d,
     type: 3}
+  NameTagPrefab: {fileID: 127760, guid: 80a8ca6bc44260a48a69a4ddde0ddbd9, type: 3}
+  HealthTagPrefab: {fileID: 136166, guid: 4251dc164ed905f4798da33fc320a199, type: 3}
+  StaminaTagPrefab: {fileID: 101522, guid: d8bb016a4d4f29e4ca2e6fa535778a82, type: 3}
 --- !u!1001 &492330520
 PrefabInstance:
   m_ObjectHideFlags: 0

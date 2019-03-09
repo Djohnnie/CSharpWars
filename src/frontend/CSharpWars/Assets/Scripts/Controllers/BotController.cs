@@ -10,13 +10,15 @@ namespace Assets.Scripts.Controllers
         private Bot _bot;
         private Animation _animation;
         private ArenaController _arenaController;
+        private String _lastAnimation;
 
-
+        private GameObject _errorGameObject;
 
         public Single Speed = 1;
         public Single RotationSpeed = 2;
 
-        private String _lastAnimation;
+        public Transform Head;
+        public GameObject ErrorPrefab;
 
         void Start()
         {
@@ -24,187 +26,102 @@ namespace Assets.Scripts.Controllers
             if (_animation != null)
             {
                 _animation[Animations.Walk].speed = Speed * 2;
+                _animation[Animations.TurnRight].speed = Speed * 2;
             }
             InstantRefresh();
         }
 
         void Update()
         {
-            //if (BotIsNotAvailable())
-            //{
-            //    return;
-            //}
-
-            //if (RobotIsConfused())
-            //{
-            //    RunAnimationOnce(Animations.Defend);
-            //    return;
-            //    //if (!_exclamationMarkVisible)
-            //    //{
-            //    //    exclamationMark = Instantiate(exclamationMarkPrefab);
-            //    //    exclamationMark.transform.SetParent(head);
-            //    //    exclamationMark.transform.localPosition = new Vector3(0, 0, 0);
-            //    //    exclamationMark.transform.position = new Vector3(exclamationMark.transform.position.x, 2.5f, exclamationMark.transform.position.z);
-            //    //    _exclamationMarkVisible = true;
-            //    //}
-            //}
-            //else
-            //{
-            //    //_exclamationMarkVisible = false;
-            //    //if (exclamationMark != null) { Destroy(exclamationMark); }
-            //}
-
-            //if (_bot.Move == PossibleMoves.WalkForward)
-            //{
-            //    Single step = _bot.Move == PossibleMoves.Teleport ? 1 : Speed * Time.deltaTime;
-            //    Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
-            //    Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
-            //    if ((newPos - transform.position).magnitude > 0.01)
-            //    {
-            //        RunAnimation(Animations.Walk);
-            //        transform.position = newPos;
-            //        return;
-            //    }
-            //}
-
-            //if (_bot.Move == PossibleMoves.TurningLeft || _bot.Move == PossibleMoves.TurningRight ||
-            //    _bot.Move == PossibleMoves.TurningAround)
-            //{
-            //    Vector3 targetOrientation = OrientationVector.CreateFrom(_bot.Orientation);
-            //    Single rotationStep = RotationSpeed * Time.deltaTime;
-            //    Vector3 newDir = Vector3.RotateTowards(transform.forward, targetOrientation, rotationStep, 0.0F);
-            //    if (targetOrientation != newDir)
-            //    {
-            //        transform.rotation = Quaternion.LookRotation(newDir);
-            //    }
-            //    if ((targetOrientation - newDir).magnitude > 0.01)
-            //    {
-            //        RunAnimation(Animations.TurnRight);
-            //        return;
-            //    }
-            //}
-
-            //if (RobotHasDied())
-            //{
-            //    RunAnimationOnce(Animations.Death);
-            //    return;
-            //}
-
-            //if (RobotIsAttackingUsingMelee())
-            //{
-            //    RunAnimationOnce(Animations.MeleeAttack);
-            //    return;
-            //}
-
-            //if (RobotIsAttackingUsingRanged())
-            //{
-            //    //if (rangeAttack == null && !_rangeAttackFired)
-            //    //{
-            //    //    _rangeAttackFired = true;
-            //    //    rangeAttack = Instantiate(rangeAttackPrefab);
-            //    //    //rangeAttack.transform.SetParent(this.transform);
-            //    //    RangeAttackController rangeAttackController = rangeAttack.GetComponent<RangeAttackController>();
-            //    //    Vector3 startPos = GridController.Instance.gridToWorldPosition(_bot.Location.X, _bot.Location.Y);
-            //    //    Vector3 targetPos = GridController.Instance.gridToWorldPosition(_bot.LastAttackLocation.X, _bot.LastAttackLocation.Y);
-            //    //    rangeAttackController.fire(startPos, targetPos, 3f);
-            //    //    GoAnim(RANGED_ATTACK);
-            //    //}
-            //    RunAnimationOnce(Animations.RangedAttack);
-            //    return;
-            //}
-
-            //if (RobotIsSelfDestructing())
-            //{
-            //    //GetComponent<ExploderController>().Do(x => x.Explode());
-            //    RunAnimationOnce(Animations.Death);
-            //    return;
-            //}
-
-            //if (RobotIsTeleporting())
-            //{
-            //    RunAnimationOnce(Animations.Jump);
-            //    return;
-            //}
-
-            //RunAnimation(Animations.Idle);
-
-            if (_bot != null)
+            if (BotIsNotAvailable())
             {
-                if (_bot.Move != PossibleMoves.ScriptError)
-                {
-                    //_exclamationMarkVisible = false;
-                    //if (exclamationMark != null) { Destroy(exclamationMark); }
-                }
-
-                if (_bot.CurrentHealth <= 0 && _bot.Move != PossibleMoves.SelfDestruct)
-                {
-                    RunAnimationOnce(Animations.Death);
-                }
-                else
-                {
-                    Vector3 targetDir = OrientationVector.CreateFrom(_bot.Orientation);
-                    float rotationStep = RotationSpeed * Time.deltaTime;
-                    Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0F);
-                    if (targetDir != newDir)
-                    {
-                        transform.rotation = Quaternion.LookRotation(newDir);
-                    }
-
-                    float step = _bot.Move == PossibleMoves.Teleport ? 1 : Speed * Time.deltaTime;
-                    Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
-                    Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
-                    if ((targetDir - newDir).magnitude > 0.01)
-                    {
-                        RunAnimation(Animations.TurnRight);
-                    }
-                    else if ((newPos - transform.position).magnitude > 0.01)
-                    {
-                        RunAnimation(Animations.Walk);
-                    }
-                    else
-                    {
-                        switch (_bot.Move)
-                        {
-                            case PossibleMoves.MeleeAttack:
-                                RunAnimation(Animations.MeleeAttack);
-                                break;
-                            case PossibleMoves.RangedAttack:
-                                //if (rangeAttack == null && !_rangeAttackFired)
-                                //{
-                                //    _rangeAttackFired = true;
-                                //    rangeAttack = Instantiate(rangeAttackPrefab);
-                                //    //rangeAttack.transform.SetParent(this.transform);
-                                //    RangeAttackController rangeAttackController = rangeAttack.GetComponent<RangeAttackController>();
-                                //    Vector3 startPos = GridController.Instance.gridToWorldPosition(_bot.Location.X, _bot.Location.Y);
-                                //    Vector3 targetPos = GridController.Instance.gridToWorldPosition(_bot.LastAttackLocation.X, _bot.LastAttackLocation.Y);
-                                //    rangeAttackController.fire(startPos, targetPos, 3f);
-                                //    RunAnimation(RANGED_ATTACK);
-                                //}
-                                break;
-                            case PossibleMoves.SelfDestruct:
-                                //GetComponent<ExploderController>().Do(x => x.Explode());
-                                RunAnimationOnce(Animations.Death);
-                                break;
-                            case PossibleMoves.ScriptError:
-                                //if (!_exclamationMarkVisible)
-                                //{
-                                //    exclamationMark = Instantiate(exclamationMarkPrefab);
-                                //    exclamationMark.transform.SetParent(head);
-                                //    exclamationMark.transform.localPosition = new Vector3(0, 0, 0);
-                                //    exclamationMark.transform.position = new Vector3(exclamationMark.transform.position.x, 2.5f, exclamationMark.transform.position.z);
-                                //    _exclamationMarkVisible = true;
-                                //}
-                                break;
-                            default:
-                                RunAnimation(Animations.Idle);
-                                break;
-                        }
-                    }
-                    transform.position = newPos;
-
-                    Debug.DrawRay(transform.position, newDir, Color.red);
-                }
+                return;
             }
+
+            if (RobotIsConfused())
+            {
+                RunAnimationOnce(Animations.Defend);
+                if (_errorGameObject == null)
+                {
+                    _errorGameObject = Instantiate(ErrorPrefab);
+                    _errorGameObject.transform.SetParent(Head);
+                    _errorGameObject.transform.localPosition = new Vector3(0, 0, 0);
+                    _errorGameObject.transform.position = new Vector3(_errorGameObject.transform.position.x, 2.5f, _errorGameObject.transform.position.z);
+                }
+                return;
+            }
+
+            if (_errorGameObject != null)
+            {
+                Destroy(_errorGameObject);
+                _errorGameObject = null;
+            }
+
+            Single step = _bot.Move == PossibleMoves.Teleport ? 1 : Speed * Time.deltaTime;
+            Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
+            Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
+            if ((newPos - transform.position).magnitude > 0.01)
+            {
+                RunAnimation(Animations.Walk);
+                transform.position = newPos;
+                return;
+            }
+            Vector3 targetOrientation = OrientationVector.CreateFrom(_bot.Orientation);
+            Single rotationStep = RotationSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetOrientation, rotationStep, 0.0F);
+            if (targetOrientation != newDir)
+            {
+                transform.rotation = Quaternion.LookRotation(newDir);
+            }
+            if ((targetOrientation - newDir).magnitude > 0.01)
+            {
+                RunAnimation(Animations.TurnRight);
+                return;
+            }
+
+            if (RobotHasDied())
+            {
+                RunAnimationOnce(Animations.Death);
+                return;
+            }
+
+            if (RobotIsAttackingUsingMelee())
+            {
+                RunAnimationOnce(Animations.MeleeAttack);
+                return;
+            }
+
+            if (RobotIsAttackingUsingRanged())
+            {
+                //if (rangeAttack == null && !_rangeAttackFired)
+                //{
+                //    _rangeAttackFired = true;
+                //    rangeAttack = Instantiate(rangeAttackPrefab);
+                //    //rangeAttack.transform.SetParent(this.transform);
+                //    RangeAttackController rangeAttackController = rangeAttack.GetComponent<RangeAttackController>();
+                //    Vector3 startPos = GridController.Instance.gridToWorldPosition(_bot.Location.X, _bot.Location.Y);
+                //    Vector3 targetPos = GridController.Instance.gridToWorldPosition(_bot.LastAttackLocation.X, _bot.LastAttackLocation.Y);
+                //    rangeAttackController.fire(startPos, targetPos, 3f);
+                //    GoAnim(RANGED_ATTACK);
+                //}
+                RunAnimationOnce(Animations.RangedAttack);
+                return;
+            }
+
+            if (RobotIsSelfDestructing())
+            {
+                GetComponent<ExplosionController>().Explode();
+                RunAnimationOnce(Animations.Death);
+                return;
+            }
+
+            if (RobotIsTeleporting())
+            {
+                RunAnimationOnce(Animations.Jump);
+                return;
+            }
+
+            RunAnimation(Animations.Idle);
         }
 
         void RunAnimation(String animationName)

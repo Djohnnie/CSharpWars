@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7842690366862279648}
   - component: {fileID: 7842690366862279649}
+  - component: {fileID: 6058409851926237027}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -44,20 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296ea4fd87487cd4f8804f84a6500ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IDLE: loop_idle
-  WALK: loop_run_funny
-  MELEE_ATTACK: cmb_street_fight
-  RANGED_ATTACK: punch_hi_right
-  SELF_DESTRUCT: final_head
-  DEFEND: def_head
-  DEATH: final_head
-  JUMP: jump
-  BODY_HIT: xhit_body
-  HEAD_HIT: xhit_head
-  TURN_LEFT: loop_idle
-  TURN_RIGHT: loop_idle
-  Speed: 1
-  RotationSpeed: 2
+  Speed: 1.5
+  RotationSpeed: 2.5
+  Head: {fileID: 7842690368561100459}
+  ErrorPrefab: {fileID: 140918, guid: 1e814b6698e48b2419979f7f2534fca0, type: 3}
+--- !u!114 &6058409851926237027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842690366862279663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c1c059ddf16884b92125de153f58ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionEffectsContainer: {fileID: 100000, guid: 6ffdec4a9fbd09a41b89400337aaeb48,
+    type: 3}
+  scale: 0.5
+  playbackSpeed: 0.5
+  explosionTime: 0
+  randomizeExplosionTime: 0
+  radius: 5
+  power: 1
+  probeCount: 150
+  explodeDuration: 1
 --- !u!1001 &7842690368560704555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,7 +80,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100766, guid: d95c6f63eaedc7e41a4b2e07d5507a8d, type: 3}
       propertyPath: m_Name
-      value: roBot
+      value: Robot
       objectReference: {fileID: 0}
     - target: {fileID: 400766, guid: d95c6f63eaedc7e41a4b2e07d5507a8d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -183,6 +196,12 @@ PrefabInstance:
 --- !u!4 &7842690368561099093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400766, guid: d95c6f63eaedc7e41a4b2e07d5507a8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7842690368560704555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7842690368561100459 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: d95c6f63eaedc7e41a4b2e07d5507a8d,
     type: 3}
   m_PrefabInstance: {fileID: 7842690368560704555}
   m_PrefabAsset: {fileID: 0}

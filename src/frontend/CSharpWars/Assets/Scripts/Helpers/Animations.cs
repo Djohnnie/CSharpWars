@@ -15,6 +15,6 @@ namespace Assets.Scripts.Helpers
         public const String BODY_HIT = "xhit_body";
         public const String HEAD_HIT = "xhit_head";
         public const String TurnLeft = "loop_idle";
-        public const String TurnRight = "loop_idle";
+        public const String TurnRight = "loop_walk_funny";
     }
 }
