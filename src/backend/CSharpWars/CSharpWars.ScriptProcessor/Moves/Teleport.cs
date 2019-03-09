@@ -1,4 +1,5 @@
-﻿using CSharpWars.Scripting.Model;
+﻿using CSharpWars.Enums;
+using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {
@@ -10,12 +11,12 @@ namespace CSharpWars.ScriptProcessor.Moves
 
         public override BotResult Go()
         {
-            if (BotProperties.CurrentStamina > 0)
-            {
+            // Build result based on current properties.
+            var botResult = BotResult.Build(BotProperties);
 
-            }
+            botResult.CurrentMove = PossibleMoves.Teleport;
 
-            return new BotResult();
+            return botResult;
         }
     }
 }

@@ -18,7 +18,9 @@ namespace CSharpWars.ScriptProcessor.Moves
             { PossibleMoves.Teleport, p => new Teleport(p) },
             { PossibleMoves.MeleeAttack, p => new MeleeAttack(p) },
             { PossibleMoves.RangedAttack, p => new RangedAttack(p) },
-            { PossibleMoves.SelfDestruct, p => new SelfDestruct(p) }
+            { PossibleMoves.SelfDestruct, p => new SelfDestruct(p) },
+            { PossibleMoves.Idling, p => new EmptyMove(p) },
+            { PossibleMoves.ScriptError, p => new EmptyMove(p) },
         };
 
         protected readonly BotProperties BotProperties;

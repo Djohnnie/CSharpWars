@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
+using CSharpWars.Common.Tools;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Logic.Interfaces;
@@ -37,22 +39,40 @@ namespace CSharpWars.ScriptProcessor
             var arena = await _arenaLogic.GetArena();
             var bots = await _botLogic.GetAllActiveBots();
 
-            // Preprocessing
-            foreach (var bot in bots)
+            using (var sw = new SimpleStopwatch())
             {
-                var botProperties = BotProperties.Build(bot, arena);
-                _botProperties.TryAdd(bot.Id, botProperties);
+                // Preprocessing
+                foreach (var bot in bots)
+                {
+                    var botProperties = BotProperties.Build(bot, arena, bots);
+                    _botProperties.TryAdd(bot.Id, botProperties);
+                }
+                Debug.WriteLine($"PRE-PROCESSING: {sw.ElapsedMilliseconds}");
             }
 
-            // Processing
-            var botProcessing = bots.Select(BotProcessingFactory);
-            await Task.WhenAll(botProcessing);
+            using (var sw = new SimpleStopwatch())
+            {
+                // Processing
+                var botProcessing = bots.Select(BotProcessingFactory);
+                await Task.WhenAll(botProcessing);
+                Debug.WriteLine($"PROCESSING: {sw.ElapsedMilliseconds}");
+            }
 
-            // Postprocessing
-            PostProcess(bots);
+            using (var sw = new SimpleStopwatch())
+            {
+                // Postprocessing
+                PostProcess(bots);
+                Debug.WriteLine($"POST-PROCESSING: {sw.ElapsedMilliseconds}");
+            }
 
-            // Update
-            await _botLogic.UpdateBots(bots);
+
+
+            using (var sw = new SimpleStopwatch())
+            {
+                // Update
+                await _botLogic.UpdateBots(bots);
+                Debug.WriteLine($"SAVING: {sw.ElapsedMilliseconds}");
+            }
 
             // 4. Cleanup
             _botProperties.Clear();

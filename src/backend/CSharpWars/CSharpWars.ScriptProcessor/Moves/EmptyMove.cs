@@ -1,20 +1,17 @@
-﻿using CSharpWars.Enums;
-using CSharpWars.Scripting.Model;
+﻿using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {
-    public class SelfDestruct : Move
+    public class EmptyMove : Move
     {
-        public SelfDestruct(BotProperties botProperties) : base(botProperties)
-        {
-        }
+        public EmptyMove(BotProperties botProperties) : base(botProperties) { }
 
         public override BotResult Go()
         {
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
 
-            botResult.CurrentMove = PossibleMoves.SelfDestruct;
+            botResult.CurrentMove = BotProperties.CurrentMove;
 
             return botResult;
         }

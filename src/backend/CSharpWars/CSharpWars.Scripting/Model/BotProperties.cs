@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
@@ -24,7 +25,7 @@ namespace CSharpWars.Scripting.Model
         public List<Bot> Bots { get; set; }
         public PossibleMoves CurrentMove { get; set; }
 
-        public static BotProperties Build(BotDto bot, ArenaDto arena)
+        public static BotProperties Build(BotDto bot, ArenaDto arena, IList<BotDto> bots)
         {
             return new BotProperties
             {
@@ -40,9 +41,20 @@ namespace CSharpWars.Scripting.Model
                 MaximumStamina = bot.MaximumStamina,
                 CurrentStamina = bot.CurrentStamina,
                 Memory = bot.Memory.Deserialize<Dictionary<String, String>>(),
-                Bots = new List<Bot>(),
+                Bots = BuildBots(bots),
                 CurrentMove = PossibleMoves.Idling
             };
+        }
+
+        private static List<Bot> BuildBots(IList<BotDto> bots)
+        {
+            return bots.Select(x => new Bot
+            {
+                Name = x.Name,
+                X = x.X,
+                Y = x.Y,
+                Orientation = x.Orientation
+            }).ToList();
         }
     }
 }
