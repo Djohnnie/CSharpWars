@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
@@ -17,7 +18,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             // Arrange
             var bot = new BotDto { };
             var arena = new ArenaDto { Width = 1, Height = 1 };
-            var botProperties = BotProperties.Build(bot, arena);
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.WalkForward;
 
             // Act
@@ -34,7 +35,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             // Arrange
             var bot = new BotDto { X = 1, Y = 1 };
             var arena = new ArenaDto { Width = 3, Height = 3 };
-            var botProperties = BotProperties.Build(bot, arena);
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.WalkForward;
             var move = Move.Build(botProperties);
 
@@ -61,7 +62,7 @@ namespace CSharpWars.Tests.Scripting.Moves
                 CurrentStamina = 100
             };
             var arena = new ArenaDto { Width = 1, Height = 1 };
-            var botProperties = BotProperties.Build(bot, arena);
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.WalkForward;
             var move = Move.Build(botProperties);
 
@@ -101,7 +102,7 @@ namespace CSharpWars.Tests.Scripting.Moves
                 CurrentStamina = 100
             };
             var arena = new ArenaDto { Width = 3, Height = 3 };
-            var botProperties = BotProperties.Build(bot, arena);
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.WalkForward;
             var move = Move.Build(botProperties);
 

@@ -1,4 +1,5 @@
-﻿using CSharpWars.DtoModel;
+﻿using System.Collections.Generic;
+using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 using CSharpWars.ScriptProcessor.Moves;
@@ -15,7 +16,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             // Arrange
             var bot = new BotDto { };
             var arena = new ArenaDto { Width = 1, Height = 1 };
-            var botProperties = BotProperties.Build(bot, arena);
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.RangedAttack;
 
             // Act

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
@@ -82,7 +83,7 @@ namespace CSharpWars.Tests.Scripting
                 CurrentStamina = 150
             };
             var arena = new ArenaDto { Width = 10, Height = 20 };
-            return BotProperties.Build(bot, arena);
+            return BotProperties.Build(bot, arena, new List<BotDto>());
         }
 
         private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves>
