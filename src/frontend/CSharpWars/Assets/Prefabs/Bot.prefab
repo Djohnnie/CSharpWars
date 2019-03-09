@@ -44,6 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296ea4fd87487cd4f8804f84a6500ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IDLE: loop_idle
+  WALK: loop_run_funny
+  MELEE_ATTACK: cmb_street_fight
+  RANGED_ATTACK: punch_hi_right
+  SELF_DESTRUCT: final_head
+  DEFEND: def_head
+  DEATH: final_head
+  JUMP: jump
+  BODY_HIT: xhit_body
+  HEAD_HIT: xhit_head
+  TURN_LEFT: loop_idle
+  TURN_RIGHT: loop_idle
+  Speed: 1
+  RotationSpeed: 2
 --- !u!1001 &7842690368560704555
 PrefabInstance:
   m_ObjectHideFlags: 0

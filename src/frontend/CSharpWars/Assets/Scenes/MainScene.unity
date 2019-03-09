@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c33e085b89a3448a10df3d7dd742f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefreshRate: 2
+  RefreshRate: 1
   BotPrefab: {fileID: 7842690366862279663, guid: ffb0c1a0fa3145f41b55a52bf642993d,
     type: 3}
 --- !u!1001 &492330520
