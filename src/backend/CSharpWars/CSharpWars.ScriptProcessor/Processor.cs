@@ -65,8 +65,6 @@ namespace CSharpWars.ScriptProcessor
                 Debug.WriteLine($"POST-PROCESSING: {sw.ElapsedMilliseconds}");
             }
 
-
-
             using (var sw = new SimpleStopwatch())
             {
                 // Update
@@ -123,7 +121,7 @@ namespace CSharpWars.ScriptProcessor
             var botProperties = _botProperties[bot.Id];
             try
             {
-                var botScript = GetCompiledBotScript(bot);
+                var botScript = await GetCompiledBotScript(bot);
                 var scriptGlobals = new ScriptGlobals(botProperties);
                 await botScript.RunAsync(scriptGlobals);
             }
@@ -134,13 +132,21 @@ namespace CSharpWars.ScriptProcessor
         }
 
 
-        private Script GetCompiledBotScript(BotDto bot)
+        private async Task<Script> GetCompiledBotScript(BotDto bot)
         {
             if (!_botScriptCache.ScriptStored(bot.Id))
             {
-                var botScript = PrepareScript(bot.Script);
-                botScript.Compile();
-                _botScriptCache.StoreScript(bot.Id, botScript);
+                try
+                {
+                    var script = await _botLogic.GetBotScript(bot.Id);
+                    var botScript = PrepareScript(script);
+                    botScript.Compile();
+                    _botScriptCache.StoreScript(bot.Id, botScript);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"{ex}");
+                }
             }
 
             return _botScriptCache.LoadScript(bot.Id);

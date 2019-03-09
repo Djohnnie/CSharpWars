@@ -12,6 +12,8 @@ namespace CSharpWars.DataAccess
 
         public DbSet<Bot> Bots { get; set; }
 
+        public DbSet<BotScript> BotScripts { get; set; }
+
         public CSharpWarsDbContext(IConfigurationHelper configurationHelper)
         {
             _configurationHelper = configurationHelper;
@@ -24,15 +26,25 @@ namespace CSharpWars.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var playerEntity = modelBuilder.Entity<Player>();
-            playerEntity.ToTable("PLAYERS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-            playerEntity.Property(x => x.SysId).UseSqlServerIdentityColumn();
-            playerEntity.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+            modelBuilder.Entity<Player>(e =>
+            {
+                e.ToTable("PLAYERS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
+                e.Property(x => x.SysId).UseSqlServerIdentityColumn();
+                e.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+            });
 
-            var botEntity = modelBuilder.Entity<Bot>();
-            botEntity.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-            botEntity.Property(x => x.SysId).UseSqlServerIdentityColumn();
-            botEntity.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+            modelBuilder.Entity<Bot>(e =>
+            {
+                e.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
+                e.Property(x => x.SysId).UseSqlServerIdentityColumn();
+                e.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+            });
+
+            modelBuilder.Entity<BotScript>(e =>
+            {
+                e.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
+                e.HasOne<Bot>().WithOne().HasForeignKey<BotScript>(x => x.Id);
+            });
         }
     }
 }

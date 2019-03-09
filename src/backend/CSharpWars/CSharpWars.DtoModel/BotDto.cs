@@ -14,7 +14,6 @@ namespace CSharpWars.DtoModel
         public Int32 CurrentHealth { get; set; }
         public Int32 MaximumStamina { get; set; }
         public Int32 CurrentStamina { get; set; }
-        public String Script { get; set; }
         public String Memory { get; set; }
         public PossibleMoves Move { get; set; }
     }

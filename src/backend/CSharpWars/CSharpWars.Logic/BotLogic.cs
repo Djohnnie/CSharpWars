@@ -16,6 +16,8 @@ namespace CSharpWars.Logic
     {
         private readonly IRandomHelper _randomHelper;
         private readonly IRepository<Bot> _botRepository;
+        private readonly IRepository<BotScript> _scriptRepository;
+        private readonly IRepository<Bot, BotScript> _botScriptRepository;
         private readonly IMapper<Bot, BotDto> _botMapper;
         private readonly IMapper<Bot, BotToCreateDto> _botToCreateMapper;
         private readonly IArenaLogic _arenaLogic;
@@ -23,12 +25,16 @@ namespace CSharpWars.Logic
         public BotLogic(
             IRandomHelper randomHelper,
             IRepository<Bot> botRepository,
+            IRepository<BotScript> scriptRepository,
+            IRepository<Bot, BotScript> botScriptRepository,
             IMapper<Bot, BotDto> botMapper,
             IMapper<Bot, BotToCreateDto> botToCreateMapper,
             IArenaLogic arenaLogic)
         {
             _randomHelper = randomHelper;
             _botRepository = botRepository;
+            _scriptRepository = scriptRepository;
+            _botScriptRepository = botScriptRepository;
             _botMapper = botMapper;
             _botToCreateMapper = botToCreateMapper;
             _arenaLogic = arenaLogic;
@@ -38,6 +44,12 @@ namespace CSharpWars.Logic
         {
             var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0);
             return _botMapper.Map(activeBots);
+        }
+
+        public async Task<String> GetBotScript(Guid botId)
+        {
+            var botScript = await _scriptRepository.Single(x => x.Id == botId);
+            return botScript?.Script;
         }
 
         public async Task<BotDto> CreateBot(BotToCreateDto botToCreate)
@@ -50,7 +62,10 @@ namespace CSharpWars.Logic
             bot.CurrentHealth = bot.MaximumHealth;
             bot.CurrentStamina = bot.MaximumStamina;
             bot.Memory = new Dictionary<String, String>().Serialize();
-            bot = await _botRepository.Create(bot);
+            bot = await _botScriptRepository.Create(bot);
+            var botScript = await _scriptRepository.Single(x => x.Id == bot.Id);
+            botScript.Script = botToCreate.Script;
+            await _scriptRepository.Update(botScript);
             var createdBot = _botMapper.Map(bot);
             return createdBot;
         }

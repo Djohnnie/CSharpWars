@@ -17,8 +17,7 @@ namespace CSharpWars.Tests.Mapping
             {
                 Name = "BotName",
                 MaximumHealth = 100,
-                MaximumStamina = 200,
-                Script = "BotScript"
+                MaximumStamina = 200
             };
 
             // Act
@@ -29,8 +28,7 @@ namespace CSharpWars.Tests.Mapping
                 properties => properties
                     .Including(x => x.Name)
                     .Including(x => x.MaximumHealth)
-                    .Including(x => x.MaximumStamina)
-                    .Including(x => x.Script));
+                    .Including(x => x.MaximumStamina));
         }
 
         [Fact]
@@ -42,8 +40,7 @@ namespace CSharpWars.Tests.Mapping
             {
                 Name = "BotName",
                 MaximumHealth = 100,
-                MaximumStamina = 200,
-                Script = "BotScript"
+                MaximumStamina = 200
             };
 
             // Act
@@ -54,8 +51,7 @@ namespace CSharpWars.Tests.Mapping
                 properties => properties
                     .Including(x => x.Name)
                     .Including(x => x.MaximumHealth)
-                    .Including(x => x.MaximumStamina)
-                    .Including(x => x.Script));
+                    .Including(x => x.MaximumStamina));
         }
     }
 }
