@@ -14,7 +14,7 @@ namespace CSharpWars.Tests.Common.Tools
             var simpleStopwatch = new SimpleStopwatch();
 
             // Act
-            await Task.Delay(1000);
+            await Task.Delay(1100);
 
             // Assert
             simpleStopwatch.ElapsedMilliseconds.Should().BeGreaterThan(1000);

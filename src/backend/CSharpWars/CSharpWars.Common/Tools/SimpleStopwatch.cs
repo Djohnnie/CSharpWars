@@ -13,6 +13,7 @@ namespace CSharpWars.Common.Tools
         {
             _stopwatch.Start();
         }
+
         public void Dispose()
         {
             _stopwatch.Stop();
