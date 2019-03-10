@@ -1,4 +1,5 @@
-﻿using CSharpWars.Common.DependencyInjection;
+﻿using System;
+using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Logic;
 using CSharpWars.Logic.DependencyInjection;
 using CSharpWars.Logic.Interfaces;
@@ -10,8 +11,11 @@ namespace CSharpWars.Tests.Logic.DependencyInjection
 {
     public class ServiceCollectionExtensionsTests
     {
-        [Fact]
-        public void ConfigureLogic_Should_Register_A_Transient_ArenaLogic()
+        [Theory]
+        [InlineData(typeof(IArenaLogic), typeof(ArenaLogic))]
+        [InlineData(typeof(IPlayerLogic), typeof(PlayerLogic))]
+        [InlineData(typeof(IBotLogic), typeof(BotLogic))]
+        public void ConfigureLogic_Should_Register_Transient_Logic_Classes(Type logicType, Type logicImplementation)
         {
             // Arrange
             var serviceCollection = new ServiceCollection();
@@ -24,61 +28,13 @@ namespace CSharpWars.Tests.Logic.DependencyInjection
                 c.ConnectionString = "";
             });
             var provider = serviceCollection.BuildServiceProvider();
-            var arenaLogic1 = provider.GetService<IArenaLogic>();
-            var arenaLogic2 = provider.GetService<IArenaLogic>();
+            var logic1 = provider.GetService(logicType);
+            var logic2 = provider.GetService(logicType);
 
             // Assert
-            arenaLogic1.Should().BeOfType<ArenaLogic>();
-            arenaLogic2.Should().BeOfType<ArenaLogic>();
-            arenaLogic1.Should().NotBe(arenaLogic2);
-        }
-
-        [Fact]
-        public void ConfigureLogic_Should_Register_A_Transient_PlayerLogic()
-        {
-            // Arrange
-            var serviceCollection = new ServiceCollection();
-
-            // Act
-            serviceCollection.ConfigureLogic();
-            serviceCollection.ConfigurationHelper(c =>
-            {
-                c.ArenaSize = 10;
-                c.ConnectionString = "";
-            });
-            var provider = serviceCollection.BuildServiceProvider();
-            var playerLogic1 = provider.GetService<IPlayerLogic>();
-            var playerLogic2 = provider.GetService<IPlayerLogic>();
-
-            // Assert
-            playerLogic1.Should().BeOfType<PlayerLogic>();
-            playerLogic2.Should().BeOfType<PlayerLogic>();
-            playerLogic1.Should().NotBe(playerLogic2);
-        }
-
-
-
-        [Fact]
-        public void ConfigureLogic_Should_Register_A_Transient_BotLogic()
-        {
-            // Arrange
-            var serviceCollection = new ServiceCollection();
-
-            // Act
-            serviceCollection.ConfigureLogic();
-            serviceCollection.ConfigurationHelper(c =>
-            {
-                c.ArenaSize = 10;
-                c.ConnectionString = "";
-            });
-            var provider = serviceCollection.BuildServiceProvider();
-            var botLogic1 = provider.GetService<IBotLogic>();
-            var botLogic2 = provider.GetService<IBotLogic>();
-
-            // Assert
-            botLogic1.Should().BeOfType<BotLogic>();
-            botLogic2.Should().BeOfType<BotLogic>();
-            botLogic1.Should().NotBe(botLogic2);
+            logic1.Should().BeOfType(logicImplementation);
+            logic2.Should().BeOfType(logicImplementation);
+            logic1.Should().NotBe(logic2);
         }
     }
 }
