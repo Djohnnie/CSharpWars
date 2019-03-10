@@ -95,5 +95,28 @@ namespace CSharpWars.Tests.Scripting.Moves
             result.Should().NotBeNull();
             result.GetInflictedDamage(victim.Id).Should().Be(expectedDamage);
         }
+
+        [Theory]
+        [InlineData(1, 0, PossibleOrientations.North)]
+        [InlineData(2, 1, PossibleOrientations.East)]
+        [InlineData(1, 2, PossibleOrientations.South)]
+        [InlineData(0, 1, PossibleOrientations.West)]
+        public void Executing_A_MeleeAttack_Should_Work_In_The_Four_Possible_Orientations(Int32 victimX, Int32 victimY, PossibleOrientations orientation)
+        {
+            // Arrange
+            var bot = new BotDto { CurrentHealth = 100, X = 1, Y = 1, Orientation = orientation };
+            var victim = new BotDto { Id = Guid.NewGuid(), CurrentHealth = 100, X = victimX, Y = victimY, Orientation = orientation };
+            var arena = new ArenaDto { Width = 3, Height = 3 };
+            var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
+            botProperties.CurrentMove = PossibleMoves.MeleeAttack;
+            var expectedDamage = Constants.MELEE_BACKSTAB_DAMAGE;
+
+            // Act
+            var result = Move.Build(botProperties).Go();
+
+            // Assert
+            result.Should().NotBeNull();
+            result.GetInflictedDamage(victim.Id).Should().Be(expectedDamage);
+        }
     }
 }
