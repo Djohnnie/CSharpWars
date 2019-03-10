@@ -25,6 +25,8 @@ namespace CSharpWars.Scripting.Model
         public List<Bot> Bots { get; set; }
         public PossibleMoves CurrentMove { get; set; }
 
+        private BotProperties() { }
+
         public static BotProperties Build(BotDto bot, ArenaDto arena, IList<BotDto> bots)
         {
             return new BotProperties
@@ -41,6 +43,7 @@ namespace CSharpWars.Scripting.Model
                 MaximumStamina = bot.MaximumStamina,
                 CurrentStamina = bot.CurrentStamina,
                 Memory = bot.Memory.Deserialize<Dictionary<String, String>>(),
+                Messages = new List<String>(),
                 Bots = BuildBots(bots),
                 CurrentMove = PossibleMoves.Idling
             };
@@ -50,6 +53,7 @@ namespace CSharpWars.Scripting.Model
         {
             return bots.Select(x => new Bot
             {
+                Id = x.Id,
                 Name = x.Name,
                 X = x.X,
                 Y = x.Y,

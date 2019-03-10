@@ -46,7 +46,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             botResult.Should().NotBeNull();
             botResult.X.Should().Be(1);
             botResult.Y.Should().Be(1);
-            botResult.CurrentMove.Should().Be(PossibleMoves.Idling);
+            botResult.Move.Should().Be(PossibleMoves.Idling);
             botResult.CurrentStamina.Should().Be(0);
         }
 
@@ -73,7 +73,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             botResult.Should().NotBeNull();
             botResult.X.Should().Be(0);
             botResult.Y.Should().Be(0);
-            botResult.CurrentMove.Should().Be(PossibleMoves.Idling);
+            botResult.Move.Should().Be(PossibleMoves.Idling);
             botResult.CurrentStamina.Should().Be(bot.CurrentStamina);
         }
 
@@ -113,7 +113,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             botResult.Should().NotBeNull();
             botResult.X.Should().Be(destinationX);
             botResult.Y.Should().Be(destinationY);
-            botResult.CurrentMove.Should().Be(PossibleMoves.WalkForward);
+            botResult.Move.Should().Be(PossibleMoves.WalkForward);
             botResult.CurrentStamina.Should().Be(bot.CurrentStamina - Constants.STAMINA_ON_MOVE);
         }
 

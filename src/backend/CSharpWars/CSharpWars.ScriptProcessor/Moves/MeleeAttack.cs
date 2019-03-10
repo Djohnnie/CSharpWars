@@ -12,7 +12,7 @@ namespace CSharpWars.ScriptProcessor.Moves
         {
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
-            botResult.CurrentMove = PossibleMoves.MeleeAttack;
+            botResult.Move = PossibleMoves.MeleeAttack;
 
             var victimizedBot = FindVictimizedBot(botResult.X, botResult.Y);
             if (victimizedBot != null)

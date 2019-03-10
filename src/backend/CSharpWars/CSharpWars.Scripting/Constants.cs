@@ -14,13 +14,13 @@ namespace CSharpWars.Scripting
         public const Int32 RANGED_DAMAGE = 1;
         
         // Damage inflicted on neighboring bots, range 1, on self destruction.
-        public const Int32 SELF_DESTRUCT_MAX_DAMAGE = 50;
+        public const Int32 SELF_DESTRUCT_MAX_DAMAGE = 10;
         
         // Damage inflicted on neighboring bots, range 2, on self destruction.
-        public const Int32 SELF_DESTRUCT_MED_DAMAGE = 10;
+        public const Int32 SELF_DESTRUCT_MED_DAMAGE = 4;
         
         // Damage inflicted on neighboring bots, range 3, on self destruction.
-        public const Int32 SELF_DESTRUCT_MIN_DAMAGE = 2;
+        public const Int32 SELF_DESTRUCT_MIN_DAMAGE = 1;
         
         // Maximum range for ranged attacks.
         public const Int32 MAXIMUM_RANGE = 6;

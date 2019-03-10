@@ -45,7 +45,7 @@ namespace CSharpWars.ScriptProcessor.Moves
                 if (!WillCollide(destinationX, destinationY))
                 {
                     botResult.CurrentStamina -= Constants.STAMINA_ON_MOVE;
-                    botResult.CurrentMove = PossibleMoves.WalkForward;
+                    botResult.Move = PossibleMoves.WalkForward;
                     botResult.X = destinationX;
                     botResult.Y = destinationY;
                 }

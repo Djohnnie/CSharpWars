@@ -19,7 +19,7 @@ namespace CSharpWars.ScriptProcessor.Moves
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
 
-            botResult.CurrentMove = PossibleMoves.TurningLeft;
+            botResult.Move = PossibleMoves.TurningLeft;
 
             switch (BotProperties.Orientation)
             {

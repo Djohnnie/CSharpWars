@@ -46,7 +46,7 @@ namespace CSharpWars.Tests.Scripting.Moves
 
             // Assert
             botResult.Should().NotBeNull();
-            botResult.CurrentMove.Should().Be(PossibleMoves.TurningRight);
+            botResult.Move.Should().Be(PossibleMoves.TurningRight);
             botResult.Orientation.Should().Be(destinationOrientation);
         }
 

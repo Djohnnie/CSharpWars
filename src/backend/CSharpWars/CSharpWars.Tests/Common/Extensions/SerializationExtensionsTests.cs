@@ -34,6 +34,20 @@ namespace CSharpWars.Tests.Common.Extensions
         }
 
         [Fact]
+        public void SerializationExtensions_Should_Be_Able_To_Serialize_Null_Object()
+        {
+            // Arrange
+            Data input = null;
+            var expectedOutput = String.Empty;
+
+            // Act
+            var result = input.Serialize();
+
+            // Assert
+            result.Should().Be(expectedOutput);
+        }
+
+        [Fact]
         public void SerializationExtensions_Should_Be_Able_To_Deserialize()
         {
             // Arrange
@@ -50,6 +64,32 @@ namespace CSharpWars.Tests.Common.Extensions
 
             // Assert
             result.Should().BeEquivalentTo(expectedOutput);
+        }
+
+        [Fact]
+        public void SerializationExtensions_Should_Be_Able_To_Deserialize_Empty_String()
+        {
+            // Arrange
+            var input = "";
+
+            // Act
+            var result = input.Deserialize<Data>();
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public void SerializationExtensions_Should_Be_Able_To_Deserialize_Null_String()
+        {
+            // Arrange
+            string input = null;
+
+            // Act
+            var result = input.Deserialize<Data>();
+
+            // Assert
+            result.Should().BeNull();
         }
     }
 }

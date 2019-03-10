@@ -38,7 +38,7 @@ namespace CSharpWars.ScriptProcessor
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var processor = serviceProvider.GetService<IProcessor>();
 
-            while (!Console.KeyAvailable)
+            while (!KeyAvailable)
             {
                 var start = DateTime.UtcNow;
 
@@ -47,12 +47,12 @@ namespace CSharpWars.ScriptProcessor
                     using (var sw = new SimpleStopwatch())
                     {
                         await processor.Go();
-                        Console.WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
+                        WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ CSharpWars Script Processor - EXCEPTION - '{ex.Message}'! ]");
+                    WriteLine($"[ CSharpWars Script Processor - EXCEPTION - '{ex.Message}'! ]");
                 }
 
                 var timeTaken = DateTime.UtcNow - start;

@@ -14,7 +14,7 @@ namespace CSharpWars.ScriptProcessor.Moves
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
 
-            botResult.CurrentMove = PossibleMoves.Teleport;
+            botResult.Move = PossibleMoves.Teleport;
 
             return botResult;
         }
