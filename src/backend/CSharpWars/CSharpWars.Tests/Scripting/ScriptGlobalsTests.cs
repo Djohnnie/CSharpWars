@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
+using CSharpWars.Tests.Framework.FluentAssertions;
 using FluentAssertions;
 using Xunit;
 
@@ -69,6 +71,109 @@ namespace CSharpWars.Tests.Scripting
             botProperties.CurrentMove.Should().Be(originalMove);
         }
 
+        [Fact]
+        public void ScriptGlobals_StoreInMemory_Should_Store_A_Value_In_Memory()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var key = "VAL";
+            var value = 42;
+
+            // Act
+            scriptGlobals.StoreInMemory(key, value);
+
+            // Assert
+            botProperties.Memory.Should().HaveCount(1);
+            botProperties.Memory.Should().ContainKey(key);
+            botProperties.Memory.Should().ContainValue(value.Serialize());
+        }
+
+        [Fact]
+        public void ScriptGlobals_StoreInMemory_Should_Edit_An_Existing_Value_In_Memory()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var key = "VAL";
+            var value1 = 42;
+            var value2 = 21;
+
+            // Act
+            scriptGlobals.StoreInMemory(key, value1);
+            scriptGlobals.StoreInMemory(key, value2);
+
+            // Assert
+            botProperties.Memory.Should().HaveCount(1);
+            botProperties.Memory.Should().ContainKey(key);
+            botProperties.Memory.Should().ContainValue(value2.Serialize());
+        }
+
+        [Fact]
+        public void ScriptGlobals_LoadFromMemory_Should_Return_A_Default_Value_For_Unknown_Key()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var key = "VAL";
+
+            // Act
+            var result = scriptGlobals.LoadFromMemory<Int32>(key);
+
+            // Assert
+            result.Should().BeZero();
+        }
+
+        [Fact]
+        public void ScriptGlobals_LoadFromMemory_Should_Return_A_Stored_Value()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var key = "VAL";
+            var value = 42;
+            scriptGlobals.StoreInMemory(key, value);
+
+            // Act
+            var result = scriptGlobals.LoadFromMemory<Int32>(key);
+
+            // Assert
+            result.Should().Be(value);
+        }
+
+        [Fact]
+        public void ScriptGlobals_RemoveFromMemory_Should_Remove_A_Stored_Value()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var key = "VAL";
+            var value = 42;
+            scriptGlobals.StoreInMemory(key, value);
+
+            // Act
+            scriptGlobals.RemoveFromMemory(key);
+
+            // Assert
+            botProperties.Memory.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void ScriptGlobals_Talk_Should_Add_Entry_To_Messages()
+        {
+            // Arrange
+            var botProperties = BuildBotProperties();
+            var scriptGlobals = new ScriptGlobals(botProperties);
+            var message = "Message!";
+
+            // Act
+            scriptGlobals.Talk(message);
+
+            // Assert
+            botProperties.Messages.Should().HaveCount(1);
+            botProperties.Messages.Should().Contain(message);
+        }
+
         private BotProperties BuildBotProperties()
         {
             var bot = new BotDto
@@ -80,7 +185,8 @@ namespace CSharpWars.Tests.Scripting
                 MaximumHealth = 100,
                 CurrentHealth = 99,
                 MaximumStamina = 250,
-                CurrentStamina = 150
+                CurrentStamina = 150,
+                Memory = new Dictionary<String, String>().Serialize()
             };
             var arena = new ArenaDto { Width = 10, Height = 20 };
             return BotProperties.Build(bot, arena, new List<BotDto>());
