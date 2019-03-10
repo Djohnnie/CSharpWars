@@ -30,7 +30,7 @@ namespace CSharpWars.Tests.Mapping.DependencyInjection
             // Assert
             mapper1.Should().BeOfType(mapperImplementation);
             mapper2.Should().BeOfType(mapperImplementation);
-            mapper1.Should().Be(mapper1);
+            mapper1.Should().Be(mapper2);
         }
     }
 }

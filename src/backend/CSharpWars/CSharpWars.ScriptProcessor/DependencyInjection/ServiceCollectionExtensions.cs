@@ -12,7 +12,7 @@ namespace CSharpWars.ScriptProcessor.DependencyInjection
             serviceCollection.ConfigureCommon();
             serviceCollection.ConfigureLogic();
             serviceCollection.AddSingleton<IBotScriptCache, BotScriptCache>();
-            serviceCollection.AddTransient<IProcessor, Processor>();
+            serviceCollection.AddSingleton<IProcessor, Processor>();
         }
     }
 }
