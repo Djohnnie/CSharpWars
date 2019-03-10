@@ -124,7 +124,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void RangedAttack(Int32 x, Int32 y)
         {
-            SetCurrentMove(PossibleMoves.RangedAttack);
+            SetCurrentMove(PossibleMoves.RangedAttack, x, y);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace CSharpWars.Scripting
         /// </summary>
         public void Teleport(Int32 x, Int32 y)
         {
-            SetCurrentMove(PossibleMoves.Teleport);
+            SetCurrentMove(PossibleMoves.Teleport, x, y);
         }
 
         /// <summary>
@@ -193,11 +193,23 @@ namespace CSharpWars.Scripting
 
         #region <| Helper Methods |>
 
-        private void SetCurrentMove(PossibleMoves currentMove)
+        private Boolean SetCurrentMove(PossibleMoves currentMove)
         {
             if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == PossibleMoves.Idling)
             {
                 _50437079C366407D978Fe4Afd60C535F.CurrentMove = currentMove;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void SetCurrentMove(PossibleMoves currentMove, Int32 x, Int32 y)
+        {
+            if (SetCurrentMove(currentMove))
+            {
+                _50437079C366407D978Fe4Afd60C535F.MoveDestinationX = x;
+                _50437079C366407D978Fe4Afd60C535F.MoveDestinationY = y;
             }
         }
 

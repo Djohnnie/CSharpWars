@@ -24,6 +24,8 @@ namespace CSharpWars.Scripting.Model
         public List<String> Messages { get; private set; }
         public List<Bot> Bots { get; set; }
         public PossibleMoves CurrentMove { get; set; }
+        public Int32 MoveDestinationX { get; set; }
+        public Int32 MoveDestinationY { get; set; }
 
         private BotProperties() { }
 

@@ -39,7 +39,7 @@ namespace CSharpWars.Tests.Scripting
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsSetsCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, PossibleMoves expectedMove)
+        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, PossibleMoves expectedMove, Int32 moveDestinationX, Int32 moveDestinationY)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -52,6 +52,8 @@ namespace CSharpWars.Tests.Scripting
             // Assert
             originalMove.Should().Be(PossibleMoves.Idling);
             botProperties.CurrentMove.Should().Be(expectedMove);
+            botProperties.MoveDestinationX.Should().Be(moveDestinationX);
+            botProperties.MoveDestinationY.Should().Be(moveDestinationY);
         }
 
         [Theory]
@@ -192,18 +194,18 @@ namespace CSharpWars.Tests.Scripting
             return BotProperties.Build(bot, arena, new List<BotDto>());
         }
 
-        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves>
+        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves, Int32, Int32>
         {
             public ScriptGlobalsSetsCurrentMoveTheoryData()
             {
-                Add(g => g.WalkForward(), PossibleMoves.WalkForward);
-                Add(g => g.TurnLeft(), PossibleMoves.TurningLeft);
-                Add(g => g.TurnRight(), PossibleMoves.TurningRight);
-                Add(g => g.TurnAround(), PossibleMoves.TurningAround);
-                Add(g => g.SelfDestruct(), PossibleMoves.SelfDestruct);
-                Add(g => g.MeleeAttack(), PossibleMoves.MeleeAttack);
-                Add(g => g.RangedAttack(0, 0), PossibleMoves.RangedAttack);
-                Add(g => g.Teleport(0, 0), PossibleMoves.Teleport);
+                Add(g => g.WalkForward(), PossibleMoves.WalkForward, 0, 0);
+                Add(g => g.TurnLeft(), PossibleMoves.TurningLeft, 0, 0);
+                Add(g => g.TurnRight(), PossibleMoves.TurningRight, 0, 0);
+                Add(g => g.TurnAround(), PossibleMoves.TurningAround, 0, 0);
+                Add(g => g.SelfDestruct(), PossibleMoves.SelfDestruct, 0, 0);
+                Add(g => g.MeleeAttack(), PossibleMoves.MeleeAttack, 0, 0);
+                Add(g => g.RangedAttack(2, 3), PossibleMoves.RangedAttack, 2, 3);
+                Add(g => g.Teleport(2, 3), PossibleMoves.Teleport, 2, 3);
             }
         }
 
