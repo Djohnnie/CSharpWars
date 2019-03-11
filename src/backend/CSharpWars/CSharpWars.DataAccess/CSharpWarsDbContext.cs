@@ -1,9 +1,11 @@
-﻿using CSharpWars.Common.Configuration.Interfaces;
+using System.Diagnostics.CodeAnalysis;
+using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSharpWars.DataAccess
 {
+    [ExcludeFromCodeCoverageAttribute]
     public class CSharpWarsDbContext : DbContext
     {
         private readonly IConfigurationHelper _configurationHelper;
