@@ -38,7 +38,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/backend/**/*.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*%2c[CSharpWars.Tests.*]*'
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*%2c[CSharpWars.Tests.*]*%2c[CSharpWars.DataAccess.*]*'
 
 - script: |
     dotnet tool install djohnnie-custom-coverage-reportgenerator-globaltool --tool-path . --version 0.1.0
