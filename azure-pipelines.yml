@@ -42,7 +42,7 @@ steps:
 
 - script: |
     dotnet tool install djohnnie-custom-coverage-reportgenerator-globaltool --tool-path . --version 0.1.0
-    ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results" "-reporttypes:HTMLInline;HTMLChart"
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/src/backend/CSharpWars/CSharpWars.Tests/results" "-reporttypes:HTMLInline;HTMLChart" "-assemblyfilters:-CSharpWars.DataAccess.*;-CSharpWars.Tests"
 
 - task: PublishTestResults@2
   inputs:
