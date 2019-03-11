@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpWars.Common.Helpers;
+using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 
@@ -9,18 +11,18 @@ namespace CSharpWars.ScriptProcessor.Moves
 
     public abstract class Move
     {
-        private static readonly Dictionary<PossibleMoves, Func<BotProperties, Move>> _moves = new Dictionary<PossibleMoves, Func<BotProperties, Move>>
+        private static readonly Dictionary<PossibleMoves, Func<BotProperties, IRandomHelper, Move>> _moves = new Dictionary<PossibleMoves, Func<BotProperties, IRandomHelper, Move>>
         {
-            { PossibleMoves.WalkForward, p => new WalkForward(p) },
-            { PossibleMoves.TurningLeft, p => new TurnLeft(p) },
-            { PossibleMoves.TurningRight, p => new TurnRight(p) },
-            { PossibleMoves.TurningAround, p => new TurnAround(p) },
-            { PossibleMoves.Teleport, p => new Teleport(p) },
-            { PossibleMoves.MeleeAttack, p => new MeleeAttack(p) },
-            { PossibleMoves.RangedAttack, p => new RangedAttack(p) },
-            { PossibleMoves.SelfDestruct, p => new SelfDestruct(p) },
-            { PossibleMoves.Idling, p => new EmptyMove(p) },
-            { PossibleMoves.ScriptError, p => new EmptyMove(p) },
+            { PossibleMoves.WalkForward, (p, rh) => new WalkForward(p) },
+            { PossibleMoves.TurningLeft, (p, rh) => new TurnLeft(p) },
+            { PossibleMoves.TurningRight, (p, rh) => new TurnRight(p) },
+            { PossibleMoves.TurningAround, (p, rh) => new TurnAround(p) },
+            { PossibleMoves.Teleport, (p, rh) => new Teleport(p, rh) },
+            { PossibleMoves.MeleeAttack, (p, rh) => new MeleeAttack(p) },
+            { PossibleMoves.RangedAttack, (p, rh) => new RangedAttack(p) },
+            { PossibleMoves.SelfDestruct, (p, rh) => new SelfDestruct(p) },
+            { PossibleMoves.Idling, (p, rh) => new EmptyMove(p) },
+            { PossibleMoves.ScriptError, (p, rh) => new EmptyMove(p) },
         };
 
         protected readonly BotProperties BotProperties;
@@ -30,9 +32,9 @@ namespace CSharpWars.ScriptProcessor.Moves
             BotProperties = botProperties;
         }
 
-        public static Move Build(BotProperties botProperties)
+        public static Move Build(BotProperties botProperties, IRandomHelper randomHelper)
         {
-            return _moves[botProperties.CurrentMove](botProperties);
+            return _moves[botProperties.CurrentMove](botProperties, randomHelper);
         }
 
         public abstract BotResult Go();

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 using CSharpWars.ScriptProcessor.Moves;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace CSharpWars.Tests.Scripting.Moves
@@ -18,9 +20,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.TurningRight;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var move = Move.Build(botProperties);
+            var move = Move.Build(botProperties, randomHelper.Object);
 
             // Assert
             move.Should().NotBeNull();
@@ -39,7 +42,8 @@ namespace CSharpWars.Tests.Scripting.Moves
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.TurningRight;
-            var move = Move.Build(botProperties);
+            var randomHelper = new Mock<IRandomHelper>();
+            var move = Move.Build(botProperties, randomHelper.Object);
 
             // Act
             var botResult = move.Go();

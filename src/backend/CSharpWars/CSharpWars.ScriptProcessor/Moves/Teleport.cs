@@ -1,12 +1,18 @@
-﻿using CSharpWars.Enums;
+﻿using System;
+using System.Linq;
+using CSharpWars.Common.Helpers.Interfaces;
+using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {
     public class Teleport : Move
     {
-        public Teleport(BotProperties botProperties) : base(botProperties)
+        private readonly IRandomHelper _randomHelper;
+
+        public Teleport(BotProperties botProperties, IRandomHelper randomHelper) : base(botProperties)
         {
+            _randomHelper = randomHelper;
         }
 
         public override BotResult Go()
@@ -14,9 +20,38 @@ namespace CSharpWars.ScriptProcessor.Moves
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
 
+            NormalizeDestination();
+
+            var victimizedBot = FindVictimizedBot();
+            if (victimizedBot != null)
+            {
+                botResult.Teleport(victimizedBot.Id, botResult.X, botResult.Y);
+            }
+
+            botResult.X = BotProperties.MoveDestinationX;
+            botResult.Y = BotProperties.MoveDestinationY;
+
             botResult.Move = PossibleMoves.Teleport;
 
             return botResult;
+        }
+
+        private void NormalizeDestination()
+        {
+            if (BotProperties.MoveDestinationX < 0 || BotProperties.MoveDestinationX > BotProperties.Width - 1)
+            {
+                BotProperties.MoveDestinationX = _randomHelper.Get(BotProperties.Width);
+            }
+
+            if (BotProperties.MoveDestinationY < 0 || BotProperties.MoveDestinationY > BotProperties.Height - 1)
+            {
+                BotProperties.MoveDestinationY = _randomHelper.Get(BotProperties.Height);
+            }
+        }
+
+        private Bot FindVictimizedBot()
+        {
+            return BotProperties.Bots.SingleOrDefault(bot => bot.X == BotProperties.MoveDestinationX && bot.Y == BotProperties.MoveDestinationY);
         }
     }
 }

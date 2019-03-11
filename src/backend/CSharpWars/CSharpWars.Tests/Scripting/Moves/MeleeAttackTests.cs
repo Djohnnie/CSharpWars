@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
@@ -7,6 +8,7 @@ using CSharpWars.Scripting.Model;
 using CSharpWars.ScriptProcessor.Moves;
 using CSharpWars.Tests.Framework.FluentAssertions;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace CSharpWars.Tests.Scripting.Moves
@@ -21,9 +23,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.MeleeAttack;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var move = Move.Build(botProperties);
+            var move = Move.Build(botProperties, randomHelper.Object);
 
             // Assert
             move.Should().NotBeNull();
@@ -46,9 +49,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var arena = new ArenaDto { Width = 3, Height = 3 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
             botProperties.CurrentMove = PossibleMoves.MeleeAttack;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var result = Move.Build(botProperties).Go();
+            var result = Move.Build(botProperties, randomHelper.Object).Go();
 
             // Assert
             result.Should().NotBeNull();
@@ -68,9 +72,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
             botProperties.CurrentMove = PossibleMoves.MeleeAttack;
             var expectedDamage = Constants.MELEE_DAMAGE;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var result = Move.Build(botProperties).Go();
+            var result = Move.Build(botProperties, randomHelper.Object).Go();
 
             // Assert
             result.Should().NotBeNull();
@@ -87,9 +92,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
             botProperties.CurrentMove = PossibleMoves.MeleeAttack;
             var expectedDamage = Constants.MELEE_BACKSTAB_DAMAGE;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var result = Move.Build(botProperties).Go();
+            var result = Move.Build(botProperties, randomHelper.Object).Go();
 
             // Assert
             result.Should().NotBeNull();
@@ -110,9 +116,10 @@ namespace CSharpWars.Tests.Scripting.Moves
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
             botProperties.CurrentMove = PossibleMoves.MeleeAttack;
             var expectedDamage = Constants.MELEE_BACKSTAB_DAMAGE;
+            var randomHelper = new Mock<IRandomHelper>();
 
             // Act
-            var result = Move.Build(botProperties).Go();
+            var result = Move.Build(botProperties, randomHelper.Object).Go();
 
             // Assert
             result.Should().NotBeNull();

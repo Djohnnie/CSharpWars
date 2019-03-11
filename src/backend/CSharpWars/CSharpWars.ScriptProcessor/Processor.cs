@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
+using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.Common.Tools;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
@@ -26,12 +27,14 @@ namespace CSharpWars.ScriptProcessor
         private readonly IBotScriptCache _botScriptCache;
         private readonly IArenaLogic _arenaLogic;
         private readonly IBotLogic _botLogic;
+        private readonly IRandomHelper _randomHelper;
 
-        public Processor(IBotScriptCache botScriptCache, IArenaLogic arenaLogic, IBotLogic botLogic)
+        public Processor(IBotScriptCache botScriptCache, IArenaLogic arenaLogic, IBotLogic botLogic, IRandomHelper randomHelper)
         {
             _botScriptCache = botScriptCache;
             _arenaLogic = arenaLogic;
             _botLogic = botLogic;
+            _randomHelper = randomHelper;
         }
 
         public async Task Go()
@@ -82,7 +85,7 @@ namespace CSharpWars.ScriptProcessor
             foreach (var botProperty in botProperties)
             {
                 var bot = bots.Single(x => x.Id == botProperty.BotId);
-                var botResult = Move.Build(botProperty).Go();
+                var botResult = Move.Build(botProperty, _randomHelper).Go();
                 bot.Orientation = botResult.Orientation;
                 bot.X = botResult.X;
                 bot.Y = botResult.Y;
