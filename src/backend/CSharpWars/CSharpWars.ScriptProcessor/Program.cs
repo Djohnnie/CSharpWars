@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Common.Tools;
@@ -11,6 +12,8 @@ using static System.Environment;
 
 namespace CSharpWars.ScriptProcessor
 {
+    
+    [ExcludeFromCodeCoverageAttribute]
     class Program
     {
         private const Int32 DELAY_MS = 2000;
