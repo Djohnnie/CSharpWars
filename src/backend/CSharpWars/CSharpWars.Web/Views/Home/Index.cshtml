@@ -1,0 +1,50 @@
+﻿@model PlayerViewModel
+
+@{
+    ViewData["Title"] = "CSharpWars";
+}
+
+
+<div class="text-center">
+    <img src="~/images/logo2-small.png" class="img-fluid" />
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">CSharpWars</h1>
+    <p>Please use an existing user, or create a new user to start!</p>
+</div>
+
+<form method="post">
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Playername</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="Secret" class="control-label">Secret</label>
+                <input type="password" asp-for="Secret" class="form-control" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <input type="submit" value="Start playing!" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</form>

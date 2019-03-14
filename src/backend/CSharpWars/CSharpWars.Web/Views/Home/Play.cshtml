@@ -1,0 +1,72 @@
+﻿@model GameViewModel
+
+@{
+    ViewData["Title"] = "CSharpWars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @Model.PlayerName</h1>
+    <p>Please select a script template to start playing!</p>
+</div>
+
+<form method="post">
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="BotName" class="control-label">Name for your robot</label>
+                <input asp-for="BotName" class="form-control" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="BotHealth" class="control-label">Starting health for your robot</label>
+                <input asp-for="BotHealth" class="form-control" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="BotStamina" class="control-label">Starting stamina for your robot</label>
+                <input asp-for="BotStamina" class="form-control" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <pre><code class="csharp">@Model.BotScript</code></pre>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <input type="submit" value="Deploy roboto to arena!" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <script src="~/lib/highlightjs/dist/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+}
