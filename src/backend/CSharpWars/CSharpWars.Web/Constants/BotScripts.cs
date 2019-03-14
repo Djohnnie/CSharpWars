@@ -24,10 +24,9 @@ namespace CSharpWars.Web.Constants
             "}\r\n" +
             "else\r\n" +
             "{\r\n" +
-            "    MoveForward();\r\n" +
+            "    WalkForward();\r\n" +
             "}\r\n" +
-            "step++\r\n" +
+            "step++;\r\n" +
             "StoreInMemory<Int32>(\"STEP\", step);\r\n";
-
     }
 }
