@@ -7,6 +7,7 @@ namespace CSharpWars.DtoModel
     {
         public Guid Id { get; set; }
         public String Name { get; set; }
+        public String PlayerName { get; set; }
         public Int32 X { get; set; }
         public Int32 Y { get; set; }
         public PossibleOrientations Orientation { get; set; }

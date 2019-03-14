@@ -18,6 +18,6 @@ namespace CSharpWars.Model
         public Int32 CurrentStamina { get; set; }
         public String Memory { get; set; }
         public PossibleMoves Move { get; set; }
-        public virtual Player Team { get; set; }
+        public virtual Player Player { get; set; }
     }
 }

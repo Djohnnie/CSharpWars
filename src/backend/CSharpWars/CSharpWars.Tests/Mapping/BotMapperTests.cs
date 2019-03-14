@@ -26,7 +26,8 @@ namespace CSharpWars.Tests.Mapping
                 CurrentHealth = 98,
                 MaximumStamina = 200,
                 CurrentStamina = 123,
-                Move = PossibleMoves.MeleeAttack
+                Move = PossibleMoves.MeleeAttack,
+                Player = new Player { Name = "PlayerName" }
             };
 
             // Act
@@ -45,6 +46,7 @@ namespace CSharpWars.Tests.Mapping
                     .Including(x => x.MaximumStamina)
                     .Including(x => x.CurrentStamina)
                     .Including(x => x.Move));
+            botDto.PlayerName.Should().Be(botModel.Player.Name);
         }
 
         [Fact]

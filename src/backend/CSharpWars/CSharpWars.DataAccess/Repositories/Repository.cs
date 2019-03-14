@@ -23,17 +23,22 @@ namespace CSharpWars.DataAccess.Repositories
 
         public async Task<IList<TModel>> GetAll()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            return await _dbSet.ToListAsync();
         }
 
         public async Task<IList<TModel>> Find(Expression<Func<TModel, Boolean>> predicate)
         {
-            return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
+            return await _dbSet.Where(predicate).ToListAsync();
+        }
+
+        public async Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, Boolean>> predicate, Expression<Func<TModel, TProperty>> include)
+        {
+            return await _dbSet.Where(predicate).Include(include).ToListAsync();
         }
 
         public async Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate)
         {
-            return await _dbSet.AsNoTracking().SingleOrDefaultAsync(predicate);
+            return await _dbSet.SingleOrDefaultAsync(predicate);
         }
 
         public virtual async Task<TModel> Create(TModel toCreate)

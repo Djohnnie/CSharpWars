@@ -1,9 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using CSharpWars.Web.Models;
 
 namespace CSharpWars.Web.Constants
 {
     public static class BotScripts
     {
+        public static List<ScriptViewModel> All = new List<ScriptViewModel>
+        {
+            new ScriptViewModel
+            {
+                Id = Guid.NewGuid(),
+                Description = "Walk around in circles",
+                Script = WalkAround
+            }
+        };
+
         public const String WalkAround =
             "var step = LoadFromMemory<Int32>(\"STEP\");\r\n" +
             "if( step % 3 == 0 )\r\n" +

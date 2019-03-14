@@ -18,6 +18,7 @@ namespace CSharpWars.Logic
         private readonly IRepository<Bot> _botRepository;
         private readonly IRepository<BotScript> _scriptRepository;
         private readonly IRepository<Bot, BotScript> _botScriptRepository;
+        private readonly IRepository<Player> _playerRepository;
         private readonly IMapper<Bot, BotDto> _botMapper;
         private readonly IMapper<Bot, BotToCreateDto> _botToCreateMapper;
         private readonly IArenaLogic _arenaLogic;
@@ -27,6 +28,7 @@ namespace CSharpWars.Logic
             IRepository<Bot> botRepository,
             IRepository<BotScript> scriptRepository,
             IRepository<Bot, BotScript> botScriptRepository,
+            IRepository<Player> playerRepository,
             IMapper<Bot, BotDto> botMapper,
             IMapper<Bot, BotToCreateDto> botToCreateMapper,
             IArenaLogic arenaLogic)
@@ -35,6 +37,7 @@ namespace CSharpWars.Logic
             _botRepository = botRepository;
             _scriptRepository = scriptRepository;
             _botScriptRepository = botScriptRepository;
+            _playerRepository = playerRepository;
             _botMapper = botMapper;
             _botToCreateMapper = botToCreateMapper;
             _arenaLogic = arenaLogic;
@@ -42,7 +45,7 @@ namespace CSharpWars.Logic
 
         public async Task<IList<BotDto>> GetAllActiveBots()
         {
-            var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0);
+            var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0, i => i.Player);
             return _botMapper.Map(activeBots);
         }
 
@@ -56,6 +59,8 @@ namespace CSharpWars.Logic
         {
             var bot = _botToCreateMapper.Map(botToCreate);
             var arena = await _arenaLogic.GetArena();
+            var player = await _playerRepository.Single(x => x.Id == botToCreate.PlayerId);
+            bot.Player = player;
             bot.Orientation = _randomHelper.Get<PossibleOrientations>();
             bot.X = _randomHelper.Get(arena.Width);
             bot.Y = _randomHelper.Get(arena.Height);

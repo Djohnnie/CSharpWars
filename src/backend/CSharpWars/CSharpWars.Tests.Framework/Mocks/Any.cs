@@ -10,5 +10,10 @@ namespace CSharpWars.Tests.Framework.Mocks
         {
             return It.IsAny<Expression<Func<TModel, Boolean>>>();
         }
+
+        public static Expression<Func<TModel, TProperty>> Include<TModel, TProperty>()
+        {
+            return It.IsAny<Expression<Func<TModel, TProperty>>>();
+        }
     }
 }

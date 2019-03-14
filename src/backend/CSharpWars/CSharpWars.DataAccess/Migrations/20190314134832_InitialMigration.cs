@@ -44,7 +44,7 @@ namespace CSharpWars.DataAccess.Migrations
                     CurrentStamina = table.Column<int>(nullable: false),
                     Memory = table.Column<string>(nullable: true),
                     Move = table.Column<int>(nullable: false),
-                    TeamId = table.Column<Guid>(nullable: true),
+                    PlayerId = table.Column<Guid>(nullable: true),
                     Script = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -52,8 +52,8 @@ namespace CSharpWars.DataAccess.Migrations
                     table.PrimaryKey("PK_BOTS", x => x.Id)
                         .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
-                        name: "FK_BOTS_PLAYERS_TeamId",
-                        column: x => x.TeamId,
+                        name: "FK_BOTS_PLAYERS_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "PLAYERS",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -66,9 +66,9 @@ namespace CSharpWars.DataAccess.Migrations
                 .Annotation("SqlServer:Clustered", true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BOTS_TeamId",
+                name: "IX_BOTS_PlayerId",
                 table: "BOTS",
-                column: "TeamId");
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PLAYERS_SysId",
