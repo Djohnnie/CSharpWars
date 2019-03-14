@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CSharpWars.Common.Extensions;
 using CSharpWars.DataAccess.Repositories.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
@@ -23,6 +25,32 @@ namespace CSharpWars.Logic
         {
             var players = await _playerRepository.GetAll();
             return _playerMapper.Map(players);
+        }
+
+        public async Task<PlayerDto> Login(LoginDto login)
+        {
+            (String Salt, String Hashed) hashedPassword;
+            var existingPlayer = await _playerRepository.Single(x => x.Name == login.Name);
+            if (existingPlayer == null)
+            {
+                hashedPassword = login.Secret.HashPassword();
+                var newPlayer = new Player
+                {
+                    Name = login.Name,
+                    Salt = hashedPassword.Salt,
+                    Hashed = hashedPassword.Hashed
+                };
+                newPlayer = await _playerRepository.Create(newPlayer);
+                return _playerMapper.Map(newPlayer);
+            }
+
+            hashedPassword = login.Secret.HashPassword(existingPlayer.Salt);
+            if (existingPlayer.Hashed == hashedPassword.Hashed)
+            {
+                return _playerMapper.Map(existingPlayer);
+            }
+
+            return null;
         }
     }
 }

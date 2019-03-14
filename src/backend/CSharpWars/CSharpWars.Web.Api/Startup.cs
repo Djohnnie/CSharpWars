@@ -41,9 +41,7 @@ namespace CSharpWars.Web.Api
             }
 
             app.UseRouting(routes => { routes.MapControllers(); });
-
             app.UseAuthorization();
-
             app.UseCors("AllowAll");
             app.UseMvc();
             app.UseSwagger(c =>

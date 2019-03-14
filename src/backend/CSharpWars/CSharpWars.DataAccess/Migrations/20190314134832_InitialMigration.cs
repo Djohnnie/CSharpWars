@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CSharpWars.DataAccess.Migrations
 {
-    [ExcludeFromCodeCoverageAttribute]
+    [ExcludeFromCodeCoverage]
     public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,8 @@ namespace CSharpWars.DataAccess.Migrations
                     SysId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Secret = table.Column<string>(nullable: true)
+                    Salt = table.Column<string>(nullable: true),
+                    Hashed = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,10 +42,10 @@ namespace CSharpWars.DataAccess.Migrations
                     CurrentHealth = table.Column<int>(nullable: false),
                     MaximumStamina = table.Column<int>(nullable: false),
                     CurrentStamina = table.Column<int>(nullable: false),
-                    Script = table.Column<string>(nullable: true),
                     Memory = table.Column<string>(nullable: true),
                     Move = table.Column<int>(nullable: false),
-                    TeamId = table.Column<Guid>(nullable: true)
+                    TeamId = table.Column<Guid>(nullable: true),
+                    Script = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

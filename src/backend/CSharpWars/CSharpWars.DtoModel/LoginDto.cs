@@ -2,9 +2,9 @@
 
 namespace CSharpWars.DtoModel
 {
-    public class PlayerDto
+    public class LoginDto
     {
-        public Guid Id { get; set; }
         public String Name { get; set; }
+        public String Secret { get; set; }
     }
 }

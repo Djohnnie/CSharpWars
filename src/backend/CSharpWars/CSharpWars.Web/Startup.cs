@@ -1,10 +1,12 @@
-using System;
+using CSharpWars.Common.DependencyInjection;
+using CSharpWars.Web.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using static System.Convert;
+using static System.Environment;
 
 namespace CSharpWars.Web
 {
@@ -20,21 +22,13 @@ namespace CSharpWars.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            services.ConfigurationHelper(c =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                c.ConnectionString = GetEnvironmentVariable("CONNECTION_STRING");
+                c.ArenaSize = ToInt32(GetEnvironmentVariable("ARENA_SIZE"));
             });
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
-            services.AddMvc().AddNewtonsoftJson();
+            services.ConfigureWeb();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,24 +38,15 @@ namespace CSharpWars.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
             app.UseStaticFiles();
             app.UseSession();
-
             app.UseRouting(routes =>
             {
-                routes.MapControllerRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapControllerRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRazorPages();
             });
-
             app.UseCookiePolicy();
-
             app.UseAuthorization();
         }
     }

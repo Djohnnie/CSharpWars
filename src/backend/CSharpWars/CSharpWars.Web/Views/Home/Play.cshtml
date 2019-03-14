@@ -13,54 +13,42 @@
 <form method="post">
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-12">
             <div class="form-group">
                 <label asp-for="BotName" class="control-label">Name for your robot</label>
                 <input asp-for="BotName" class="form-control" />
             </div>
         </div>
-        <div class="col-2"></div>
     </div>
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-6">
             <div class="form-group">
                 <label asp-for="BotHealth" class="control-label">Starting health for your robot</label>
                 <input asp-for="BotHealth" class="form-control" />
             </div>
         </div>
-        <div class="col-2"></div>
-    </div>
 
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-6">
             <div class="form-group">
                 <label asp-for="BotStamina" class="control-label">Starting stamina for your robot</label>
                 <input asp-for="BotStamina" class="form-control" />
             </div>
         </div>
-        <div class="col-2"></div>
     </div>
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <pre><code class="csharp">@Model.BotScript</code></pre>
+        <div class="col-12">
+            <pre><code class="cs">@Model.BotScript</code></pre>
         </div>
-        <div class="col-2"></div>
     </div>
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-12">
             <div class="form-group">
-                <input type="submit" value="Deploy roboto to arena!" class="btn btn-primary" />
+                <input type="submit" value="Deploy your robot to arena!" class="btn btn-primary" />
             </div>
         </div>
-        <div class="col-2"></div>
     </div>
 </form>
 

@@ -20,8 +20,8 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player1 = new Player { Name = "Player1", Secret = "Secret1" };
-            var player2 = new Player { Name = "Player2", Secret = "Secret2" };
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
             await dbContext.Players.AddRangeAsync(player1, player2);
             await dbContext.SaveChangesAsync();
 
@@ -42,9 +42,9 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player1 = new Player { Name = "Player1", Secret = "Secret1" };
-            var player2 = new Player { Name = "Player2", Secret = "Secret2" };
-            var player3 = new Player { Name = "Player3", Secret = "Secret3" };
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
+            var player3 = new Player { Name = "Player3", Hashed = "Secret3" };
             await dbContext.Players.AddRangeAsync(player1, player2, player3);
             await dbContext.SaveChangesAsync();
 
@@ -64,9 +64,9 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player1 = new Player { Name = "Player1", Secret = "Secret1" };
-            var player2 = new Player { Name = "Player2", Secret = "Secret2" };
-            var player3 = new Player { Name = "Player3", Secret = "Secret3" };
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
+            var player3 = new Player { Name = "Player3", Hashed = "Secret3" };
             await dbContext.Players.AddRangeAsync(player1, player2, player3);
             await dbContext.SaveChangesAsync();
 
@@ -85,9 +85,9 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player1 = new Player { Name = "Player1", Secret = "Secret1" };
-            var player2 = new Player { Name = "Player2", Secret = "Secret2" };
-            var player3 = new Player { Name = "Player3", Secret = "Secret3" };
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
+            var player3 = new Player { Name = "Player3", Hashed = "Secret3" };
             await dbContext.Players.AddRangeAsync(player1, player2, player3);
             await dbContext.SaveChangesAsync();
 
@@ -105,7 +105,7 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player = new Player { Name = "Player", Secret = "Secret" };
+            var player = new Player { Name = "Player", Hashed = "Secret" };
 
             // Act
             var result = await playerRepository.Create(player);
@@ -144,7 +144,7 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player = new Player { Name = "Player", Secret = "Secret" };
+            var player = new Player { Name = "Player", Hashed = "Secret" };
             await dbContext.Players.AddRangeAsync(player);
             await dbContext.SaveChangesAsync();
 
@@ -153,7 +153,7 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             {
                 Id = player.Id,
                 Name = "NewPlayer",
-                Secret = "NewSecret"
+                Hashed = "NewSecret"
             };
             await playerRepository.Update(playerToUpdate);
 
@@ -170,9 +170,9 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             var configurationHelper = new ConfigurationHelper();
             var dbContext = new CSharpWarsDbContext(configurationHelper);
             var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
-            var player1 = new Player { Name = "Player1", Secret = "Secret1" };
-            var player2 = new Player { Name = "Player2", Secret = "Secret2" };
-            var player3 = new Player { Name = "Player3", Secret = "Secret3" };
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
+            var player3 = new Player { Name = "Player3", Hashed = "Secret3" };
             await dbContext.Players.AddRangeAsync(player1, player2, player3);
             await dbContext.SaveChangesAsync();
 
@@ -181,19 +181,19 @@ namespace CSharpWars.Tests.DataAccess.Repositories
             {
                 Id = player1.Id,
                 Name = "NewPlayer1",
-                Secret = "NewSecret1"
+                Hashed = "NewSecret1"
             };
             var playerToUpdate2 = new Player
             {
                 Id = player2.Id,
                 Name = "NewPlayer2",
-                Secret = "NewSecret2"
+                Hashed = "NewSecret2"
             };
             var playerToUpdate3 = new Player
             {
                 Id = player3.Id,
                 Name = "NewPlayer3",
-                Secret = "NewSecret3"
+                Hashed = "NewSecret3"
             };
             await playerRepository.Update(new List<Player>(new[] { playerToUpdate1, playerToUpdate2, playerToUpdate3 }));
 

@@ -18,7 +18,7 @@ namespace CSharpWars.Tests.Mapping
             {
                 Id = Guid.NewGuid(),
                 Name = "PlayerName",
-                Secret = "PlayerSecret"
+                Hashed = "PlayerSecret"
             };
 
             // Act
@@ -28,8 +28,7 @@ namespace CSharpWars.Tests.Mapping
             playerDto.Should().BeEquivalentTo(playerModel,
                 properties => properties
                     .Including(x => x.Id)
-                    .Including(x => x.Name)
-                    .Including(x => x.Secret));
+                    .Including(x => x.Name));
         }
 
         [Fact]
@@ -40,8 +39,7 @@ namespace CSharpWars.Tests.Mapping
             var playerDto = new PlayerDto
             {
                 Id = Guid.NewGuid(),
-                Name = "PlayerName",
-                Secret = "PlayerSecret"
+                Name = "PlayerName"
             };
 
             // Act
@@ -51,8 +49,7 @@ namespace CSharpWars.Tests.Mapping
             playerModel.Should().BeEquivalentTo(playerDto,
                 properties => properties
                     .Including(x => x.Id)
-                    .Including(x => x.Name)
-                    .Including(x => x.Secret));
+                    .Including(x => x.Name));
         }
     }
 }

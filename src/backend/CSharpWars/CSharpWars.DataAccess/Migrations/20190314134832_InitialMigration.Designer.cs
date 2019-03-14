@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSharpWars.DataAccess.Migrations
 {
     [DbContext(typeof(CSharpWarsDbContext))]
-    [Migration("20190308140133_Initial-Migration")]
+    [Migration("20190314134832_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,8 +42,6 @@ namespace CSharpWars.DataAccess.Migrations
 
                     b.Property<int>("Orientation");
 
-                    b.Property<string>("Script");
-
                     b.Property<int>("SysId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -65,14 +63,28 @@ namespace CSharpWars.DataAccess.Migrations
                     b.ToTable("BOTS");
                 });
 
+            modelBuilder.Entity("CSharpWars.Model.BotScript", b =>
+                {
+                    b.Property<Guid>("Id");
+
+                    b.Property<string>("Script");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", false);
+
+                    b.ToTable("BOTS");
+                });
+
             modelBuilder.Entity("CSharpWars.Model.Player", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Hashed");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("Secret");
+                    b.Property<string>("Salt");
 
                     b.Property<int>("SysId")
                         .ValueGeneratedOnAdd()
@@ -92,6 +104,14 @@ namespace CSharpWars.DataAccess.Migrations
                     b.HasOne("CSharpWars.Model.Player", "Team")
                         .WithMany("Bots")
                         .HasForeignKey("TeamId");
+                });
+
+            modelBuilder.Entity("CSharpWars.Model.BotScript", b =>
+                {
+                    b.HasOne("CSharpWars.Model.Bot")
+                        .WithOne()
+                        .HasForeignKey("CSharpWars.Model.BotScript", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

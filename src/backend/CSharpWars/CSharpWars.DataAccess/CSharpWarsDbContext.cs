@@ -3,11 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace CSharpWars.DataAccess
 {
-    [ExcludeFromCodeCoverageAttribute]
+    [ExcludeFromCodeCoverage]
     public class CSharpWarsDbContext : DbContext
     {
         private readonly IConfigurationHelper _configurationHelper;
@@ -25,14 +24,14 @@ namespace CSharpWars.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(String.IsNullOrEmpty(_configurationHelper.ConnectionString))
+            if (String.IsNullOrEmpty(_configurationHelper.ConnectionString))
             {
                 optionsBuilder.UseInMemoryDatabase($"{Guid.NewGuid()}");
             }
             else
             {
                 optionsBuilder.UseSqlServer(_configurationHelper.ConnectionString);
-            }            
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

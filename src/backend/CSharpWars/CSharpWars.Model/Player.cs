@@ -9,7 +9,8 @@ namespace CSharpWars.Model
         public Guid Id { get; set; }
         public Int32 SysId { get; set; }
         public String Name { get; set; }
-        public String Secret { get; set; }
+        public String Salt { get; set; }
+        public String Hashed { get; set; }
         public virtual ICollection<Bot> Bots { get; set; }
     }
 }
