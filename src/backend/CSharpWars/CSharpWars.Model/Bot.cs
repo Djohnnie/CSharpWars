@@ -4,10 +4,9 @@ using CSharpWars.Model.Interfaces;
 
 namespace CSharpWars.Model
 {
-    public class Bot : IHasId, IHasSysId
+    public class Bot : IHasId
     {
         public Guid Id { get; set; }
-        public Int32 SysId { get; set; }
         public String Name { get; set; }
         public Int32 X { get; set; }
         public Int32 Y { get; set; }

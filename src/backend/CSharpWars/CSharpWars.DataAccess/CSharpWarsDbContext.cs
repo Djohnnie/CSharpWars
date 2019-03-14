@@ -39,15 +39,15 @@ namespace CSharpWars.DataAccess
             modelBuilder.Entity<Player>(e =>
             {
                 e.ToTable("PLAYERS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property(x => x.SysId).UseSqlServerIdentityColumn();
-                e.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
+                e.HasIndex("SysId").ForSqlServerIsClustered();
             });
 
             modelBuilder.Entity<Bot>(e =>
             {
                 e.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property(x => x.SysId).UseSqlServerIdentityColumn();
-                e.HasIndex(x => x.SysId).ForSqlServerIsClustered();
+                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
+                e.HasIndex("SysId").ForSqlServerIsClustered();
             });
 
             modelBuilder.Entity<BotScript>(e =>

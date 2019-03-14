@@ -58,6 +58,28 @@ namespace CSharpWars.Tests.DataAccess.Repositories
         }
 
         [Fact]
+        public async Task Repository_Find_And_Include_Should_Return_Searched_Records()
+        {
+            // Arrange
+            var configurationHelper = new ConfigurationHelper();
+            var dbContext = new CSharpWarsDbContext(configurationHelper);
+            var playerRepository = new Repository<Player>(dbContext, dbContext.Players);
+            var player1 = new Player { Name = "Player1", Hashed = "Secret1" };
+            var player2 = new Player { Name = "Player2", Hashed = "Secret2" };
+            var player3 = new Player { Name = "Player3", Hashed = "Secret3" };
+            await dbContext.Players.AddRangeAsync(player1, player2, player3);
+            await dbContext.SaveChangesAsync();
+
+            // Act
+            var result = await playerRepository.Find(x => x.Name.Contains("2"), i => i.Bots);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().HaveCount(1);
+            result.Should().ContainEquivalentOf(player2);
+        }
+
+        [Fact]
         public async Task Repository_Single_Should_Return_Searched_Record()
         {
             // Arrange

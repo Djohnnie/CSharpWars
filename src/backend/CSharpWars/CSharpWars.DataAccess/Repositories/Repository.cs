@@ -72,11 +72,6 @@ namespace CSharpWars.DataAccess.Repositories
                 trackedEntity.State = EntityState.Detached;
             }
             _dbContext.Entry(toUpdate).State = EntityState.Modified;
-
-            if (toUpdate is IHasSysId hasSysId)
-            {
-                _dbContext.Entry(hasSysId).Property(x => x.SysId).IsModified = false;
-            }
         }
     }
 
