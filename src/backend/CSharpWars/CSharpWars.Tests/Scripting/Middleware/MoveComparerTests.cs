@@ -45,7 +45,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var result = moveComparer.Compare(turning, walking);
 
             // Assert
-            result.Should().BeNegative();
+            result.Should().BePositive();
         }
 
         [Theory]
@@ -59,7 +59,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var result = moveComparer.Compare(walking, teleporting);
 
             // Assert
-            result.Should().BeNegative();
+            result.Should().BePositive();
         }
 
         [Theory]
@@ -73,7 +73,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var result = moveComparer.Compare(teleporting, selfDestructing);
 
             // Assert
-            result.Should().BeNegative();
+            result.Should().BePositive();
         }
 
         [Theory]
@@ -87,7 +87,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var result = moveComparer.Compare(selfDestructing, meleeAttacking);
 
             // Assert
-            result.Should().BeNegative();
+            result.Should().BePositive();
         }
 
         [Theory]
@@ -101,7 +101,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var result = moveComparer.Compare(meleeAttack, rangedAttack);
 
             // Assert
-            result.Should().BeNegative();
+            result.Should().BePositive();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
 
         public Int32 Compare(PossibleMoves x, PossibleMoves y)
         {
-            return _weights[y].CompareTo(_weights[x]);
+            return _weights[x].CompareTo(_weights[y]);
         }
     }
 }
