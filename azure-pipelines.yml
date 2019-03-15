@@ -64,6 +64,9 @@ steps:
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web/bin/Release/publish
 
 - script: |
+    dotnet publish ./src/backend/CSharpWars/CSharpWars.Poll --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Poll/bin/Release/publish
+
+- script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.ScriptProcessor --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.ScriptProcessor/bin/Release/publish
 
 - script: |
@@ -77,6 +80,12 @@ steps:
     docker build -t djohnnie/csharpwars-web .
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-web
+
+- script: |
+    cd ./src/backend/CSharpWars/CSharpWars.Poll
+    docker build -t djohnnie/csharpwars-poll .
+    docker login -u $(dockerId) -p $(dockerPwd)
+    docker push djohnnie/csharpwars-poll
 
 - script: |
     cd ./src/backend/CSharpWars/CSharpWars.ScriptProcessor
