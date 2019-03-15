@@ -62,9 +62,14 @@ namespace CSharpWars.Scripting
 
         #region <| Construction |>
 
-        public ScriptGlobals(BotProperties botProperties)
+        private ScriptGlobals(BotProperties botProperties)
         {
             _50437079C366407D978Fe4Afd60C535F = botProperties;
+        }
+
+        public static ScriptGlobals Build(BotProperties botProperties)
+        {
+            return new ScriptGlobals(botProperties);
         }
 
         #endregion

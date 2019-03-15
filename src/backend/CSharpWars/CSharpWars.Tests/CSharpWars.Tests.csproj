@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CSharpWars.DataAccess\CSharpWars.DataAccess.csproj" />
     <ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
+    <ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
     <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
     <ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
     <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />

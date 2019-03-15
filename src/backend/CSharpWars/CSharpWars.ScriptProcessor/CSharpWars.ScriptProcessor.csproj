@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CSharpWars.Common\CSharpWars.Common.csproj" />
+    <ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
     <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
     <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
   </ItemGroup>

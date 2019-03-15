@@ -20,7 +20,7 @@ namespace CSharpWars.Tests.Scripting
             var botProperties = BuildBotProperties();
 
             // Act
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
 
             // Assert
             scriptGlobals.Should().NotBeNull();
@@ -43,7 +43,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var originalMove = botProperties.CurrentMove;
 
             // Act
@@ -63,7 +63,7 @@ namespace CSharpWars.Tests.Scripting
             // Arrange
             var botProperties = BuildBotProperties();
             botProperties.CurrentMove = originalMove;
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
 
             // Act
             action(scriptGlobals);
@@ -78,7 +78,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var key = "VAL";
             var value = 42;
 
@@ -96,7 +96,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var key = "VAL";
             var value1 = 42;
             var value2 = 21;
@@ -116,7 +116,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var key = "VAL";
 
             // Act
@@ -131,7 +131,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var key = "VAL";
             var value = 42;
             scriptGlobals.StoreInMemory(key, value);
@@ -148,7 +148,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var key = "VAL";
             var value = 42;
             scriptGlobals.StoreInMemory(key, value);
@@ -165,7 +165,7 @@ namespace CSharpWars.Tests.Scripting
         {
             // Arrange
             var botProperties = BuildBotProperties();
-            var scriptGlobals = new ScriptGlobals(botProperties);
+            var scriptGlobals = ScriptGlobals.Build(botProperties);
             var message = "Message!";
 
             // Act
