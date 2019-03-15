@@ -4,6 +4,7 @@ using System.Linq;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
+using CSharpWars.ScriptProcessor.Middleware;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {

@@ -1,5 +1,6 @@
 ﻿using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
+using CSharpWars.ScriptProcessor.Middleware;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {

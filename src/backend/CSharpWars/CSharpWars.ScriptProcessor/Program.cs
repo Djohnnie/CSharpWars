@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Common.Tools;
 using CSharpWars.ScriptProcessor.DependencyInjection;
-using CSharpWars.ScriptProcessor.Interfaces;
+using CSharpWars.ScriptProcessor.Middleware.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using static System.Console;
 using static System.Convert;
@@ -13,7 +13,7 @@ using static System.Environment;
 namespace CSharpWars.ScriptProcessor
 {
     
-    [ExcludeFromCodeCoverageAttribute]
+    [ExcludeFromCodeCoverage]
     class Program
     {
         private const Int32 DELAY_MS = 2000;
@@ -39,7 +39,7 @@ namespace CSharpWars.ScriptProcessor
             });
             serviceCollection.ConfigureScriptProcessor();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var processor = serviceProvider.GetService<IProcessor>();
+            var middleware = serviceProvider.GetService<IMiddleware>();
 
             while (!KeyAvailable)
             {
@@ -49,7 +49,7 @@ namespace CSharpWars.ScriptProcessor
                 {
                     using (var sw = new SimpleStopwatch())
                     {
-                        await processor.Go();
+                        await middleware.Process();
                         WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
                     }
                 }

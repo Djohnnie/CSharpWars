@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CSharpWars.Enums;
 
-namespace CSharpWars.ScriptProcessor
+namespace CSharpWars.ScriptProcessor.Middleware
 {
     public class MoveComparer : IComparer<PossibleMoves>
     {

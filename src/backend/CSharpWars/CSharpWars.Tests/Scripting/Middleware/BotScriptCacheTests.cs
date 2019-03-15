@@ -1,11 +1,10 @@
 ﻿using System;
-using CSharpWars.ScriptProcessor;
+using CSharpWars.ScriptProcessor.Middleware;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
 using Xunit;
 
-namespace CSharpWars.Tests.Scripting
+namespace CSharpWars.Tests.Scripting.Middleware
 {
     public class BotScriptCacheTests
     {

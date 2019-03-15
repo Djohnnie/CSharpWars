@@ -3,6 +3,8 @@ using CSharpWars.Common.DependencyInjection;
 using CSharpWars.ScriptProcessor;
 using CSharpWars.ScriptProcessor.DependencyInjection;
 using CSharpWars.ScriptProcessor.Interfaces;
+using CSharpWars.ScriptProcessor.Middleware;
+using CSharpWars.ScriptProcessor.Middleware.Interfaces;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -13,7 +15,9 @@ namespace CSharpWars.Tests.Scripting.DependencyInjection
     {
         [Theory]
         [InlineData(typeof(IBotScriptCache), typeof(BotScriptCache))]
+        [InlineData(typeof(IPreprocessor), typeof(Preprocessor))]
         [InlineData(typeof(IProcessor), typeof(Processor))]
+        [InlineData(typeof(IPostprocessor), typeof(Postprocessor))]
         public void ConfigureScriptProcessor_Should_Register_Singleton_Classes(Type type, Type implementation)
         {
             // Arrange

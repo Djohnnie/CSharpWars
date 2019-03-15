@@ -5,6 +5,7 @@ using CSharpWars.Common.Helpers;
 using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
+using CSharpWars.ScriptProcessor.Middleware;
 
 namespace CSharpWars.ScriptProcessor.Moves
 {

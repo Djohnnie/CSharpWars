@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 
-namespace CSharpWars.ScriptProcessor
+namespace CSharpWars.ScriptProcessor.Middleware
 {
     public class BotResult
     {

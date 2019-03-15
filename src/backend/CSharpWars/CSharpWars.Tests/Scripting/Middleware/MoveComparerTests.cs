@@ -1,10 +1,10 @@
 ﻿using CSharpWars.Enums;
-using CSharpWars.ScriptProcessor;
+using CSharpWars.ScriptProcessor.Middleware;
 using CSharpWars.Tests.Framework.FluentAssertions;
 using FluentAssertions;
 using Xunit;
 
-namespace CSharpWars.Tests.Scripting
+namespace CSharpWars.Tests.Scripting.Middleware
 {
     public class MoveComparerTests
     {

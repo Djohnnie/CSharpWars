@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using CSharpWars.ScriptProcessor.Interfaces;
 using Microsoft.CodeAnalysis.Scripting;
 
-namespace CSharpWars.ScriptProcessor
+namespace CSharpWars.ScriptProcessor.Middleware
 {
     public class BotScriptCache : IBotScriptCache
     {
