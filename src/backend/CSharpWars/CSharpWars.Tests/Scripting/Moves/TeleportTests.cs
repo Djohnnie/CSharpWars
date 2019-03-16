@@ -36,7 +36,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         public void Executing_A_Teleport_Into_An_Empty_Spot_Should_Work()
         {
             // Arrange
-            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 0, Orientation = PossibleOrientations.North };
+            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 0, Orientation = PossibleOrientations.North, CurrentStamina = 10 };
             var arena = new ArenaDto { Width = 5, Height = 2 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.Teleport;
@@ -62,7 +62,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         public void Executing_A_Teleport_Into_An_Invalid_Spot_Should_Randomly_Teleport(Int32 destinationX, Int32 destinationY)
         {
             // Arrange
-            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 0, Orientation = PossibleOrientations.North };
+            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 0, Orientation = PossibleOrientations.North, CurrentStamina = 10 };
             var arena = new ArenaDto { Width = 5, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
             botProperties.CurrentMove = PossibleMoves.Teleport;
@@ -90,7 +90,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         public void Executing_A_Teleport_Into_An_Enemy_Should_Switch_Places()
         {
             // Arrange
-            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 1, Orientation = PossibleOrientations.North };
+            var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 1, Orientation = PossibleOrientations.North, CurrentStamina = 10 };
             var victim = new BotDto { Id = Guid.NewGuid(), CurrentHealth = 100, X = 4, Y = 0 };
             var arena = new ArenaDto { Width = 5, Height = 2 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>(new[] { victim }));
