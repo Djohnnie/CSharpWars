@@ -10,6 +10,8 @@ namespace CSharpWars.Scripting.Model
     public class BotProperties
     {
         public Guid BotId { get; private set; }
+        public String Name { get; private set; }
+        public String PlayerName { get; private set; }
         public Int32 Width { get; private set; }
         public Int32 Height { get; private set; }
         public Int32 X { get; private set; }
@@ -41,6 +43,8 @@ namespace CSharpWars.Scripting.Model
             return new BotProperties
             {
                 BotId = bot.Id,
+                Name = bot.Name,
+                PlayerName = bot.PlayerName,
                 Width = arena.Width,
                 Height = arena.Height,
                 X = bot.X,
@@ -60,14 +64,7 @@ namespace CSharpWars.Scripting.Model
 
         private static List<Bot> BuildBots(IList<BotDto> bots)
         {
-            return bots.Select(x => new Bot
-            {
-                Id = x.Id,
-                Name = x.Name,
-                X = x.X,
-                Y = x.Y,
-                Orientation = x.Orientation
-            }).ToList();
+            return bots.Select(Bot.Build).ToList();
         }
     }
 }
