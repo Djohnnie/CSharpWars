@@ -29,6 +29,13 @@ namespace CSharpWars.Scripting.Model
 
         private BotProperties() { }
 
+        public void Update(BotDto bot)
+        {
+            CurrentHealth = bot.CurrentHealth;
+            X = bot.X;
+            Y = bot.Y;
+        }
+
         public static BotProperties Build(BotDto bot, ArenaDto arena, IList<BotDto> bots)
         {
             return new BotProperties

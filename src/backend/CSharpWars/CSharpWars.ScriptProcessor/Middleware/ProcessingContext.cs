@@ -39,5 +39,17 @@ namespace CSharpWars.ScriptProcessor.Middleware
         {
             return _botProperties.Values.OrderBy(x => x.CurrentMove, new MoveComparer());
         }
+
+        public void UpdateBotProperties(BotDto bot)
+        {
+            foreach (var botProperties in _botProperties.Values)
+            {
+                var botToUpdate = botProperties.Bots.Single(x => x.Id == bot.Id);
+                botToUpdate.Update(bot);
+            }
+
+            var botPropertiesToUpdate = _botProperties.Values.Single(x => x.BotId == bot.Id);
+            botPropertiesToUpdate.Update(bot);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.Enums;
+using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
 using CSharpWars.ScriptProcessor.Middleware;
 
@@ -21,18 +22,23 @@ namespace CSharpWars.ScriptProcessor.Moves
             // Build result based on current properties.
             var botResult = BotResult.Build(BotProperties);
 
-            NormalizeDestination();
-
-            var victimizedBot = FindVictimizedBot();
-            if (victimizedBot != null)
+            // Only perform move if enough stamina is available.
+            if (BotProperties.CurrentStamina - Constants.STAMINA_ON_TELEPORT >= 0)
             {
-                botResult.Teleport(victimizedBot.Id, botResult.X, botResult.Y);
+
+                NormalizeDestination();
+
+                var victimizedBot = FindVictimizedBot();
+                if (victimizedBot != null)
+                {
+                    botResult.Teleport(victimizedBot.Id, botResult.X, botResult.Y);
+                }
+                
+                botResult.CurrentStamina -= Constants.STAMINA_ON_TELEPORT;
+                botResult.Move = PossibleMoves.Teleport;
+                botResult.X = BotProperties.MoveDestinationX;
+                botResult.Y = BotProperties.MoveDestinationY;
             }
-
-            botResult.X = BotProperties.MoveDestinationX;
-            botResult.Y = BotProperties.MoveDestinationY;
-
-            botResult.Move = PossibleMoves.Teleport;
 
             return botResult;
         }
