@@ -49,6 +49,7 @@ MonoBehaviour:
   RotationSpeed: 2.5
   Head: {fileID: 7842690368561100459}
   ErrorPrefab: {fileID: 140918, guid: 1e814b6698e48b2419979f7f2534fca0, type: 3}
+  RangedAttackPrefab: {fileID: 157740, guid: ad2b4aecfc5a65e469a2714b557e8218, type: 3}
 --- !u!114 &6058409851926237027
 MonoBehaviour:
   m_ObjectHideFlags: 0

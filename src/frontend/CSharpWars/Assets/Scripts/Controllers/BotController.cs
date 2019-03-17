@@ -10,15 +10,22 @@ namespace Assets.Scripts.Controllers
         private Bot _bot;
         private Animation _animation;
         private ArenaController _arenaController;
+        private NameTagController _nameTagController;
+        private HealthTagController _healthTagController;
+        private StaminaTagController _staminaTagController;
+
         private String _lastAnimation;
 
         private GameObject _errorGameObject;
+        private GameObject _rangedAttackGameObject;
+        private Boolean _rangeAttackExecuted;
 
         public Single Speed = 1;
         public Single RotationSpeed = 2;
 
         public Transform Head;
         public GameObject ErrorPrefab;
+        public GameObject RangedAttackPrefab;
 
         void Start()
         {
@@ -27,6 +34,7 @@ namespace Assets.Scripts.Controllers
             {
                 _animation[Animations.Walk].speed = Speed * 2;
                 _animation[Animations.TurnRight].speed = Speed * 2;
+                _animation[Animations.Jump].speed = Speed;
             }
             InstantRefresh();
         }
@@ -57,7 +65,7 @@ namespace Assets.Scripts.Controllers
                 _errorGameObject = null;
             }
 
-            Single step = _bot.Move == PossibleMoves.Teleport ? 1 : Speed * Time.deltaTime;
+            Single step = _bot.Move == PossibleMoves.Teleport ? 100 : Speed * Time.deltaTime;
             Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
             Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
             if ((newPos - transform.position).magnitude > 0.01)
@@ -66,6 +74,7 @@ namespace Assets.Scripts.Controllers
                 transform.position = newPos;
                 return;
             }
+
             Vector3 targetOrientation = OrientationVector.CreateFrom(_bot.Orientation);
             Single rotationStep = RotationSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetOrientation, rotationStep, 0.0F);
@@ -73,6 +82,7 @@ namespace Assets.Scripts.Controllers
             {
                 transform.rotation = Quaternion.LookRotation(newDir);
             }
+
             if ((targetOrientation - newDir).magnitude > 0.01)
             {
                 RunAnimation(Animations.TurnRight);
@@ -93,18 +103,17 @@ namespace Assets.Scripts.Controllers
 
             if (RobotIsAttackingUsingRanged())
             {
-                //if (rangeAttack == null && !_rangeAttackFired)
-                //{
-                //    _rangeAttackFired = true;
-                //    rangeAttack = Instantiate(rangeAttackPrefab);
-                //    //rangeAttack.transform.SetParent(this.transform);
-                //    RangeAttackController rangeAttackController = rangeAttack.GetComponent<RangeAttackController>();
-                //    Vector3 startPos = GridController.Instance.gridToWorldPosition(_bot.Location.X, _bot.Location.Y);
-                //    Vector3 targetPos = GridController.Instance.gridToWorldPosition(_bot.LastAttackLocation.X, _bot.LastAttackLocation.Y);
-                //    rangeAttackController.fire(startPos, targetPos, 3f);
-                //    GoAnim(RANGED_ATTACK);
-                //}
-                RunAnimationOnce(Animations.RangedAttack);
+                if (!_rangeAttackExecuted)
+                {
+                    _rangeAttackExecuted = true;
+                    _rangedAttackGameObject = Instantiate(RangedAttackPrefab);
+                    _rangedAttackGameObject.transform.SetParent(transform);
+                    var rangedAttackController = _rangedAttackGameObject.GetComponent<RangedAttackController>();
+                    Vector3 startPos = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
+                    Vector3 targetPos = _arenaController.ArenaToWorldPosition(_bot.LastAttackX, _bot.LastAttackY);
+                    rangedAttackController.Fire(startPos, targetPos);
+                    RunAnimation(Animations.RangedAttack);
+                }
                 return;
             }
 
@@ -112,12 +121,6 @@ namespace Assets.Scripts.Controllers
             {
                 GetComponent<ExplosionController>().Explode();
                 RunAnimationOnce(Animations.Death);
-                return;
-            }
-
-            if (RobotIsTeleporting())
-            {
-                RunAnimationOnce(Animations.Jump);
                 return;
             }
 
@@ -147,6 +150,29 @@ namespace Assets.Scripts.Controllers
         public void SetBot(Bot bot)
         {
             _bot = bot;
+        }
+
+        public void UpdateBot(Bot bot)
+        {
+            SetBot(bot);
+            _healthTagController.UpdateBot(bot);
+            _staminaTagController.UpdateBot(bot);
+            _rangeAttackExecuted = false;
+        }
+
+        public void SetNameTagController(NameTagController nameTagController)
+        {
+            _nameTagController = nameTagController;
+        }
+
+        public void SetHealthTagController(HealthTagController healthTagController)
+        {
+            _healthTagController = healthTagController;
+        }
+
+        public void SetStaminaTagController(StaminaTagController staminaTagController)
+        {
+            _staminaTagController = staminaTagController;
         }
 
         public void SetArenaController(ArenaController arenaController)

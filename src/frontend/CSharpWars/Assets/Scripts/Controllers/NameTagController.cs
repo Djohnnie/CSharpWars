@@ -11,7 +11,7 @@ namespace Assets.Scripts.Controllers
         public void UpdateBot(Bot bot)
         {
             var txtMesh = gameObject.GetComponent<TextMesh>();
-            txtMesh.text = bot.Name;
+            txtMesh.text = $"{bot.Name} ({bot.PlayerName})";
         }
 
         public void Destroy()

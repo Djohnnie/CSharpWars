@@ -33,9 +33,7 @@ namespace Assets.Scripts.Controllers
                 {
                     var newBot = Instantiate(BotPrefab);
                     newBot.transform.parent = transform;
-                    //newBot.transform.position = _arenaController.ArenaToWorldPosition(bot.X, bot.Y);
-                    //newBot.transform.eulerAngles = OrientationVector.CreateFrom(bot.Orientation);
-                    newBot.name = $"Bot-{bot.Id}";
+                    newBot.name = $"Bot-{bot.PlayerName}-{bot.Name}";
                     var botController = newBot.GetComponent<BotController>();
                     botController.SetBot(bot);
                     botController.SetArenaController(_arenaController);
@@ -47,26 +45,26 @@ namespace Assets.Scripts.Controllers
                     var nameTagController = nameTag.GetComponent<NameTagController>();
                     nameTagController.BotGameObject = newBot;
                     nameTagController.UpdateBot(bot);
-                    //currentBotController.NameTagController = nameTagController;
+                    botController.SetNameTagController(nameTagController);
 
                     var healthTag = Instantiate(HealthTagPrefab);
                     healthTag.transform.SetParent(botController.Head);
                     var healthTagController = healthTag.GetComponent<HealthTagController>();
                     healthTagController.BotGameObject = newBot;
                     healthTagController.UpdateBot(bot);
-                    //currentBotController.HealthTagController = healthTagController;
+                    botController.SetHealthTagController(healthTagController);
 
                     var staminaTag = Instantiate(StaminaTagPrefab);
                     staminaTag.transform.SetParent(botController.Head);
                     var staminaTagController = staminaTag.GetComponent<StaminaTagController>();
                     staminaTagController.BotGameObject = newBot;
                     staminaTagController.UpdateBot(bot);
-                    //currentBotController.StaminaTagController = staminaTagController;
+                    botController.SetStaminaTagController(staminaTagController);
                 }
                 else
                 {
                     var botController = _bots[bot.Id];
-                    botController.SetBot(bot);
+                    botController.UpdateBot(bot);
                 }
             }
         }
