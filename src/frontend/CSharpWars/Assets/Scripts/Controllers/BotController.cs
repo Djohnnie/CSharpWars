@@ -65,7 +65,7 @@ namespace Assets.Scripts.Controllers
                 _errorGameObject = null;
             }
 
-            Single step = _bot.Move == PossibleMoves.Teleport ? 100 : Speed * Time.deltaTime;
+            Single step = Math.Abs(_bot.X - _bot.FromX) > 1 || Math.Abs(_bot.Y - _bot.FromY) > 1 ? 100 : Speed * Time.deltaTime;
             Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
             Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
             if ((newPos - transform.position).magnitude > 0.01)
