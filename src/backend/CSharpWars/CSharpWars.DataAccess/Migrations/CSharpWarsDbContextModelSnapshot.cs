@@ -28,6 +28,14 @@ namespace CSharpWars.DataAccess.Migrations
 
                     b.Property<int>("CurrentStamina");
 
+                    b.Property<int>("FromX");
+
+                    b.Property<int>("FromY");
+
+                    b.Property<int>("LastAttackX");
+
+                    b.Property<int>("LastAttackY");
+
                     b.Property<int>("MaximumHealth");
 
                     b.Property<int>("MaximumStamina");
@@ -40,11 +48,11 @@ namespace CSharpWars.DataAccess.Migrations
 
                     b.Property<int>("Orientation");
 
+                    b.Property<Guid?>("PlayerId");
+
                     b.Property<int>("SysId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid?>("TeamId");
 
                     b.Property<int>("X");
 
@@ -53,10 +61,10 @@ namespace CSharpWars.DataAccess.Migrations
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);
 
+                    b.HasIndex("PlayerId");
+
                     b.HasIndex("SysId")
                         .HasAnnotation("SqlServer:Clustered", true);
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("BOTS");
                 });
@@ -99,9 +107,9 @@ namespace CSharpWars.DataAccess.Migrations
 
             modelBuilder.Entity("CSharpWars.Model.Bot", b =>
                 {
-                    b.HasOne("CSharpWars.Model.Player", "Team")
+                    b.HasOne("CSharpWars.Model.Player", "Player")
                         .WithMany("Bots")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("PlayerId");
                 });
 
             modelBuilder.Entity("CSharpWars.Model.BotScript", b =>

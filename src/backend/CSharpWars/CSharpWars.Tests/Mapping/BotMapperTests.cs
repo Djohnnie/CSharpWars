@@ -21,13 +21,17 @@ namespace CSharpWars.Tests.Mapping
                 Name = "BotName",
                 X = 5,
                 Y = 6,
+                FromX = 7,
+                FromY = 8,
                 Orientation = PossibleOrientations.South,
                 MaximumHealth = 100,
                 CurrentHealth = 98,
                 MaximumStamina = 200,
                 CurrentStamina = 123,
                 Move = PossibleMoves.MeleeAttack,
-                Player = new Player { Name = "PlayerName" }
+                Player = new Player { Name = "PlayerName" },
+                LastAttackX = 1,
+                LastAttackY = 2
             };
 
             // Act
@@ -40,12 +44,16 @@ namespace CSharpWars.Tests.Mapping
                     .Including(x => x.Name)
                     .Including(x => x.X)
                     .Including(x => x.Y)
+                    .Including(x => x.FromX)
+                    .Including(x => x.FromY)
                     .Including(x => x.Orientation)
                     .Including(x => x.MaximumHealth)
                     .Including(x => x.CurrentHealth)
                     .Including(x => x.MaximumStamina)
                     .Including(x => x.CurrentStamina)
-                    .Including(x => x.Move));
+                    .Including(x => x.Move)
+                    .Including(x => x.LastAttackX)
+                    .Including(x => x.LastAttackY));
             botDto.PlayerName.Should().Be(botModel.Player.Name);
         }
 
@@ -60,12 +68,16 @@ namespace CSharpWars.Tests.Mapping
                 Name = "BotName",
                 X = 5,
                 Y = 6,
+                FromX = 7,
+                FromY = 8,
                 Orientation = PossibleOrientations.South,
                 MaximumHealth = 100,
                 CurrentHealth = 98,
                 MaximumStamina = 200,
                 CurrentStamina = 123,
-                Move = PossibleMoves.MeleeAttack
+                Move = PossibleMoves.MeleeAttack,
+                LastAttackX = 1,
+                LastAttackY = 2
             };
 
             // Act
@@ -78,12 +90,16 @@ namespace CSharpWars.Tests.Mapping
                     .Including(x => x.Name)
                     .Including(x => x.X)
                     .Including(x => x.Y)
+                    .Including(x => x.FromX)
+                    .Including(x => x.FromY)
                     .Including(x => x.Orientation)
                     .Including(x => x.MaximumHealth)
                     .Including(x => x.CurrentHealth)
                     .Including(x => x.MaximumStamina)
                     .Including(x => x.CurrentStamina)
-                    .Including(x => x.Move));
+                    .Including(x => x.Move)
+                    .Including(x => x.LastAttackX)
+                    .Including(x => x.LastAttackY));
         }
     }
 }

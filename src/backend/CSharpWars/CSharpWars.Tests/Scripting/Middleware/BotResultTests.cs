@@ -28,6 +28,8 @@ namespace CSharpWars.Tests.Scripting.Middleware
             };
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
+            botProperties.MoveDestinationX = 3;
+            botProperties.MoveDestinationY = 4;
 
             // Act
             var result = BotResult.Build(botProperties);
@@ -42,6 +44,8 @@ namespace CSharpWars.Tests.Scripting.Middleware
             result.Memory.Should().BeEquivalentTo(bot.Memory.Deserialize<Dictionary<String, String>>());
             result.Messages.Should().BeEquivalentTo(new List<String>());
             result.Move.Should().Be(PossibleMoves.Idling);
+            result.LastAttackX.Should().Be(botProperties.MoveDestinationX);
+            result.LastAttackY.Should().Be(botProperties.MoveDestinationY);
         }
 
         [Fact]

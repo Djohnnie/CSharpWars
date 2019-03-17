@@ -38,11 +38,16 @@ namespace CSharpWars.Tests.Scripting.Middleware
             {
                 X = 0,
                 Y = 1,
+                FromX = 0,
+                FromY = 2,
                 Orientation = PossibleOrientations.North,
                 CurrentStamina = 9,
                 Move = PossibleMoves.WalkForward
-            }, c => c.Including(p => p.X)
+            }, c => c
+                .Including(p => p.X)
                 .Including(p => p.Y)
+                .Including(p => p.FromX)
+                .Including(p => p.FromY)
                 .Including(p => p.Orientation)
                 .Including(p => p.CurrentStamina)
                 .Including(p => p.Move));
@@ -240,11 +245,16 @@ namespace CSharpWars.Tests.Scripting.Middleware
             {
                 X = 3,
                 Y = 0,
+                FromX = 0,
+                FromY = 0,
                 Orientation = PossibleOrientations.East,
                 CurrentStamina = 15 - Constants.STAMINA_ON_TELEPORT,
                 Move = PossibleMoves.Teleport
-            }, c => c.Including(p => p.X)
-                           .Including(p => p.Y)
+            }, c => c
+                .Including(p => p.X)
+                .Including(p => p.Y)
+                .Including(p => p.FromX)
+                .Including(p => p.FromY)
                            .Including(p => p.Orientation)
                            .Including(p => p.CurrentStamina)
                            .Including(p => p.Move));

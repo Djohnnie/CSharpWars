@@ -131,7 +131,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             randomHelper.Setup(x => x.Get<PossibleOrientations>()).Returns(PossibleOrientations.South);
-            randomHelper.Setup(x => x.Get(It.IsAny<Int32>())).Returns(2);
+            randomHelper.SetupSequence(x => x.Get(It.IsAny<Int32>())).Returns(2).Returns(3);
             arenaLogic.Setup(x => x.GetArena()).ReturnsAsync(arenaDto);
             botScriptRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
@@ -146,7 +146,9 @@ namespace CSharpWars.Tests.Logic
             result.Name.Should().Be(botToCreateDto.Name);
             result.Orientation.Should().Be(PossibleOrientations.South);
             result.X.Should().Be(2);
-            result.Y.Should().Be(2);
+            result.Y.Should().Be(3);
+            result.FromX.Should().Be(2);
+            result.FromY.Should().Be(3);
             result.MaximumHealth.Should().Be(botToCreateDto.MaximumHealth);
             result.CurrentHealth.Should().Be(botToCreateDto.MaximumHealth);
             result.MaximumStamina.Should().Be(botToCreateDto.MaximumStamina);

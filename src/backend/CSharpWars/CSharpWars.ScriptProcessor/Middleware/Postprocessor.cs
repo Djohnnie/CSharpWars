@@ -25,12 +25,16 @@ namespace CSharpWars.ScriptProcessor.Middleware
                 var bot = context.Bots.Single(x => x.Id == botProperty.BotId);
                 var botResult = Move.Build(botProperty, _randomHelper).Go();
                 bot.Orientation = botResult.Orientation;
+                bot.FromX = bot.X;
+                bot.FromY = bot.Y;
                 bot.X = botResult.X;
                 bot.Y = botResult.Y;
                 bot.CurrentHealth = botResult.CurrentHealth;
                 bot.CurrentStamina = botResult.CurrentStamina;
                 bot.Move = botResult.Move;
                 bot.Memory = botResult.Memory.Serialize();
+                bot.LastAttackX = botResult.LastAttackX;
+                bot.LastAttackY = botResult.LastAttackY;
 
                 context.UpdateBotProperties(bot);
 

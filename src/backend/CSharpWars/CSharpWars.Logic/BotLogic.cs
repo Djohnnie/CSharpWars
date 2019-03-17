@@ -64,6 +64,8 @@ namespace CSharpWars.Logic
             bot.Orientation = _randomHelper.Get<PossibleOrientations>();
             bot.X = _randomHelper.Get(arena.Width);
             bot.Y = _randomHelper.Get(arena.Height);
+            bot.FromX = bot.X;
+            bot.FromY = bot.Y;
             bot.CurrentHealth = bot.MaximumHealth;
             bot.CurrentStamina = bot.MaximumStamina;
             bot.Memory = new Dictionary<String, String>().Serialize();
