@@ -46,7 +46,7 @@ namespace CSharpWars.Logic
 
         public async Task<IList<BotDto>> GetAllActiveBots()
         {
-            var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0, i => i.Player);
+            var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0 || (DateTime.UtcNow - x.TimeOfDeath).TotalSeconds < 10, i => i.Player);
             return _botMapper.Map(activeBots);
         }
 
@@ -73,6 +73,7 @@ namespace CSharpWars.Logic
             bot.CurrentHealth = bot.MaximumHealth;
             bot.CurrentStamina = bot.MaximumStamina;
             bot.Memory = new Dictionary<String, String>().Serialize();
+            bot.TimeOfDeath = DateTime.MaxValue;
             bot = await _botScriptRepository.Create(bot);
             var botScript = await _scriptRepository.Single(x => x.Id == bot.Id);
             botScript.Script = botToCreate.Script;

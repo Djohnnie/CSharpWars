@@ -59,6 +59,52 @@ namespace CSharpWars.Tests.Logic
         }
 
         [Fact]
+        public async Task BotLogic_GetAllActiveBots_Should_Only_Return_Recently_Died_Bots()
+        {
+            // Arrange
+            var randomHelper = new Mock<IRandomHelper>();
+            var botRepository = new Mock<IRepository<Bot>>();
+            var scriptRepository = new Mock<IRepository<BotScript>>();
+            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
+            var playerRepository = new Mock<IRepository<Player>>();
+            var botMapper = new BotMapper();
+            var botToCreateMapper = new BotToCreateMapper();
+            var arenaLogic = new Mock<IArenaLogic>();
+            IBotLogic botLogic = new BotLogic(
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
+                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object);
+
+            var bots = new List<Bot>
+            {
+                new Bot
+                {
+                    Name = "BOT1",
+                    CurrentHealth = 0,
+                    TimeOfDeath = DateTime.UtcNow.AddSeconds(-11)
+                },
+                new Bot
+                {
+                    Name = "BOT2",
+                    Id = Guid.NewGuid(),
+                    CurrentHealth = 0,
+                    TimeOfDeath = DateTime.UtcNow.AddSeconds(-1)
+                }
+            };
+
+            // Mock
+            botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), Any.Include<Bot, Player>()))
+                .ReturnsAsync((Expression<Func<Bot, Boolean>> predicate, Expression<Func<Bot, Player>> include) =>
+                    (IList<Bot>)bots.Where(predicate.Compile()).ToList());
+
+            // Act
+            var result = await botLogic.GetAllActiveBots();
+
+            // Assert
+            result.Should().HaveCount(1);
+            result.Should().Contain(x => x.Name == "BOT2");
+        }
+
+        [Fact]
         public async Task BotLogic_GetBotScript_Should_Return_Correct_Script()
         {
             // Arrange
@@ -155,6 +201,7 @@ namespace CSharpWars.Tests.Logic
             result.MaximumStamina.Should().Be(botToCreateDto.MaximumStamina);
             result.CurrentStamina.Should().Be(botToCreateDto.MaximumStamina);
             result.Memory.Should().NotBeNull();
+            result.TimeOfDeath.Should().Be(DateTime.MaxValue);
         }
 
         [Fact]

@@ -19,6 +19,7 @@ namespace CSharpWars.Model
         public Int32 CurrentStamina { get; set; }
         public String Memory { get; set; }
         public PossibleMoves Move { get; set; }
+        public DateTime TimeOfDeath { get; set; }
         public Int32 LastAttackX { get; set; }
         public Int32 LastAttackY { get; set; }
         public virtual Player Player { get; set; }

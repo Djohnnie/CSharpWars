@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
 using CSharpWars.Common.Helpers.Interfaces;
@@ -58,6 +59,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
                 {
                     bot.CurrentHealth = 0;
                     bot.Move = PossibleMoves.Died;
+                    bot.TimeOfDeath = DateTime.UtcNow;
                 }
 
                 if (bot.CurrentStamina <= 0)

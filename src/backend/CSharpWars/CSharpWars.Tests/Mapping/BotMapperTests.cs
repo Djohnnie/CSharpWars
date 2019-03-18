@@ -31,7 +31,8 @@ namespace CSharpWars.Tests.Mapping
                 Move = PossibleMoves.MeleeAttack,
                 Player = new Player { Name = "PlayerName" },
                 LastAttackX = 1,
-                LastAttackY = 2
+                LastAttackY = 2,
+                TimeOfDeath = new DateTime(2000, 10, 1)
             };
 
             // Act
@@ -53,7 +54,8 @@ namespace CSharpWars.Tests.Mapping
                     .Including(x => x.CurrentStamina)
                     .Including(x => x.Move)
                     .Including(x => x.LastAttackX)
-                    .Including(x => x.LastAttackY));
+                    .Including(x => x.LastAttackY)
+                    .Including(x => x.TimeOfDeath));
             botDto.PlayerName.Should().Be(botModel.Player.Name);
         }
 
@@ -77,7 +79,8 @@ namespace CSharpWars.Tests.Mapping
                 CurrentStamina = 123,
                 Move = PossibleMoves.MeleeAttack,
                 LastAttackX = 1,
-                LastAttackY = 2
+                LastAttackY = 2,
+                TimeOfDeath = new DateTime(2000, 10, 1)
             };
 
             // Act
@@ -99,7 +102,8 @@ namespace CSharpWars.Tests.Mapping
                     .Including(x => x.CurrentStamina)
                     .Including(x => x.Move)
                     .Including(x => x.LastAttackX)
-                    .Including(x => x.LastAttackY));
+                    .Including(x => x.LastAttackY)
+                    .Including(x => x.TimeOfDeath));
         }
     }
 }
