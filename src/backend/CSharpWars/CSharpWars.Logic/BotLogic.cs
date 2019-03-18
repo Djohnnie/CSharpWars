@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
 using CSharpWars.Common.Helpers.Interfaces;
@@ -62,8 +63,11 @@ namespace CSharpWars.Logic
             var player = await _playerRepository.Single(x => x.Id == botToCreate.PlayerId);
             bot.Player = player;
             bot.Orientation = _randomHelper.Get<PossibleOrientations>();
-            bot.X = _randomHelper.Get(arena.Width);
-            bot.Y = _randomHelper.Get(arena.Height);
+            var bots = await GetAllActiveBots();
+            var freeLocations = BuildFreeLocation(arena, bots);
+            var randomFreeLocation = freeLocations[_randomHelper.Get(freeLocations.Count)];
+            bot.X = randomFreeLocation.X;
+            bot.Y = randomFreeLocation.Y;
             bot.FromX = bot.X;
             bot.FromY = bot.Y;
             bot.CurrentHealth = bot.MaximumHealth;
@@ -75,6 +79,24 @@ namespace CSharpWars.Logic
             await _scriptRepository.Update(botScript);
             var createdBot = _botMapper.Map(bot);
             return createdBot;
+        }
+
+        private IList<(Int32 X, Int32 Y)> BuildFreeLocation(ArenaDto arena, IList<BotDto> bots)
+        {
+            var freeLocations = new List<(Int32 X, Int32 Y)>();
+
+            for (Int32 x = 0; x < arena.Width; x++)
+            {
+                for (Int32 y = 0; y < arena.Height; y++)
+                {
+                    if (!bots.Any(b => b.X == x && b.Y == y))
+                    {
+                        freeLocations.Add((x, y));
+                    }
+                }
+            }
+
+            return freeLocations;
         }
 
         public async Task UpdateBots(IList<BotDto> bots)
