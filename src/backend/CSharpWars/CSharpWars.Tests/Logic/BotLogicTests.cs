@@ -105,6 +105,54 @@ namespace CSharpWars.Tests.Logic
         }
 
         [Fact]
+        public async Task BotLogic_GetAllLiveBots_Should_Only_Return_Live_Bots()
+        {
+            // Arrange
+            var randomHelper = new Mock<IRandomHelper>();
+            var botRepository = new Mock<IRepository<Bot>>();
+            var scriptRepository = new Mock<IRepository<BotScript>>();
+            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
+            var playerRepository = new Mock<IRepository<Player>>();
+            var botMapper = new BotMapper();
+            var botToCreateMapper = new BotToCreateMapper();
+            var arenaLogic = new Mock<IArenaLogic>();
+            IBotLogic botLogic = new BotLogic(
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
+                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object);
+
+            var bots = new List<Bot>
+            {
+                new Bot
+                {
+                    Name = "BOT1",
+                    CurrentHealth = 0
+                },
+                new Bot
+                {
+                    Name = "BOT2",
+                    CurrentHealth = 1
+                },
+                new Bot
+                {
+                    Name = "BOT3",
+                    CurrentHealth = 0
+                }
+            };
+
+            // Mock
+            botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), Any.Include<Bot, Player>()))
+                .ReturnsAsync((Expression<Func<Bot, Boolean>> predicate, Expression<Func<Bot, Player>> include) =>
+                    (IList<Bot>)bots.Where(predicate.Compile()).ToList());
+
+            // Act
+            var result = await botLogic.GetAllLiveBots();
+
+            // Assert
+            result.Should().HaveCount(1);
+            result.Should().Contain(x => x.Name == "BOT2");
+        }
+
+        [Fact]
         public async Task BotLogic_GetBotScript_Should_Return_Correct_Script()
         {
             // Arrange

@@ -30,7 +30,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
         public async Task Process()
         {
             var arena = await _arenaLogic.GetArena();
-            var bots = await _botLogic.GetAllActiveBots();
+            var bots = await _botLogic.GetAllLiveBots();
 
             var context = ProcessingContext.Build(arena, bots);
 

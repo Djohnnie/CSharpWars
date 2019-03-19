@@ -9,6 +9,8 @@ namespace CSharpWars.Logic.Interfaces
     {
         Task<IList<BotDto>> GetAllActiveBots();
 
+        Task<IList<BotDto>> GetAllLiveBots();
+
         Task<String> GetBotScript(Guid botId);
 
         Task<BotDto> CreateBot(BotToCreateDto bot);

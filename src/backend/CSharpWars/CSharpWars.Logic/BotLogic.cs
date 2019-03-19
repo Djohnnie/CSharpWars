@@ -50,6 +50,12 @@ namespace CSharpWars.Logic
             return _botMapper.Map(activeBots);
         }
 
+        public async Task<IList<BotDto>> GetAllLiveBots()
+        {
+            var activeBots = await _botRepository.Find(x => x.CurrentHealth > 0, i => i.Player);
+            return _botMapper.Map(activeBots);
+        }
+
         public async Task<String> GetBotScript(Guid botId)
         {
             var botScript = await _scriptRepository.Single(x => x.Id == botId);
