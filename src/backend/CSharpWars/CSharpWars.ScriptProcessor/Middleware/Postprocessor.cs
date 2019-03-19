@@ -58,8 +58,11 @@ namespace CSharpWars.ScriptProcessor.Middleware
                 if (bot.CurrentHealth <= 0)
                 {
                     bot.CurrentHealth = 0;
-                    bot.Move = PossibleMoves.Died;
                     bot.TimeOfDeath = DateTime.UtcNow;
+                    if (bot.Move != PossibleMoves.SelfDestruct)
+                    {
+                        bot.Move = PossibleMoves.Died;
+                    }
                 }
 
                 if (bot.CurrentStamina <= 0)

@@ -106,6 +106,34 @@ namespace CSharpWars.Tests.Scripting.Middleware
         }
 
         [Fact]
+        public async Task Postprocessor_Go_Should_Kill_Bots_That_Have_Self_Destructed()
+        {
+            // Arrange
+            var randomHelper = new Mock<IRandomHelper>();
+            var postprocessor = new Postprocessor(randomHelper.Object);
+            var arena = new ArenaDto { Width = 1, Height = 1 };
+            var bot = new BotDto { Id = Guid.NewGuid(), CurrentHealth = 1 };
+            var bots = new List<BotDto>(new[] { bot });
+            var context = ProcessingContext.Build(arena, bots);
+            var botProperties = BotProperties.Build(bot, arena, bots);
+            botProperties.CurrentMove = PossibleMoves.SelfDestruct;
+            context.AddBotProperties(bot.Id, botProperties);
+
+            // Act
+            await postprocessor.Go(context);
+
+            // Assert
+            context.Bots.Should().HaveCount(1);
+            context.Bots.Should().ContainEquivalentOf(new BotDto
+            {
+                Move = PossibleMoves.SelfDestruct,
+                CurrentHealth = 0
+            }, c => c
+                .Including(p => p.Move)
+                .Including(p => p.CurrentHealth));
+        }
+
+        [Fact]
         public async Task Postprocessor_Go_Should_Ignore_Bots_That_Have_Zero_Stamina_Left()
         {
             // Arrange
