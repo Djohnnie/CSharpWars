@@ -19,6 +19,7 @@ namespace Assets.Scripts.Controllers
         private GameObject _errorGameObject;
         private GameObject _rangedAttackGameObject;
         private Boolean _rangeAttackExecuted;
+        private Boolean _died;
 
         public Single Speed = 1;
         public Single RotationSpeed = 2;
@@ -91,7 +92,11 @@ namespace Assets.Scripts.Controllers
 
             if (RobotHasDied())
             {
+                _died = true;
                 RunAnimationOnce(Animations.Death);
+                _nameTagController.Destroy();
+                _healthTagController.Destroy();
+                _staminaTagController.Destroy();
                 return;
             }
 
@@ -155,8 +160,16 @@ namespace Assets.Scripts.Controllers
         public void UpdateBot(Bot bot)
         {
             SetBot(bot);
-            _healthTagController.UpdateBot(bot);
-            _staminaTagController.UpdateBot(bot);
+            if (_healthTagController != null)
+            {
+                _healthTagController.UpdateBot(bot);
+            }
+
+            if (_staminaTagController != null)
+            {
+                _staminaTagController.UpdateBot(bot);
+            }
+
             _rangeAttackExecuted = false;
         }
 
@@ -199,7 +212,7 @@ namespace Assets.Scripts.Controllers
 
         private Boolean BotIsNotAvailable()
         {
-            return _bot == null;
+            return _bot == null || _died;
         }
 
         private Boolean RobotIsConfused()
@@ -230,6 +243,27 @@ namespace Assets.Scripts.Controllers
         private Boolean RobotIsTeleporting()
         {
             return _bot.Move == PossibleMoves.Teleport;
+        }
+
+        public void Destroy()
+        {
+            if (_nameTagController != null)
+            {
+                _nameTagController.Destroy();
+            }
+
+            if (_healthTagController != null)
+            {
+                _healthTagController.Destroy();
+            }
+
+            if (_staminaTagController != null)
+            {
+                _staminaTagController.Destroy();
+            }
+
+            Destroy(gameObject);
+            Destroy(this);
         }
     }
 }

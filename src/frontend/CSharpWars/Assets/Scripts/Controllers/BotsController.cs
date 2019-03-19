@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Model;
 using Assets.Scripts.Networking;
 using UnityEngine;
 
@@ -27,6 +29,7 @@ namespace Assets.Scripts.Controllers
         private void RefreshBots()
         {
             var bots = ApiClient.GetBots();
+            CleanKilledBots(bots);
             foreach (var bot in bots)
             {
                 if (!_bots.ContainsKey(bot.Id))
@@ -66,6 +69,25 @@ namespace Assets.Scripts.Controllers
                     var botController = _bots[bot.Id];
                     botController.UpdateBot(bot);
                 }
+            }
+        }
+
+        private void CleanKilledBots(List<Bot> bots)
+        {
+            var botIdsToClean = new List<Guid>();
+            foreach (var botId in _bots.Keys)
+            {
+                if (bots.All(b => b.Id != botId))
+                {
+                    botIdsToClean.Add(botId);
+                }
+            }
+
+            foreach (var botId in botIdsToClean)
+            {
+                var botController = _bots[botId];
+                _bots.Remove(botId);
+                botController.Destroy();
             }
         }
     }
