@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
@@ -71,19 +72,52 @@ namespace CSharpWars.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Play(GameViewModel vm)
         {
-            var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
-
-            var botToCreate = new BotToCreateDto
+            if (HttpContext.Session.Keys.Contains("PLAYER"))
             {
-                PlayerId = player.Id,
-                Name = vm.BotName,
-                MaximumHealth = vm.BotHealth,
-                MaximumStamina = vm.BotStamina,
-                Script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode()
-            };
-            var bot = await _botLogic.CreateBot(botToCreate);
+                var valid = IsValid(vm);
+                if (valid)
+                {
+                    var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
 
-            return RedirectToAction(nameof(Play));
+                    var botToCreate = new BotToCreateDto
+                    {
+                        PlayerId = player.Id,
+                        Name = vm.BotName,
+                        MaximumHealth = vm.BotHealth,
+                        MaximumStamina = vm.BotStamina,
+                        Script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode()
+                    };
+                    await _botLogic.CreateBot(botToCreate);
+
+                    vm.PlayerName = player.Name;
+                }
+
+                vm = new GameViewModel
+                {
+                    PlayerName = vm.PlayerName,
+                    BotHealth = 100,
+                    BotStamina = 100,
+                    Scripts = BotScripts.All
+                };
+
+                if (valid)
+                {
+                    vm.HappyMessage = $"{vm.BotName} for player {vm.PlayerName} has been created successfully!";
+                }
+                else
+                {
+                    vm.SadMessage = "You have made some errors!";
+                }
+
+                return View(vm);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private Boolean IsValid(GameViewModel vm)
+        {
+            return !String.IsNullOrEmpty(vm.BotName) && vm.BotHealth > 0 && vm.BotStamina > 0 && vm.SelectedScript != Guid.Empty;
         }
     }
 }

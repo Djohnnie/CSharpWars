@@ -5,6 +5,8 @@ namespace CSharpWars.Web.Models
 {
     public class GameViewModel
     {
+        public String HappyMessage { get; set; }
+        public String SadMessage { get; set; }
         public String PlayerName { get; set; }
         public String BotName { get; set; }
         public Int32 BotHealth { get; set; }

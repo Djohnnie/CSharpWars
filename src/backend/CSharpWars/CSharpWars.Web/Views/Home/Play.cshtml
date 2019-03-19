@@ -11,6 +11,28 @@
     <p>Please select a script template to start playing!</p>
 </div>
 
+@if (!String.IsNullOrEmpty(Model.HappyMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-success" role="alert">
+                @Model.HappyMessage
+            </div>
+        </div>
+    </div>
+}
+
+@if (!String.IsNullOrEmpty(Model.SadMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                @Model.SadMessage
+            </div>
+        </div>
+    </div>
+}
+
 <form method="post">
 
     <div class="row">
@@ -58,11 +80,11 @@
 
     @foreach (var script in Model.Scripts)
     {
-    <div class="cs-script row" id="@script.Id">
-        <div class="col-12">
-            <pre><code class="cs">@script.Script</code></pre>
+        <div class="cs-script row" id="@script.Id">
+            <div class="col-12">
+                <pre><code class="cs">@script.Script</code></pre>
+            </div>
         </div>
-    </div>
     }
 
 </form>
