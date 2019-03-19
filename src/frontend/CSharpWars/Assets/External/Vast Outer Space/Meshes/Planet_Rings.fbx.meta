@@ -1,0 +1,118 @@
+fileFormatVersion: 2
+guid: 8ac9969cd5be28241b55dbf277b11b63
+timeCreated: 1433272286
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Planet_Ring_A1
+    100002: Planet_Ring_A2
+    100004: Planet_Ring_B1
+    100006: Planet_Ring_B2
+    100008: Planet_Ring_C1
+    100010: Planet_Ring_C2
+    100012: Planet_Ring_D1
+    100014: Planet_Ring_D2
+    100016: Planet_Ring_E1
+    100018: Planet_Ring_E2
+    100020: //RootNode
+    400000: Planet_Ring_A1
+    400002: Planet_Ring_A2
+    400004: Planet_Ring_B1
+    400006: Planet_Ring_B2
+    400008: Planet_Ring_C1
+    400010: Planet_Ring_C2
+    400012: Planet_Ring_D1
+    400014: Planet_Ring_D2
+    400016: Planet_Ring_E1
+    400018: Planet_Ring_E2
+    400020: //RootNode
+    2300000: Planet_Ring_A1
+    2300002: Planet_Ring_A2
+    2300004: Planet_Ring_B1
+    2300006: Planet_Ring_B2
+    2300008: Planet_Ring_C1
+    2300010: Planet_Ring_C2
+    2300012: Planet_Ring_D1
+    2300014: Planet_Ring_D2
+    2300016: Planet_Ring_E1
+    2300018: Planet_Ring_E2
+    3300000: Planet_Ring_A1
+    3300002: Planet_Ring_A2
+    3300004: Planet_Ring_B1
+    3300006: Planet_Ring_B2
+    3300008: Planet_Ring_C1
+    3300010: Planet_Ring_C2
+    3300012: Planet_Ring_D1
+    3300014: Planet_Ring_D2
+    3300016: Planet_Ring_E1
+    3300018: Planet_Ring_E2
+    4300000: Planet_Ring_A1
+    4300002: Planet_Ring_A2
+    4300004: Planet_Ring_B1
+    4300006: Planet_Ring_B2
+    4300008: Planet_Ring_C1
+    4300010: Planet_Ring_C2
+    4300012: Planet_Ring_D1
+    4300014: Planet_Ring_D2
+    4300016: Planet_Ring_E1
+    4300018: Planet_Ring_E2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
