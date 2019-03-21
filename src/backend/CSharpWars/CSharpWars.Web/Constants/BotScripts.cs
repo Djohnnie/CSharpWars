@@ -25,6 +25,18 @@ namespace CSharpWars.Web.Constants
                 Id = Guid.NewGuid(),
                 Description = "Look around and self destruct",
                 Script = LookAroundAndSelfDestruct
+            },
+            new ScriptViewModel
+            {
+                Id = Guid.NewGuid(),
+                Description = "Look around and range attack",
+                Script = LookAroundAndRangeAttack
+            },
+            new ScriptViewModel
+            {
+                Id = Guid.NewGuid(),
+                Description = "Teleport around at random",
+                Script = TeleportAround
             }
         };
 
@@ -72,5 +84,25 @@ namespace CSharpWars.Web.Constants
             "{\r\n" +
             "    TurnLeft();\r\n" +
             "}\r\n";
+
+        public const String LookAroundAndRangeAttack =
+            "var attacked = false;\r\n" +
+            "foreach( var enemy in Vision.EnemyBots )\r\n" +
+            "{\r\n" +
+            "    RangedAttack( enemy.X , enemy.Y );\r\n" +
+            "    attacked = true;\r\n" +
+            "    break;\r\n" +
+            "}\r\n" +
+            "\r\n" +
+            "if( !attacked )\r\n" +
+            "{\r\n" +
+            "    TurnLeft();\r\n" +
+            "}\r\n";
+
+        public const String TeleportAround =
+            "var r = new Random();\r\n" +
+            "var destinationX = r.Next(0, Width);\r\n" +
+            "var destinationY = r.Next(0, Height);\r\n" +
+            "Teleport( destinationX , destinationY );\r\n";
     }
 }
