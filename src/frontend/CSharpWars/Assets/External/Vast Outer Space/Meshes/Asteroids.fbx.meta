@@ -1,0 +1,98 @@
+fileFormatVersion: 2
+guid: 38c445290885e384197c7c05e3d49f5f
+timeCreated: 1433274719
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Asteroid_A
+    100002: Asteroid_B
+    100004: Asteroid_C
+    100006: Asteroid_D
+    100008: Asteroid_E
+    100010: //RootNode
+    100012: Asteroid_Orbital_Mesh
+    400000: Asteroid_A
+    400002: Asteroid_B
+    400004: Asteroid_C
+    400006: Asteroid_D
+    400008: Asteroid_E
+    400010: //RootNode
+    400012: Asteroid_Orbital_Mesh
+    2300000: Asteroid_A
+    2300002: Asteroid_B
+    2300004: Asteroid_C
+    2300006: Asteroid_D
+    2300008: Asteroid_E
+    2300010: Asteroid_Orbital_Mesh
+    3300000: Asteroid_A
+    3300002: Asteroid_B
+    3300004: Asteroid_C
+    3300006: Asteroid_D
+    3300008: Asteroid_E
+    3300010: Asteroid_Orbital_Mesh
+    4300000: Asteroid_A
+    4300002: Asteroid_B
+    4300004: Asteroid_C
+    4300006: Asteroid_D
+    4300008: Asteroid_E
+    4300010: Asteroid_Orbital_Mesh
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

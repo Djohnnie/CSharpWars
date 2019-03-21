@@ -33,7 +33,7 @@ namespace CSharpWars.DataAccess.Repositories
 
         public async Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, Boolean>> predicate, Expression<Func<TModel, TProperty>> include)
         {
-            return await _dbSet.Where(predicate).Include(include).ToListAsync();
+            return await _dbSet.AsNoTracking().Where(predicate).Include(include).ToListAsync();
         }
 
         public async Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate)
