@@ -81,7 +81,22 @@ In the next chapter, I will discuss development of the backend HTTP API and scri
 
 ## Part 2 - Implementing a simple HTTP API and the Scripting Middleware
 
-Coming soon...
+### Context
+
+Because CSharpWars is not a game that needs realtime server/client communication, I have opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player, Bot and Arena) and will only be updated by the processing middleware once every two seconds. If the game front-end polls this game state every two seconds, animating the assets between previous and current state should be sufficient.
+
+### Entities
+
+![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.jpg "CSharpWars Entities")
+
+### HTTP API
+
+Because I wanted to use this project to play around with .NET Core 3, I chose ASP.NET Core WebAPI as the technology for the HTTP API's.
+The only important component that will use the HTTP API is the game front-end. Because of this, only an enpoint on the Bot entity should be available.
+
+### Scripting Middleware
+
+
 
 ## Part 3 - Implementing a Unity3D Client
 
