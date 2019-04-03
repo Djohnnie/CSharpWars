@@ -87,7 +87,7 @@ Because CSharpWars is not a game that needs realtime server/client communication
 
 ### Entities
 
-![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.jpg "CSharpWars Entities")
+![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.png "CSharpWars Entities")
 
 ### HTTP API
 
