@@ -83,7 +83,7 @@ In the next chapter, I will discuss development of the backend HTTP API and scri
 
 ### Context
 
-Because CSharpWars is not a game that needs realtime server/client communication, I have opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player, Bot and Arena) and will only be updated by the processing middleware once every two seconds. If the game front-end polls this game state every two seconds, animating the assets between previous and current state should be sufficient.
+CSharpWars is not a game that needs realtime server/client communication, so I have opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player and Bot) and will only be updated by the processing middleware once every two seconds. If the game front-end polls the game state once every two seconds, animating the assets between previous and current state should be sufficient.
 
 ### Entities
 
@@ -96,7 +96,15 @@ The only important component that will use the HTTP API is the game front-end. B
 
 ### Scripting Middleware
 
+The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform to compile and run bot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active bot scripts in parallel. Running the bot scripts will happen in three stages:
 
+1. Preprocessing: This stage will prepare an object model containing all active robots, their current stats and their awareness of each other.
+2. Processing: This stage will run the actual bot scripts for all active bots in parallel and will create a list of moves that need to be performed.
+3. Postprocessing: This stage will perform the actual moves and will mutate the active bot stats.
+
+Every bot script can result in an actual move that needs to be performed by the robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously.
+
+Every possible move is contained in its own operation class.
 
 ## Part 3 - Implementing a Unity3D Client
 
