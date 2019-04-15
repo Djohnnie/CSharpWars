@@ -83,30 +83,33 @@ In the next chapter, I will discuss development of the backend HTTP API and scri
 
 ### Context
 
-CSharpWars is not a game that needs realtime server/client communication, so I opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player and Bot) and will only be updated by the processing middleware once every two seconds. If the game front-end polls the game state once every two seconds, animating the assets between their previous and current state should be sufficient.
+CSharpWars is not a hardcore game that needs realtime server/client communication, so I opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player and Bot) and will only be updated by the processing middleware once every two seconds. If the game front-end polls the game state once every two seconds, animating the assets between their previous and current state should be sufficient.
 
 ### Entities
+
+The relational database will contain a list of robots, storing their state, and a list of players, grouping their deployed robots. When deploying a robot, a player needs to provide a C# script to define the behaviour of the robot. This C# script is only needed once by the processing middleware and is therefore accessed using a seperate entity. It is however stored in the same table as the robot itself.
 
 ![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.png "CSharpWars Entities")
 
 ### HTTP API
 
-Because I wanted to use this project to play around with .NET Core 3, I chose ASP.NET Core WebAPI as the technology for the HTTP API's.
-The only important component that will use the HTTP API is the game front-end. Because of this, only an enpoint on the Bot entities is required.
+Because I want to use this project to play around with .NET Core 3, ASP.NET Core WebAPI is my choice as the technology for the HTTP API's.
+The only important component that will use the HTTP API for now, is the game front-end. Because of this, only an enpoint on the robot entity is required. This endpoint will return all active robots, which are robots that have not died, or that have died within the last 10 seconds.
+In the future, multiple arenas will be supported. Right now, the arena endpoint will always return a single arena instance with a predefined width and height.
 
 ![API](https://www.djohnnie.be/csharpwars/api.png "API")
 
 ### Scripting Middleware
 
-The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform Roslyn to compile and run bot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active bot scripts in parallel. Running the bot scripts will happen in three stages:
+The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform, also known as Roslyn, to compile and run robot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active robot scripts in parallel. Running a robot script will happen in three stages:
 
 ![Middleware Processing](https://www.djohnnie.be/csharpwars/middleware-processing.png "Middleware Processing")
 
-1. **Preprocessing**: This stage will prepare an object model containing all active robots, their current stats and their awareness of each other.
-2. **Processing**: This stage will run the actual bot scripts for all active bots in parallel and will create a list of moves that need to be performed.
-3. **Postprocessing**: This stage will perform the actual moves and will mutate the active bot stats.
+1. **Preprocessing**: This stage will prepare an object model containing all active robots, their current stats, memory and their awareness of other robots.
+2. **Processing**: This stage will compile, initialize and run the actual bot scripts for all active bots in parallel. It will additionally create a list of moves that need to be performed by all robots.
+3. **Postprocessing**: This stage will perform the listed moves if possible and update the object model to reflect the new game state.
 
-Every bot script can result in an actual move that needs to be performed by the robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously.
+The core idea is that every robot script can result in an actual move that needs to be performed by that robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously. 
 
 ## Part 3 - Implementing a Unity3D Client
 
