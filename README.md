@@ -99,11 +99,28 @@ In the future, multiple arenas will be supported. Right now, the arena endpoint 
 
 ![API](https://www.djohnnie.be/csharpwars/api.png "API")
 
+Fetching and storing data in the relational database is performed by Entity Framework Core 3.
+
 ### Scripting Middleware
 
 The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform, also known as Roslyn, to compile and run robot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active robot scripts in parallel. Running a robot script will happen in three stages:
 
 ![Middleware Processing](https://www.djohnnie.be/csharpwars/middleware-processing.png "Middleware Processing")
+
+```c#
+public async Task Process()
+{
+    var arena = await _arenaLogic.GetArena();
+    var bots = await _botLogic.GetAllLiveBots();
+    var context = ProcessingContext.Build(arena, bots);
+
+    await _preprocessor.Go(context);
+    await _processor.Go(context);
+    await _postprocessor.Go(context);
+
+    await _botLogic.UpdateBots(bots);
+}
+```
 
 1. **Preprocessing**: This stage will prepare an object model containing all active robots, their current stats, memory and their awareness of other robots.
 2. **Processing**: This stage will compile, initialize and run the actual bot scripts for all active bots in parallel. It will additionally create a list of moves that need to be performed by all robots.
@@ -112,6 +129,32 @@ The scripting middleware is a .NET Core 3 Console application using The Microsof
 The core idea is that every robot script can result in an actual move that needs to be performed by that robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously. 
 
 ## Part 3 - Implementing a Unity3D Client
+
+### Context
+
+My decision to create a 3D environment to visualize the arena and fighting robots made me look into the Unity Game Engine. As a professional .NET backend developer I should never need a game engine.
+
+### Platform
+
+Coming soon...
+
+### Assets
+
+Coming soon...
+
+### Prefabs
+
+Coming soon...
+
+### Scene
+
+Coming soon...
+
+### Controllers
+
+Coming soon...
+
+### Putting everything together
 
 Coming soon...
 
