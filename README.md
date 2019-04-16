@@ -144,18 +144,20 @@ The desktop version will be a Windows executable with some supporting files that
 
 ### Assets
 
-Unity provides an interface to manage a number of assets. Games generaly use a large number of assets that make up the entire visual world, but also support the dynamics of this world through scripts.
-CSharpWars uses different kinds of assets like: scenes, models, animations, textures, materials, prefabs, scripts and many others.
+Unity provides a user interface to manage a number of assets. Games generaly use a large number of assets that make up the entire visual world, but also support the dynamics of this world through scripts.
+CSharpWars uses a number of different assets like scenes, models, animations, textures, materials, prefabs, scripts and many others.
 
-**A scene** contains your environment and UI. Think of a scene as a unique level. A scene will generally contain a camera to provide a viewport for the player looking at the scene and any number of lights to create a realistic looking scene. CSharpWars only needs a single environment, containing a platform or arena hosting a number of fighting robots. It also doesn't contain any UI or menu system and will immediately show the arena and active fight when started. It will contain a single light floating in the air as if it were the sun. It will contain a camera, slowly rotating around the arena, to create a dynamic view on the battlefield.
+Assets can be created with a range of supporting tools, like 3d moddeling software. Since I am not a graphical wizard, I downloaded a number of free assets from different location in order to prototype a working game front-end. Unity provides a built-in Unity Asset Store to download both free and paid assets and use them directly in your games. Some other assets, like textures, can be downloaded from a wide range of websites.
 
-**Models** are graphical 3d representations of objects. They exist of polygon meshes and can be placed inside of your 3d environment.
+**A scene** contains your environment and UI. Think of a scene as a unique level. A scene will generally contain a camera to provide a viewport for the player looking at the scene and any number of lights to create a realistic view on the game world. CSharpWars only needs a single environment, containing a platform or arena hosting a number of fighting robots. It also doesn't contain any UI or menu system and will immediately show the arena and active fight when started. It will contain a single light floating in the air as if it were the sun and it will contain a camera, slowly rotating around the arena, to create a dynamic view of the battlefield.
 
-**Animations** are bound to models and are able to animate the position and rotation of individual meshes to create moving models.
+**Models** are graphical 3d representations of objects. They exist of polygon meshes and can be placed inside of your 3d environment. CSharpWars uses a simple cube model and tranforms it into an arena floor by extending its width, depth and height. Width and depth are based on the arena dimensions. Height is a small value to make the arena into a thin, but visible, floating floor surface. Other models for robots and effects are downloaded from the Unity Asset Store for free.
 
-**Textures** are images that make up mesh surfaces. They are responsible for making a model look realistic.
+**Animations** are bound to models and are able to animate the position and rotation of individual meshes to create moving models. CSharpWars only uses animations to animate robots from their previous game state to their current game state. The animations for this were included within the robot assets package downloaded from the Unity Asset Store.
 
-**Materials** are assets that take a texture and are linked to a mesh surface. It will use parameters to decide the look and feel of the texture based on known materials like wood, metal or whatever you'd like. An important feature of a material is how it will react to light. Light van be reflected or absorbed, creating a distinct look and feel.
+**Textures** are images that make up mesh surfaces. They are responsible for making a model look realistic. A texture is a simple image that can be wrapped around a mesh surface. All textures in CSharpWars were included with the assets downloaded from the Unity Asset Store, or were downloaded from other websites containing free surface texture images.
+
+**Materials** are assets that take a texture and are linked to a mesh surface. It will use parameters to decide the look and feel of the texture based on known materials like wood, metal or whatever you'd like. An important feature of a material is how it will react to light. Light can be reflected or absorbed, creating a distinct look and feel.
 
 **Prefabs** are used as blueprints of physical objects that are used inside your environment. They can contain a collection of assets that together make up a more complex object. This object can easily be instantiated and cloned to make object management a lot easier to handle. CSharpWars uses prefabs for its robots, because each robot is build using the same structure. Whenever a new robot is deployed to the arena, an instance of this prefab is created and placed on the correct location in the arena. The instance will contain all properties, parameters and scripts that are needed for the object to live independently of the others.
 
