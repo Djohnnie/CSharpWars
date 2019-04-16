@@ -132,23 +132,34 @@ The core idea is that every robot script can result in an actual move that needs
 
 ### Context
 
-My decision to create a 3D environment to visualize the arena and fighting robots made me look into the Unity Game Engine. As a professional .NET backend developer I should never need a game engine.
+My decision to create a 3D environment to visualize the arena and fighting robots made me look into the Unity Game Engine. As a professional .NET backend developer I should never need a game engine, so this is an opportunity to learn something new and challenging.
+Today, Unity is a very popular tool to create both small and large games. Unity uses the Mono project to offer a choice, next to JavaScript, to use C# as a programming language for its scripting. Because I am a C# developer since the start of .NET, this made my leap into Unity a lot more familiar.
+
+![Unity Project](https://www.djohnnie.be/csharpwars/unity-project.png "Unity Project")
 
 ### Platform
 
-Coming soon...
+Unity allows me to compile my project to a multitude of platforms like Desktop, Mobile, Web and Console. For this project I decide to compile to native Windows for Desktop and optionally to web using WebGL.
+The desktop version will be a Windows executable with some supporting files that can be shared in a ZIP archive, or an installer. The WebGL version can be integrated into a webpage to make it available through the webbrowser.
 
 ### Assets
 
-Coming soon...
+Unity provides an interface to manage a number of assets. Games generaly use a large number of assets that make up the entire visual world, but also support the dynamics of this world through scripts.
+CSharpWars uses different kinds of assets like: scenes, models, animations, textures, materials, prefabs, scripts and many others.
 
-### Prefabs
+**A scene** contains your environment and UI. Think of a scene as a unique level. A scene will generally contain a camera to provide a viewport for the player looking at the scene and any number of lights to create a realistic looking scene. CSharpWars only needs a single environment, containing a platform or arena hosting a number of fighting robots. It also doesn't contain any UI or menu system and will immediately show the arena and active fight when started. It will contain a single light floating in the air as if it were the sun. It will contain a camera, slowly rotating around the arena, to create a dynamic view on the battlefield.
 
-Coming soon...
+**Models** are graphical 3d representations of objects. They exist of polygon meshes and can be placed inside of your 3d environment.
 
-### Scene
+**Animations** are bound to models and are able to animate the position and rotation of individual meshes to create moving models.
 
-Coming soon...
+**Textures** are images that make up mesh surfaces. They are responsible for making a model look realistic.
+
+**Materials** are assets that take a texture and are linked to a mesh surface. It will use parameters to decide the look and feel of the texture based on known materials like wood, metal or whatever you'd like. An important feature of a material is how it will react to light. Light van be reflected or absorbed, creating a distinct look and feel.
+
+**Prefabs** are used as blueprints of physical objects that are used inside your environment. They can contain a collection of assets that together make up a more complex object. This object can easily be instantiated and cloned to make object management a lot easier to handle. CSharpWars uses prefabs for its robots, because each robot is build using the same structure. Whenever a new robot is deployed to the arena, an instance of this prefab is created and placed on the correct location in the arena. The instance will contain all properties, parameters and scripts that are needed for the object to live independently of the others.
+
+**Scripts** are pieces of C# code that can be linked to different kinds of game objects. From the script, you are able to change properties of the attached game object to make your game dynamic and react to certain triggers. CSharpWars does not use a single script with a game-loop, but uses a number of prefabs and game objects with linked scripts. Each script is 
 
 ### Controllers
 
