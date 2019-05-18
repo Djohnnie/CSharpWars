@@ -83,30 +83,91 @@ In the next chapter, I will discuss development of the backend HTTP API and scri
 
 ### Context
 
-CSharpWars is not a game that needs realtime server/client communication, so I have opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player and Bot) and will only be updated by the processing middleware once every two seconds. If the game front-end polls the game state once every two seconds, animating the assets between previous and current state should be sufficient.
+CSharpWars is not a hardcore game that needs realtime server/client communication, so I opted for a very simple aproach of using HTTP API's for communication between the game front-end and the back-end. The state of the game world will be stored inside a relational database (with entities like Player and Bot) and will only be updated by the processing middleware once every two seconds. If the game front-end polls the game state once every two seconds, animating the assets between their previous and current state should be sufficient.
 
 ### Entities
+
+The relational database will contain a list of robots, storing their state, and a list of players, grouping their deployed robots. When deploying a robot, a player needs to provide a C# script to define the behaviour of the robot. This C# script is only needed once by the processing middleware and is therefore accessed using a seperate entity. It is however stored in the same table as the robot itself.
 
 ![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.png "CSharpWars Entities")
 
 ### HTTP API
 
-Because I wanted to use this project to play around with .NET Core 3, I chose ASP.NET Core WebAPI as the technology for the HTTP API's.
-The only important component that will use the HTTP API is the game front-end. Because of this, only an enpoint on the Bot entity should be available.
+Because I want to use this project to play around with .NET Core 3, ASP.NET Core WebAPI is my choice as the technology for the HTTP API's.
+The only important component that will use the HTTP API for now, is the game front-end. Because of this, only an enpoint on the robot entity is required. This endpoint will return all active robots, which are robots that have not died, or that have died within the last 10 seconds.
+In the future, multiple arenas will be supported. Right now, the arena endpoint will always return a single arena instance with a predefined width and height.
+
+![API](https://www.djohnnie.be/csharpwars/api.png "API")
+
+Fetching and storing data in the relational database is performed by Entity Framework Core 3.
 
 ### Scripting Middleware
 
-The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform to compile and run bot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active bot scripts in parallel. Running the bot scripts will happen in three stages:
+The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform, also known as Roslyn, to compile and run robot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active robot scripts in parallel. Running a robot script will happen in three stages:
 
-1. Preprocessing: This stage will prepare an object model containing all active robots, their current stats and their awareness of each other.
-2. Processing: This stage will run the actual bot scripts for all active bots in parallel and will create a list of moves that need to be performed.
-3. Postprocessing: This stage will perform the actual moves and will mutate the active bot stats.
+![Middleware Processing](https://www.djohnnie.be/csharpwars/middleware-processing.png "Middleware Processing")
 
-Every bot script can result in an actual move that needs to be performed by the robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously.
+```c#
+public async Task Process()
+{
+    var arena = await _arenaLogic.GetArena();
+    var bots = await _botLogic.GetAllLiveBots();
+    var context = ProcessingContext.Build(arena, bots);
 
-Every possible move is contained in its own operation class.
+    await _preprocessor.Go(context);
+    await _processor.Go(context);
+    await _postprocessor.Go(context);
+
+    await _botLogic.UpdateBots(bots);
+}
+```
+
+1. **Preprocessing**: This stage will prepare an object model containing all active robots, their current stats, memory and their awareness of other robots.
+2. **Processing**: This stage will compile, initialize and run the actual bot scripts for all active bots in parallel. It will additionally create a list of moves that need to be performed by all robots.
+3. **Postprocessing**: This stage will perform the listed moves if possible and update the object model to reflect the new game state.
+
+The core idea is that every robot script can result in an actual move that needs to be performed by that robot. These moves are categorized and prioritized in order to create a trustworthy result when all robots are performing their moves simultaniously. 
 
 ## Part 3 - Implementing a Unity3D Client
+
+### Context
+
+My decision to create a 3D environment to visualize the arena and fighting robots made me look into the Unity Game Engine. As a professional .NET backend developer I should never need a game engine, so this is an opportunity to learn something new and challenging.
+Today, Unity is a very popular tool to create both small and large games. Unity uses the Mono project to offer a choice, next to JavaScript, to use C# as a programming language for its scripting. Because I am a C# developer since the start of .NET, this made my leap into Unity a lot more familiar.
+
+![Unity Project](https://www.djohnnie.be/csharpwars/unity-project.png "Unity Project")
+
+### Platform
+
+Unity allows me to compile my project to a multitude of platforms like Desktop, Mobile, Web and Console. For this project I decide to compile to native Windows for Desktop and optionally to web using WebGL.
+The desktop version will be a Windows executable with some supporting files that can be shared in a ZIP archive, or an installer. The WebGL version can be integrated into a webpage to make it available through the webbrowser.
+
+### Assets
+
+Unity provides a user interface to manage a number of assets. Games generaly use a large number of assets that make up the entire visual world, but also support the dynamics of this world through scripts.
+CSharpWars uses a number of different assets like scenes, models, animations, textures, materials, prefabs, scripts and many others.
+
+Assets can be created with a range of supporting tools, like 3d moddeling software. Since I am not a graphical wizard, I downloaded a number of free assets from different location in order to prototype a working game front-end. Unity provides a built-in Unity Asset Store to download both free and paid assets and use them directly in your games. Some other assets, like textures, can be downloaded from a wide range of websites.
+
+**A scene** contains your environment and UI. Think of a scene as a unique level. A scene will generally contain a camera to provide a viewport for the player looking at the scene and any number of lights to create a realistic view on the game world. CSharpWars only needs a single environment, containing a platform or arena hosting a number of fighting robots. It also doesn't contain any UI or menu system and will immediately show the arena and active fight when started. It will contain a single light floating in the air as if it were the sun and it will contain a camera, slowly rotating around the arena, to create a dynamic view of the battlefield.
+
+**Models** are graphical 3d representations of objects. They exist of polygon meshes and can be placed inside of your 3d environment. CSharpWars uses a simple cube model and tranforms it into an arena floor by extending its width, depth and height. Width and depth are based on the arena dimensions. Height is a small value to make the arena into a thin, but visible, floating floor surface. Other models for robots and effects are downloaded from the Unity Asset Store for free.
+
+**Animations** are bound to models and are able to animate the position and rotation of individual meshes to create moving models. CSharpWars only uses animations to animate robots from their previous game state to their current game state. The animations for this were included within the robot assets package downloaded from the Unity Asset Store.
+
+**Textures** are images that make up mesh surfaces. They are responsible for making a model look realistic. A texture is a simple image that can be wrapped around a mesh surface. All textures in CSharpWars were included with the assets downloaded from the Unity Asset Store, or were downloaded from other websites containing free surface texture images.
+
+**Materials** are assets that take a texture and are linked to a mesh surface. It will use parameters to decide the look and feel of the texture based on known materials like wood, metal or whatever you'd like. An important feature of a material is how it will react to light. Light can be reflected or absorbed, creating a distinct look and feel.
+
+**Prefabs** are used as blueprints of physical objects that are used inside your environment. They can contain a collection of assets that together make up a more complex object. This object can easily be instantiated and cloned to make object management a lot easier to handle. CSharpWars uses prefabs for its robots, because each robot is build using the same structure. Whenever a new robot is deployed to the arena, an instance of this prefab is created and placed on the correct location in the arena. The instance will contain all properties, parameters and scripts that are needed for the object to live independently of the others.
+
+**Scripts** are pieces of C# code that can be linked to different kinds of game objects. From the script, you are able to change properties of the attached game object to make your game dynamic and react to certain triggers. CSharpWars does not use a single script with a game-loop, but uses a number of prefabs and game objects with linked scripts. Each script is 
+
+### Controllers
+
+Coming soon...
+
+### Putting everything together
 
 Coming soon...
 
