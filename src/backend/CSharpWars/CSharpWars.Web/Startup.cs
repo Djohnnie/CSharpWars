@@ -41,13 +41,16 @@ namespace CSharpWars.Web
 
             app.UseStaticFiles();
             app.UseSession();
-            app.UseRouting(routes =>
-            {
-                routes.MapControllerRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRazorPages();
-            });
+            app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
     }
 }

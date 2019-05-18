@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using static System.Convert;
 using static System.Environment;
 
@@ -40,14 +39,17 @@ namespace CSharpWars.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting(routes => { routes.MapControllers(); });
+            app.UseRouting();
             app.UseAuthorization();
             app.UseCors("AllowAll");
-            app.UseMvc();
-            app.UseSwagger(c =>
+            app.UseEndpoints(endpoints =>
             {
-                c.RouteTemplate = "docs/{documentName}/swagger.json";
+                endpoints.MapControllers();
             });
+            //app.UseSwagger(c =>
+            //{
+            //    c.RouteTemplate = "docs/{documentName}/swagger.json";
+            //});
             //app.UseSwaggerUI(c =>
             //{
             //    c.SwaggerEndpoint("/docs/v1/swagger.json", "CSharpWars");
