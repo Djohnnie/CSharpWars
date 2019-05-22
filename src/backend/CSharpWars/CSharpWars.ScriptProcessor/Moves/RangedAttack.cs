@@ -28,7 +28,7 @@ namespace CSharpWars.ScriptProcessor.Moves
 
         private Bot FindVictimizedBot()
         {
-            return BotProperties.Bots.SingleOrDefault(bot => bot.X == BotProperties.MoveDestinationX && bot.Y == BotProperties.MoveDestinationY);
+            return BotProperties.Bots.FirstOrDefault(bot => bot.X == BotProperties.MoveDestinationX && bot.Y == BotProperties.MoveDestinationY);
         }
     }
 }
