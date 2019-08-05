@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Web.Api.Helpers;
@@ -17,7 +16,7 @@ namespace CSharpWars.Web.Api.Controllers
         [HttpGet]
         public Task<IActionResult> GetAllActiveBots()
         {
-            return Ok(l => l.GetAllActiveBots());
+            return Success(l => l.GetAllActiveBots());
         }
 
         [HttpPost]

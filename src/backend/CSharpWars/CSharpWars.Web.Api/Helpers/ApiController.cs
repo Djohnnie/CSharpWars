@@ -7,7 +7,13 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace CSharpWars.Web.Api.Helpers
 {
-    public class ApiController : ControllerBase { }
+    public class ApiController : ControllerBase
+    {
+        protected Task<IActionResult> Success()
+        {
+            return Task.FromResult((IActionResult)Ok());
+        }
+    }
 
     public class ApiController<TLogic> : ApiController where TLogic : ILogic
     {
@@ -25,7 +31,7 @@ namespace CSharpWars.Web.Api.Helpers
             _memoryCache = memoryCache;
         }
 
-        protected async Task<IActionResult> Ok<TResult>(Func<TLogic, Task<TResult>> logicCall)
+        protected async Task<IActionResult> Success<TResult>(Func<TLogic, Task<TResult>> logicCall)
         {
             return await Try(async () =>
             {
@@ -46,7 +52,7 @@ namespace CSharpWars.Web.Api.Helpers
             });
         }
 
-        protected async Task<IActionResult> Ok(Func<TLogic, Task> logicCall)
+        protected async Task<IActionResult> Success(Func<TLogic, Task> logicCall)
         {
             return await Try(async () =>
             {

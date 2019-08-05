@@ -15,7 +15,7 @@ namespace CSharpWars.Web.Api.Controllers
         [HttpGet]
         public Task<IActionResult> GetArena()
         {
-            return Ok(l => l.GetArena());
+            return Success(l => l.GetArena());
         }
     }
 }
