@@ -23,8 +23,6 @@ namespace CSharpWars.ScriptProcessor
             WriteLine("CSharp Wars Processing Console");
             WriteLine("------------------------------");
             WriteLine();
-            WriteLine("Press any key to exit!");
-            WriteLine();
 
             MainAsync().GetAwaiter().GetResult();
         }
@@ -41,17 +39,15 @@ namespace CSharpWars.ScriptProcessor
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var middleware = serviceProvider.GetService<IMiddleware>();
 
-            while (!KeyAvailable)
+            while (true)
             {
                 var start = DateTime.UtcNow;
 
                 try
                 {
-                    using (var sw = new SimpleStopwatch())
-                    {
-                        await middleware.Process();
-                        WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
-                    }
+                    using var sw = new SimpleStopwatch();
+                    await middleware.Process();
+                    WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
                 }
                 catch (Exception ex)
                 {
