@@ -43,7 +43,7 @@ namespace CSharpWars.ScriptProcessor.Moves
         protected Boolean WillCollide(Int32 x, Int32 y)
         {
             var collidingEdge = x < 0 || x >= BotProperties.Width || y < 0 || y >= BotProperties.Height;
-            var collidingBot = BotProperties.Bots.SingleOrDefault(b => b.X == x && b.Y == y);
+            var collidingBot = BotProperties.Bots.FirstOrDefault(b => b.X == x && b.Y == y);
             return collidingBot != null || collidingEdge;
         }
     }

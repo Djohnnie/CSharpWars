@@ -53,7 +53,7 @@ namespace CSharpWars.ScriptProcessor.Moves
                 {
                     if (x != BotProperties.X || y != BotProperties.Y)
                     {
-                        var bot = BotProperties.Bots.SingleOrDefault(b => b.X == x && b.Y == y);
+                        var bot = BotProperties.Bots.FirstOrDefault(b => b.X == x && b.Y == y);
                         if (bot != null)
                         {
                             botsInVicinity.Add(bot);
