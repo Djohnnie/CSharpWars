@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Rendering
-@model GameViewModel
+﻿@model GameViewModel
 
 @{
     ViewData["Title"] = "CSharpWars";
@@ -8,86 +7,505 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome @Model.PlayerName</h1>
-    <p>Please select a script template to start playing!</p>
+    <p>slkdflkdsflkdsjflkdsf ks fldsjfdslkf jlkds jf lkdsjfldskf!</p>
 </div>
 
-@if (!String.IsNullOrEmpty(Model.HappyMessage))
-{
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-success" role="alert">
-                @Model.HappyMessage
-            </div>
-        </div>
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="text-center">
+    <a class="btn btn-primary" asp-controller="Play" asp-action="Template">Play a script from a template</a>
+    <a class="btn btn-primary" asp-controller="Play" asp-action="Custom">Play a script from scratch</a>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-2"> </div>
+    <div class="col-8">
+        <p>CSharpWars is a programming game where you need to write a C#-script to control a robot fighting in an arena. Below you can see a possible C#-script.</p>
     </div>
-}
+    <div class="col-2"> </div>
+</div>
 
-@if (!String.IsNullOrEmpty(Model.SadMessage))
-{
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-danger" role="alert">
-                @Model.SadMessage
-            </div>
-        </div>
+<div class="row">
+    <div class="col-2"> </div>
+    <div class="col-8">
+        <pre><code class="cs">@Model.SampleScript</code></pre>
     </div>
-}
+    <div class="col-2"> </div>
+</div>
 
-<form method="post">
+<div class="row">
+    <br /><br />
+</div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="form-group">
-                <label asp-for="BotName" class="control-label">Name for your robot</label>
-                <input asp-for="BotName" class="form-control" />
-            </div>
-        </div>
+<div class="row">
+    <h2>Readonly <b>properties</b> to get information</h2>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Width</code></pre>
     </div>
-
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-                <label asp-for="BotHealth" class="control-label">Starting health for your robot</label>
-                <input asp-for="BotHealth" class="form-control" />
-            </div>
-        </div>
-
-        <div class="col-6">
-            <div class="form-group">
-                <label asp-for="BotStamina" class="control-label">Starting stamina for your robot</label>
-                <input asp-for="BotStamina" class="form-control" />
-            </div>
-        </div>
+    <div class="col-12">
+        <p>TODO</p>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="form-group">
-                <label asp-for="SelectedScript" class="control-label">Select a pre-made script for your robot</label>
-                <select id="selectedScript" asp-for="SelectedScript" class="custom-select custom-select-lg mb-3"
-                        asp-items="@(new SelectList(Model.Scripts, "Id", "Description" ))">
-                    <option>Please select an item...</option>
-                </select>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Height</code></pre>
     </div>
-
-    <div class="text-center">
-        <div class="form-group">
-            <input type="submit" value="Deploy your robot to arena!" class="btn btn-primary" />
-        </div>
+    <div class="col-12">
+        <p>TODO</p>
     </div>
+</div>
 
-    @foreach (var script in Model.Scripts)
-    {
-        <div class="cs-script row" id="@script.Id">
-            <div class="col-12">
-                <pre><code class="cs">@script.Script</code></pre>
-            </div>
-        </div>
-    }
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">X</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
 
-</form>
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Y</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Orientation</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">LastMove</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MaximumHealth</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">CurrentHealth</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MaximumStamina</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">CurrentStamina</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Vision</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <h2><b>Methods</b> to make your robot act</h2>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">WalkForward()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>Calling this method will cause your robot to walk forward one tile. The direction is based on its current orientation. Walking forward will cost stamina. You cannot walk through other robots or outside of the arena.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TurnLeft()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>Calling this method will cause your robot to turn left by 90 degrees. The new orientation is based on the current orientation. Turning does not cost any stamina.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TurnRight()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TurnAround()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SelfDestruct()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MeleeAttack()</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">RangedAttack(int x, int y)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Teleport(int x, int y)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">StoreInMemory&lt;T&gt;(string key, T value)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">LoadFromMemory&lt;T&gt;(string key)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">RemoveFromMemory(string key)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Talk(string message)</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <h2><b>Constants</b></h2>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MELEE_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MELEE_BACKSTAB_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">RANGED_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SELF_DESTRUCT_MAX_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SELF_DESTRUCT_MED_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SELF_DESTRUCT_MIN_DAMAGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MAXIMUM_RANGE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MAXIMUM_TELEPORT</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">STAMINA_ON_MOVE</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">STAMINA_ON_TELEPORT</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">IDLING</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TURNING_LEFT</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TURNING_RIGHT</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TURNING_AROUND</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MOVING_FORWARD</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">RANGED_ATTACK</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">MELEE_ATTACK</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SELF_DESTRUCTING</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SCRIPT_ERROR</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">DYING</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">TELEPORTING</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">NORTH</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">EAST</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">SOUTH</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">WEST</code></pre>
+    </div>
+    <div class="col-12">
+        <p>TODO</p>
+    </div>
+</div>
 
 @section Scripts {
 
@@ -95,15 +513,6 @@
 
     <script>
         hljs.initHighlightingOnLoad();
-        $('.cs-script').hide();
-    </script>
-
-    <script>
-        $('#selectedScript').change(function () {
-            var id = $(this).val();
-            $('.cs-script').hide();
-            $('#' + id).show();
-        });
     </script>
 
 }

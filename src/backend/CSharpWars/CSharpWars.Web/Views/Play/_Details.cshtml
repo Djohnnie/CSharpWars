@@ -1,0 +1,26 @@
+﻿@model PlayViewModel
+
+<div class="row">
+    <div class="col-12">
+        <div class="form-group">
+            <label asp-for="BotName" class="control-label">Name for your robot</label>
+            <input asp-for="BotName" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="BotHealth" class="control-label">Starting health for your robot</label>
+            <input asp-for="BotHealth" class="form-control" />
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="BotStamina" class="control-label">Starting stamina for your robot</label>
+            <input asp-for="BotStamina" class="form-control" />
+        </div>
+    </div>
+</div>

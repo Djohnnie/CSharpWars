@@ -1,0 +1,85 @@
+﻿@model PlayViewModel
+
+@{
+    ViewData["Title"] = "CSharpWars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @Model.PlayerName</h1>
+    <p>Please select a script template to start playing!</p>
+</div>
+
+@if (!String.IsNullOrEmpty(Model.HappyMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-success" role="alert">
+                @Model.HappyMessage
+            </div>
+        </div>
+    </div>
+}
+
+@if (!String.IsNullOrEmpty(Model.SadMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                @Model.SadMessage
+            </div>
+        </div>
+    </div>
+}
+
+<form method="post">
+
+    <partial name="_Details" model="Model" />
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label asp-for="SelectedScript" class="control-label">Select a pre-made script for your robot</label>
+                <select id="selectedScript" asp-for="SelectedScript" class="custom-select custom-select-lg mb-3"
+                        asp-items="@(new SelectList(Model.Scripts, "Id", "Description"))">
+                    <option>Please select an item...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div class="form-group">
+            <input type="submit" value="Deploy your robot to arena!" class="btn btn-primary" />
+        </div>
+    </div>
+
+    @foreach (var script in Model.Scripts)
+    {
+        <div class="cs-script row" id="@script.Id">
+            <div class="col-12">
+                <pre><code class="cs">@script.Script</code></pre>
+            </div>
+        </div>
+    }
+
+</form>
+
+@section Scripts {
+
+    <script src="~/lib/highlightjs/dist/js/highlight.pack.js"></script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+        $('.cs-script').hide();
+    </script>
+
+    <script>
+        $('#selectedScript').change(function () {
+            var id = $(this).val();
+            $('.cs-script').hide();
+            $('#' + id).show();
+        });
+    </script>
+
+}

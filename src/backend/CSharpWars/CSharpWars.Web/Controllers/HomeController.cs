@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Web.Constants;
@@ -14,12 +12,10 @@ namespace CSharpWars.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IPlayerLogic _playerLogic;
-        private readonly IBotLogic _botLogic;
 
-        public HomeController(IPlayerLogic playerLogic, IBotLogic botLogic)
+        public HomeController(IPlayerLogic playerLogic)
         {
             _playerLogic = playerLogic;
-            _botLogic = botLogic;
         }
 
         public IActionResult Index()
@@ -59,65 +55,22 @@ namespace CSharpWars.Web.Controllers
                 var vm = new GameViewModel
                 {
                     PlayerName = player.Name,
-                    BotHealth = 100,
-                    BotStamina = 100,
-                    Scripts = BotScripts.All
+                    SampleScript = BotScripts.WalkAround
                 };
-                return View(vm);
-            }
-
-            return RedirectToAction(nameof(Play));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Play(GameViewModel vm)
-        {
-            if (HttpContext.Session.Keys.Contains("PLAYER"))
-            {
-                var valid = IsValid(vm);
-                if (valid)
-                {
-                    var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
-
-                    var botToCreate = new BotToCreateDto
-                    {
-                        PlayerId = player.Id,
-                        Name = vm.BotName,
-                        MaximumHealth = vm.BotHealth,
-                        MaximumStamina = vm.BotStamina,
-                        Script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode()
-                    };
-                    await _botLogic.CreateBot(botToCreate);
-
-                    vm.PlayerName = player.Name;
-                }
-
-                vm = new GameViewModel
-                {
-                    PlayerName = vm.PlayerName,
-                    BotHealth = 100,
-                    BotStamina = 100,
-                    Scripts = BotScripts.All
-                };
-
-                if (valid)
-                {
-                    vm.HappyMessage = $"{vm.BotName} for player {vm.PlayerName} has been created successfully!";
-                }
-                else
-                {
-                    vm.SadMessage = "You have made some errors!";
-                }
-
                 return View(vm);
             }
 
             return RedirectToAction(nameof(Index));
         }
 
-        private Boolean IsValid(GameViewModel vm)
+        public IActionResult LogOut()
         {
-            return !String.IsNullOrEmpty(vm.BotName) && vm.BotHealth > 0 && vm.BotStamina > 0 && vm.SelectedScript != Guid.Empty;
+            if (HttpContext.Session.Keys.Contains("PLAYER"))
+            {
+                HttpContext.Session.Remove("PLAYER");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
