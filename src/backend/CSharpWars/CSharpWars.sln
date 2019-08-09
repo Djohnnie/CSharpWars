@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Web", "CSharpWar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Logging", "CSharpWars.Logging\CSharpWars.Logging.csproj", "{C27FA583-27A3-4D3C-A756-DF743FD296FB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpWars.Web.Api.Validation", "CSharpWars.Web.Api.Validation\CSharpWars.Web.Api.Validation.csproj", "{A92F23AE-C338-4E5E-9C51-5B6812F12550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{C27FA583-27A3-4D3C-A756-DF743FD296FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C27FA583-27A3-4D3C-A756-DF743FD296FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C27FA583-27A3-4D3C-A756-DF743FD296FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92F23AE-C338-4E5E-9C51-5B6812F12550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92F23AE-C338-4E5E-9C51-5B6812F12550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92F23AE-C338-4E5E-9C51-5B6812F12550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92F23AE-C338-4E5E-9C51-5B6812F12550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{98C91621-2820-4F3B-8FFC-0D1D4E1447A3} = {0A98A61E-627A-404C-AF36-BE45C686FDA8}
 		{3A8F2AB7-E4B0-4F01-9101-CB6B115DA525} = {CAD9E77B-3C2D-46EF-B792-48A64D4872A0}
 		{C27FA583-27A3-4D3C-A756-DF743FD296FB} = {6509E698-4905-4650-AACA-53BA4843F4D1}
+		{A92F23AE-C338-4E5E-9C51-5B6812F12550} = {3617C864-3E81-488C-95CF-87D548239619}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E06EEE3-AA5D-461B-89D6-B7A76FD4DA45}

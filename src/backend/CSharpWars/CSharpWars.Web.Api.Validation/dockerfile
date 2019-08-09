@@ -1,0 +1,14 @@
+﻿FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-preview7-bionic
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the app
+COPY bin/Release/publish /app
+
+EXPOSE 5000
+
+ENV TZ=Europe/Brussels
+
+# Start the app
+ENTRYPOINT ["dotnet", "CSharpWars.Web.Api.Validation.dll"]

@@ -61,6 +61,13 @@ namespace CSharpWars.DataAccess.Repositories
             {
                 InternalUpdate(entity);
             }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public virtual async Task Delete(IList<TModel> toDelete)
+        {
+            _dbSet.RemoveRange(toDelete);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -71,6 +78,7 @@ namespace CSharpWars.DataAccess.Repositories
             {
                 trackedEntity.State = EntityState.Detached;
             }
+
             _dbContext.Entry(toUpdate).State = EntityState.Modified;
         }
     }
@@ -93,6 +101,14 @@ namespace CSharpWars.DataAccess.Repositories
             await _dbSet2.AddAsync(new TModel2 { Id = toCreate.Id });
             await _dbContext.SaveChangesAsync();
             return toCreate;
+        }
+
+        public override async Task Delete(IList<TModel1> toDelete)
+        {
+            var toDelete2 = await _dbSet2.Where(x => toDelete.Select(d => d.Id).Contains(x.Id)).ToListAsync();
+            _dbSet.RemoveRange(toDelete);
+            _dbSet2.RemoveRange(toDelete2);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

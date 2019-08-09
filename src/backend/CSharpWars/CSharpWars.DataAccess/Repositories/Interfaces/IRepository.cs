@@ -22,6 +22,8 @@ namespace CSharpWars.DataAccess.Repositories.Interfaces
         Task Update(TModel toUpdate);
 
         Task Update(IList<TModel> toUpdate);
+
+        Task Delete(IList<TModel> toDelete);
     }
 
     public interface IRepository<TModel1, TModel2> : IRepository<TModel1>
