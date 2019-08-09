@@ -46,16 +46,6 @@ namespace CSharpWars.Web.Api
             {
                 endpoints.MapControllers();
             });
-            //app.UseSwagger(c =>
-            //{
-            //    c.RouteTemplate = "docs/{documentName}/swagger.json";
-            //});
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/docs/v1/swagger.json", "CSharpWars");
-            //    c.RoutePrefix = "docs";
-            //    c.DocExpansion(DocExpansion.List);
-            //});
         }
     }
 }
