@@ -61,6 +61,9 @@ steps:
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
 
 - script: |
+    dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation/bin/Release/publish
+
+- script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web/bin/Release/publish
 
 - script: |
@@ -71,6 +74,12 @@ steps:
     docker build -t djohnnie/csharpwars-api .
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-api
+
+- script: |
+    cd ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation
+    docker build -t djohnnie/csharpwars-api-validation .
+    docker login -u $(dockerId) -p $(dockerPwd)
+    docker push djohnnie/csharpwars-api-validation
 
 - script: |
     cd ./src/backend/CSharpWars/CSharpWars.Web
