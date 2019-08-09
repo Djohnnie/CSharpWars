@@ -7,7 +7,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome @Model.PlayerName</h1>
-    <p>slkdflkdsflkdsjflkdsf ks fldsjfdslkf jlkds jf lkdsjfldskf!</p>
+    <h5>This page gives you a starting point for playing CSharpWars. You can find two buttons: one to play with a script from a template, the other to play with your own custom script.!</h5>
 </div>
 
 <div class="row">
@@ -24,11 +24,18 @@
 </div>
 
 <div class="row">
-    <div class="col-2"> </div>
-    <div class="col-8">
-        <p>CSharpWars is a programming game where you need to write a C#-script to control a robot fighting in an arena. Below you can see a possible C#-script.</p>
+    <div class="col-1"> </div>
+    <div class="col-10">
+        <h6>
+            CSharpWars is a programming game where you need to write a C#-script to control a robot fighting in an arena.
+            Below you can see an example for a valid C#-script.
+            You can use the buttons on top to deploy a robot to the arena.
+            Choose an existing template to learn and experiment, or write a custom script from scratch.
+            You can download a Visual Studio 2017 solution to help you write a script thanks to Intellisense.
+            When you are finished, just copy and paste the code to this web application to actually start using it.
+        </h6>
     </div>
-    <div class="col-2"> </div>
+    <div class="col-1"> </div>
 </div>
 
 <div class="row">
@@ -37,6 +44,17 @@
         <pre><code class="cs">@Model.SampleScript</code></pre>
     </div>
     <div class="col-2"> </div>
+</div>
+
+<div class="row">
+    <div class="col-1"> </div>
+    <div class="col-10">
+        <h6>
+            Read the following documentation carefully to understand all the features and possible actions your robot has available.
+            Good luck!
+        </h6>
+    </div>
+    <div class="col-1"> </div>
 </div>
 
 <div class="row">
@@ -56,7 +74,7 @@
         <pre><code class="cs">Width</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Gets the width of the aren in tiles (from west to east).</p>
     </div>
 </div>
 
@@ -65,7 +83,7 @@
         <pre><code class="cs">Height</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Gets the height of the aren in tiles (from north to south).</p>
     </div>
 </div>
 
@@ -74,7 +92,7 @@
         <pre><code class="cs">X</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The location in between west and east that your robot is currently in (starting from zero for the first tile).</p>
     </div>
 </div>
 
@@ -83,7 +101,7 @@
         <pre><code class="cs">Y</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The location in between north and south that your robot is currently in (starting from zero for the first tile).</p>
     </div>
 </div>
 
@@ -92,7 +110,7 @@
         <pre><code class="cs">Orientation</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The current orientation for your robot. Possible values are: NORTH, EAST, SOUTH or WEST.</p>
     </div>
 </div>
 
@@ -101,7 +119,7 @@
         <pre><code class="cs">LastMove</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The last move your robot has performed in its previous turn. Possible values are: IDLING, ...TODO...</p>
     </div>
 </div>
 
@@ -110,7 +128,7 @@
         <pre><code class="cs">MaximumHealth</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The maximum health value for your robot. Use this for your own calculations if you want to know the damage percentage for example. If health reaches zero, your robot will die and will be cleaned from the arena by unknown forces.</p>
     </div>
 </div>
 
@@ -119,7 +137,7 @@
         <pre><code class="cs">CurrentHealth</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The current health value for your robot. Use this to know how badly it is damaged or for your own custom calculations. If health reaches zero, your robot will die and will be cleaned from the arena by unknown forces.</p>
     </div>
 </div>
 
@@ -128,7 +146,7 @@
         <pre><code class="cs">MaximumStamina</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The maximum stamina value for your robot. Use this for your own calculations if you want to know the exhaustion percentage for example. If stamina reaches zero, your robot will not be able to move.</p>
     </div>
 </div>
 
@@ -137,7 +155,7 @@
         <pre><code class="cs">CurrentStamina</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>The current stamina value for your robot. Use this to know how exhausted it is or for your own custom calculations. If stamina reaches zero, your robot will not be able to move.</p>
     </div>
 </div>
 
@@ -146,7 +164,100 @@
         <pre><code class="cs">Vision</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>A more complex data type that contains all visible robots in the arena. Robots that are outside of your robots line of vision are not availble.</p>
+    </div>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <h2><b>Vision</b> to make your robot see its surroundings</h2>
+</div>
+
+<div class="row">
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">Bots</code></pre>
+    </div>
+    <div class="col-12">
+        <p>A list containing all visible robots on the arena, both friendly and enemy.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">FriendlyBots</code></pre>
+    </div>
+    <div class="col-12">
+        <p>A list containing all visible friendly robots on the arena. Friendly robots are robots that you have deployed.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">EnemyBots</code></pre>
+    </div>
+    <div class="col-12">
+        <p>A list containing all visible enemy robots on the arena. Enemy robots are robots that other players have deployed.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.Id</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The unique ID for the robot. Maybe you want to store it for later use?</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.Name</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The name for the robot. Maybe you want to store it for later use?</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.PlayerName</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The name of the player that deployed the robot. Maybe you want to store it for later use?</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.X</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The location in between west and east that the robot is currently in (starting from zero for the first tile). You will need this if you want to move towards that robot.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.Y</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The location in between north and south that the robot is currently in (starting from zero for the first tile). You will need this if you want to move towards that robot.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <pre><code class="cs">[Vision].Bot.Orientation</code></pre>
+    </div>
+    <div class="col-12">
+        <p>The current orientation for the robot. Possible values are: NORTH, EAST, SOUTH or WEST. You will need this in order to know if the robot is looking at you, or if you want to attack it from behind.</p>
     </div>
 </div>
 
@@ -158,6 +269,14 @@
     <h2><b>Methods</b> to make your robot act</h2>
 </div>
 
+<div class="col-12">
+    <h6>
+        Calling a method to make your robot act (moving, attacking or talking) is limited to once per turn.
+        If you call a method multiple times in your script, all subsequent calls are ignored.
+        Memory related methods can be used indefinitely.
+    </h6>
+</div>
+
 <div class="row">
     <br /><br />
 </div>
@@ -167,7 +286,7 @@
         <pre><code class="cs">WalkForward()</code></pre>
     </div>
     <div class="col-12">
-        <p>Calling this method will cause your robot to walk forward one tile. The direction is based on its current orientation. Walking forward will cost stamina. You cannot walk through other robots or outside of the arena.</p>
+        <p>Calling this method will cause your robot to walk forward one tile. The direction is based on its current orientation. Walking forward will drain stamina slightly. You cannot walk through other robots or outside of the arena.</p>
     </div>
 </div>
 
@@ -185,7 +304,7 @@
         <pre><code class="cs">TurnRight()</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Calling this method will cause your robot to turn right by 90 degrees. The new orientation is based on the current orientation. Turning does not cost any stamina.</p>
     </div>
 </div>
 
@@ -194,7 +313,7 @@
         <pre><code class="cs">TurnAround()</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Calling this method will cause your robot to turn around completely (180 degrees). The new orientation is based on the current orientation. Turning does not cost any stamina.</p>
     </div>
 </div>
 
@@ -203,7 +322,7 @@
         <pre><code class="cs">SelfDestruct()</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Self destructing causes your robot to explode violently. It will surely die, draining its health to zero, but it will damage its immediate surroundings. Self destructing can be a last resort kind of action to damage other robots if you are dying.</p>
     </div>
 </div>
 
@@ -212,7 +331,7 @@
         <pre><code class="cs">MeleeAttack()</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Attacking another robot by melee causes damage based on the orientation of the target. Attacking a robot causes normal damage. Attack a robot from behind causes increased damage.</p>
     </div>
 </div>
 
@@ -221,7 +340,7 @@
         <pre><code class="cs">RangedAttack(int x, int y)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Attacking another robot from a distance by throwing a fireball at it. Fireballing a robot causes minor damage. Provide an X and Y coordinate for target location.</p>
     </div>
 </div>
 
@@ -230,7 +349,7 @@
         <pre><code class="cs">Teleport(int x, int y)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Teleporting your robot to another location, based on X and Y coordinates. Teleporting causes a lot of stamina drain. Teleporting on top of another robot causes a position swap, thus teleporting it to your robots original location.</p>
     </div>
 </div>
 
@@ -239,7 +358,7 @@
         <pre><code class="cs">StoreInMemory&lt;T&gt;(string key, T value)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Serializes a value into memory for later use. Provide a key, and whatever value. Use this to store data in between turns.</p>
     </div>
 </div>
 
@@ -248,7 +367,7 @@
         <pre><code class="cs">LoadFromMemory&lt;T&gt;(string key)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Deserializes a value from memory. Provide the key and data type. Use this to load data that was stored from previous turns. If the value does not exist, it will return a default value for that data type.</p>
     </div>
 </div>
 
@@ -257,7 +376,7 @@
         <pre><code class="cs">RemoveFromMemory(string key)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Removes a value from memory. You could also just leave it in memory, it shouldn't have any downside.</p>
     </div>
 </div>
 
@@ -266,7 +385,7 @@
         <pre><code class="cs">Talk(string message)</code></pre>
     </div>
     <div class="col-12">
-        <p>TODO</p>
+        <p>Talking provides an elementary way of debugging your script. It will show your provided message in the Arean UI like a chat-message.</p>
     </div>
 </div>
 
@@ -275,7 +394,7 @@
 </div>
 
 <div class="row">
-    <h2><b>Constants</b></h2>
+    <h2><b>Constants</b> to use in your calculations and expressions.</h2>
 </div>
 
 <div class="row">
