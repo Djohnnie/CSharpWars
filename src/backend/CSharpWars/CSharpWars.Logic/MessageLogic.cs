@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.DataAccess.Repositories.Interfaces;
 using CSharpWars.DtoModel;
@@ -27,37 +26,26 @@ namespace CSharpWars.Logic
 
         public async Task<IList<MessageDto>> GetLastMessages()
         {
-            var messages = await _messageRepository.FindDescending(x => x.DateTime, 10, inc => inc.Bot);
+            var messages = await _messageRepository.FindDescending(x => x.DateTime, 10);
             return _messageMapper.Map(messages);
         }
 
         public async Task CreateMessages(IList<MessageToCreateDto> messagesToCreate)
         {
-            var botIds = messagesToCreate.Select(x => x.BotId).Distinct();
-            var bots = await _botRepository.Find(x => botIds.Contains(x.Id));
-            if (bots.Any())
+            var messages = new List<Message>();
+            foreach (MessageToCreateDto messageToCreate in messagesToCreate)
             {
-                var messages = new List<Message>();
-                foreach (MessageToCreateDto messageToCreate in messagesToCreate)
+                var message = new Message
                 {
-                    var message = new Message
-                    {
-                        Bot = bots.SingleOrDefault(x => x.Id == messageToCreate.BotId),
-                        DateTime = messageToCreate.DateTime,
-                        Content = messageToCreate.Content
-                    };
+                    BotName = messageToCreate.BotName,
+                    DateTime = messageToCreate.DateTime,
+                    Content = messageToCreate.Content
+                };
 
-                    if (message.Bot != null)
-                    {
-                        messages.Add(message);
-                    }
-                }
-
-                if (messages.Count > 0)
-                {
-                    await _messageRepository.Create(messages);
-                }
+                messages.Add(message);
             }
+
+            await _messageRepository.Create(messages);
         }
     }
 }

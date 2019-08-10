@@ -60,7 +60,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
             {
                 Messages.Add(new MessageToCreateDto
                 {
-                    BotId = bot.Id,
+                    BotName = bot.Name,
                     Content = message,
                     DateTime = DateTime.UtcNow
                 });

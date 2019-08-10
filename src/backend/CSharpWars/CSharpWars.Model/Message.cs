@@ -7,10 +7,10 @@ namespace CSharpWars.Model
     {
         public Guid Id { get; set; }
 
+        public String BotName { get; set; }
+
         public String Content { get; set; }
 
         public DateTime DateTime { get; set; }
-
-        public Bot Bot { get; set; }
     }
 }

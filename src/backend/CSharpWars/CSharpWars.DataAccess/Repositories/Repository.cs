@@ -36,16 +36,13 @@ namespace CSharpWars.DataAccess.Repositories
             return await _dbSet.AsNoTracking().Where(predicate).Include(include).ToListAsync();
         }
 
-        public async Task<IList<TModel>> FindDescending<TKey, TProperty>(
-            Expression<Func<TModel, TKey>> keySelector,
-            int count,
-            Expression<Func<TModel, TProperty>> include)
+        public async Task<IList<TModel>> FindDescending<TKey>(
+            Expression<Func<TModel, TKey>> keySelector, int count)
         {
             return await _dbSet
                 .AsNoTracking()
                 .OrderByDescending(keySelector)
                 .Take(count)
-                .Include(include)
                 .ToListAsync();
         }
 

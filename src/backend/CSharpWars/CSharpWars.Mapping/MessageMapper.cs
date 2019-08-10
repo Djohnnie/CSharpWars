@@ -11,8 +11,8 @@ namespace CSharpWars.Mapping
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Message, MessageDto>()
-                    .ForMember(dest => dest.BotName, opt => opt.MapFrom(src => src.Bot.Name))
-                    .ForMember(dest => dest.Message, opt => opt.MapFrom(src => src.DateTime));
+                    .ForMember(dest => dest.BotName, opt => opt.MapFrom(src => src.BotName))
+                    .ForMember(dest => dest.Message, opt => opt.MapFrom(src => src.Content));
             });
             _mapper = config.CreateMapper();
         }

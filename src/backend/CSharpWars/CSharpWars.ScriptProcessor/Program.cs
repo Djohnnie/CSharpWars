@@ -37,26 +37,29 @@ namespace CSharpWars.ScriptProcessor
             });
             serviceCollection.ConfigureScriptProcessor();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var middleware = serviceProvider.GetService<IMiddleware>();
 
             while (true)
             {
-                var start = DateTime.UtcNow;
-
-                try
+                using (var scopedServiceProvider = serviceProvider.CreateScope())
                 {
-                    using var sw = new SimpleStopwatch();
-                    await middleware.Process();
-                    WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
-                }
-                catch (Exception ex)
-                {
-                    WriteLine($"[ CSharpWars Script Processor - EXCEPTION - '{ex.Message}'! ]");
-                }
+                    var start = DateTime.UtcNow;
 
-                var timeTaken = DateTime.UtcNow - start;
-                var delay = (Int32)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
-                await Task.Delay(delay);
+                    try
+                    {
+                        using var sw = new SimpleStopwatch();
+                        var middleware = scopedServiceProvider.ServiceProvider.GetService<IMiddleware>();
+                        await middleware.Process();
+                        WriteLine($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteLine($"[ CSharpWars Script Processor - EXCEPTION - '{ex.Message}'! ]");
+                    }
+
+                    var timeTaken = DateTime.UtcNow - start;
+                    var delay = (Int32)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
+                    await Task.Delay(delay);
+                }
             }
         }
     }

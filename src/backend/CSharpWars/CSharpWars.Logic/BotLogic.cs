@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using CSharpWars.Common.Extensions;
 using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.DataAccess.Repositories.Interfaces;
@@ -82,10 +83,17 @@ namespace CSharpWars.Logic
             bot.CurrentStamina = bot.MaximumStamina;
             bot.Memory = new Dictionary<String, String>().Serialize();
             bot.TimeOfDeath = DateTime.MaxValue;
-            bot = await _botScriptRepository.Create(bot);
-            var botScript = await _scriptRepository.Single(x => x.Id == bot.Id);
-            botScript.Script = botToCreate.Script;
-            await _scriptRepository.Update(botScript);
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                bot = await _botScriptRepository.Create(bot);
+                var botScript = await _scriptRepository.Single(x => x.Id == bot.Id);
+                botScript.Script = botToCreate.Script;
+                await _scriptRepository.Update(botScript);
+
+                transaction.Complete();
+            }
+
             var createdBot = _botMapper.Map(bot);
             return createdBot;
         }
