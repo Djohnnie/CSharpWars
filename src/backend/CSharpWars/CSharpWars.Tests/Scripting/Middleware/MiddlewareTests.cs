@@ -16,11 +16,12 @@ namespace CSharpWars.Tests.Scripting.Middleware
             // Arrange
             var arenaLogic = new Mock<IArenaLogic>();
             var botLogic = new Mock<IBotLogic>();
+            var messageLogic = new Mock<IMessageLogic>();
             var preprocessor = new Mock<IPreprocessor>();
             var processor = new Mock<IProcessor>();
             var postprocessor = new Mock<IPostprocessor>();
             var middleware = new MiddlewareProcessor(
-                arenaLogic.Object, botLogic.Object, 
+                arenaLogic.Object, botLogic.Object, messageLogic.Object,
                 preprocessor.Object, processor.Object, postprocessor.Object);
 
             // Mock

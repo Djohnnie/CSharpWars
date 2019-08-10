@@ -36,6 +36,19 @@ namespace CSharpWars.DataAccess.Repositories
             return await _dbSet.AsNoTracking().Where(predicate).Include(include).ToListAsync();
         }
 
+        public async Task<IList<TModel>> FindDescending<TKey, TProperty>(
+            Expression<Func<TModel, TKey>> keySelector,
+            int count,
+            Expression<Func<TModel, TProperty>> include)
+        {
+            return await _dbSet
+                .AsNoTracking()
+                .OrderByDescending(keySelector)
+                .Take(count)
+                .Include(include)
+                .ToListAsync();
+        }
+
         public async Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate)
         {
             return await _dbSet.SingleOrDefaultAsync(predicate);
@@ -47,6 +60,17 @@ namespace CSharpWars.DataAccess.Repositories
             await _dbSet.AddAsync(toCreate);
             await _dbContext.SaveChangesAsync();
             return toCreate;
+        }
+
+        public async Task Create(IList<TModel> toCreate)
+        {
+            foreach (var entity in toCreate)
+            {
+                entity.Id = Guid.NewGuid();
+            }
+
+            await _dbSet.AddRangeAsync(toCreate);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task Update(TModel toUpdate)

@@ -15,9 +15,13 @@ namespace CSharpWars.DataAccess.Repositories.Interfaces
 
         Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, Boolean>> predicate, Expression<Func<TModel, TProperty>> include);
 
+        Task<IList<TModel>> FindDescending<TKey, TProperty>(Expression<Func<TModel, TKey>> keySelector, int count, Expression<Func<TModel, TProperty>> include);
+
         Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate);
 
         Task<TModel> Create(TModel toCreate);
+
+        Task Create(IList<TModel> toCreate);
 
         Task Update(TModel toUpdate);
 

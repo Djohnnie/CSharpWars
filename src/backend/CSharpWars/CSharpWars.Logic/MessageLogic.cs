@@ -1,0 +1,63 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CSharpWars.DataAccess.Repositories.Interfaces;
+using CSharpWars.DtoModel;
+using CSharpWars.Logic.Interfaces;
+using CSharpWars.Mapping.Interfaces;
+using CSharpWars.Model;
+
+namespace CSharpWars.Logic
+{
+    public class MessageLogic : IMessageLogic
+    {
+        private readonly IRepository<Message> _messageRepository;
+        private readonly IRepository<Bot> _botRepository;
+        private readonly IMapper<Message, MessageDto> _messageMapper;
+
+        public MessageLogic(
+            IRepository<Message> messageRepository,
+            IRepository<Bot> botRepository,
+            IMapper<Message, MessageDto> messageMapper)
+        {
+            _messageRepository = messageRepository;
+            _botRepository = botRepository;
+            _messageMapper = messageMapper;
+        }
+
+        public async Task<IList<MessageDto>> GetLastMessages()
+        {
+            var messages = await _messageRepository.FindDescending(x => x.DateTime, 10, inc => inc.Bot);
+            return _messageMapper.Map(messages);
+        }
+
+        public async Task CreateMessages(IList<MessageToCreateDto> messagesToCreate)
+        {
+            var botIds = messagesToCreate.Select(x => x.BotId).Distinct();
+            var bots = await _botRepository.Find(x => botIds.Contains(x.Id));
+            if (bots.Any())
+            {
+                var messages = new List<Message>();
+                foreach (MessageToCreateDto messageToCreate in messagesToCreate)
+                {
+                    var message = new Message
+                    {
+                        Bot = bots.SingleOrDefault(x => x.Id == messageToCreate.BotId),
+                        DateTime = messageToCreate.DateTime,
+                        Content = messageToCreate.Content
+                    };
+
+                    if (message.Bot != null)
+                    {
+                        messages.Add(message);
+                    }
+                }
+
+                if (messages.Count > 0)
+                {
+                    await _messageRepository.Create(messages);
+                }
+            }
+        }
+    }
+}

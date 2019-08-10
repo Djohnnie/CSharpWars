@@ -38,6 +38,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
                 bot.LastAttackY = botResult.LastAttackY;
 
                 context.UpdateBotProperties(bot);
+                context.UpdateMessages(bot, botProperty);
 
                 foreach (var otherBot in context.Bots.Where(x => x.Id != bot.Id))
                 {

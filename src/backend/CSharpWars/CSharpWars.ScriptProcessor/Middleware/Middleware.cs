@@ -9,6 +9,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
     {
         private readonly IArenaLogic _arenaLogic;
         private readonly IBotLogic _botLogic;
+        private readonly IMessageLogic _messageLogic;
         private readonly IPreprocessor _preprocessor;
         private readonly IProcessor _processor;
         private readonly IPostprocessor _postprocessor;
@@ -16,12 +17,14 @@ namespace CSharpWars.ScriptProcessor.Middleware
         public Middleware(
             IArenaLogic arenaLogic,
             IBotLogic botLogic,
+            IMessageLogic messageLogic,
             IPreprocessor preprocessor,
             IProcessor processor,
             IPostprocessor postprocessor)
         {
             _arenaLogic = arenaLogic;
             _botLogic = botLogic;
+            _messageLogic = messageLogic;
             _preprocessor = preprocessor;
             _processor = processor;
             _postprocessor = postprocessor;
@@ -38,7 +41,8 @@ namespace CSharpWars.ScriptProcessor.Middleware
             await _processor.Go(context);
             await _postprocessor.Go(context);
 
-            await _botLogic.UpdateBots(bots);
+            await _botLogic.UpdateBots(context.Bots);
+            await _messageLogic.CreateMessages(context.Messages);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Transactions;
 using CSharpWars.DataAccess.Repositories.Interfaces;
 using CSharpWars.Logic.Interfaces;
@@ -11,24 +10,34 @@ namespace CSharpWars.Logic
     {
         private readonly IRepository<Bot, BotScript> _botScriptRepository;
         private readonly IRepository<Player> _playerRepository;
+        private readonly IRepository<Message> _messageRepository;
 
         public DangerLogic(
             IRepository<Bot, BotScript> botScriptRepository,
-            IRepository<Player> playerRepository)
+            IRepository<Player> playerRepository,
+            IRepository<Message> messageRepository)
         {
             _botScriptRepository = botScriptRepository;
             _playerRepository = playerRepository;
+            _messageRepository = messageRepository;
         }
 
-        public Task CleanupMessages()
+        public async Task CleanupMessages()
         {
-            throw new NotImplementedException();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var messages = await _messageRepository.GetAll();
+                await _messageRepository.Delete(messages);
+
+                transaction.Complete();
+            }
         }
 
         public async Task CleanupBots()
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
+                await CleanupMessages();
                 var bots = await _botScriptRepository.GetAll();
                 await _botScriptRepository.Delete(bots);
 
