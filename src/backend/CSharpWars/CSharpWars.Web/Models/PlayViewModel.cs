@@ -11,6 +11,7 @@ namespace CSharpWars.Web.Models
         public String BotName { get; set; }
         public Int32 BotHealth { get; set; }
         public Int32 BotStamina { get; set; }
+        public String Script { get; set; }
         public Guid SelectedScript { get; set; }
         public List<ScriptViewModel> Scripts { get; set; }
     }

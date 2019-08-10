@@ -1,9 +1,58 @@
 ﻿@model PlayViewModel
 
 @{
-    ViewData["Title"] = "Custom";
+    ViewData["Title"] = "CSharpWars";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Custom</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome @Model.PlayerName</h1>
+    <p>Please select a script template to start playing!</p>
+</div>
 
+@if (!String.IsNullOrEmpty(Model.HappyMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-success" role="alert">
+                @Model.HappyMessage
+            </div>
+        </div>
+    </div>
+}
+
+@if (!String.IsNullOrEmpty(Model.SadMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                @Model.SadMessage
+            </div>
+        </div>
+    </div>
+}
+
+<form method="post">
+
+    <partial name="_Details" model="Model" />
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label asp-for="Script" class="control-label">Your custom script (copy/paste from Visual Studio)</label>
+                <textarea class="form-control" id="cs-script" asp-for="Script" rows="10" style="font-family: consolas; background-color: black; color: white;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+                <div class="form-group">
+                    <input type="submit" value="Deploy your robot to arena!" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
