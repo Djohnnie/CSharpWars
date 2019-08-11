@@ -16,12 +16,12 @@ namespace CSharpWars.ScriptProcessor.DependencyInjection
             serviceCollection.ConfigureLogging();
             serviceCollection.ConfigureLogic();
             serviceCollection.AddSingleton<IBotScriptCache, BotScriptCache>();
-            serviceCollection.AddSingleton<IMiddleware, Middleware.Middleware>();
-            serviceCollection.AddSingleton<IPreprocessor, Preprocessor>();
-            serviceCollection.AddSingleton<IProcessor, Processor>();
-            serviceCollection.AddSingleton<IPostprocessor, Postprocessor>();
-            serviceCollection.AddSingleton<IBotProcessingFactory, BotProcessingFactory>();
-            serviceCollection.AddSingleton<IBotScriptCompiler, BotScriptCompiler>();
+            serviceCollection.AddScoped<IMiddleware, Middleware.Middleware>();
+            serviceCollection.AddScoped<IPreprocessor, Preprocessor>();
+            serviceCollection.AddScoped<IProcessor, Processor>();
+            serviceCollection.AddScoped<IPostprocessor, Postprocessor>();
+            serviceCollection.AddScoped<IBotProcessingFactory, BotProcessingFactory>();
+            serviceCollection.AddScoped<IBotScriptCompiler, BotScriptCompiler>();
         }
     }
 }
