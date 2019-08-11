@@ -10,11 +10,10 @@ using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
-using CSharpWars.Web.Api.Validation.DtoModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using ScriptToValidateDto = CSharpWars.Web.Api.Validation.DtoModel.ScriptToValidateDto;
+using ScriptToValidateDto = CSharpWars.DtoModel.ScriptToValidateDto;
 
 namespace CSharpWars.Web.Api.Validation.Helpers
 {

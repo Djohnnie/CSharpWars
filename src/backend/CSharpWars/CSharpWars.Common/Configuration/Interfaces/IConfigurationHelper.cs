@@ -6,5 +6,7 @@ namespace CSharpWars.Common.Configuration.Interfaces
     {
         String ConnectionString { get; set; }
         Int32 ArenaSize { get; set; }
+        String ValidationHost { get; set; }
+        Int32 PointsLimit { get; set; }
     }
 }

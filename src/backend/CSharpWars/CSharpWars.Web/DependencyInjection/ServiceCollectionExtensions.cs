@@ -1,6 +1,8 @@
 ﻿using System;
 using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Logic.DependencyInjection;
+using CSharpWars.Web.Helpers;
+using CSharpWars.Web.Helpers.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CSharpWars.Web.DependencyInjection
@@ -9,6 +11,7 @@ namespace CSharpWars.Web.DependencyInjection
     {
         public static void ConfigureWeb(this IServiceCollection services)
         {
+            services.AddTransient<IScriptValidationHelper, ScriptValidationHelper>();
             services.ConfigureCommon();
             services.ConfigureLogic();
             services.AddSession(options =>

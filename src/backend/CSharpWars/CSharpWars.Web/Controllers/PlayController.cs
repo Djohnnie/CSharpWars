@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Web.Constants;
 using CSharpWars.Web.Extensions;
+using CSharpWars.Web.Helpers.Interfaces;
 using CSharpWars.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +16,17 @@ namespace CSharpWars.Web.Controllers
     public class PlayController : Controller
     {
         private readonly IBotLogic _botLogic;
+        private readonly IScriptValidationHelper _scriptValidationHelper;
+        private readonly IConfigurationHelper _configurationHelper;
 
-        public PlayController(IBotLogic botLogic)
+        public PlayController(
+            IBotLogic botLogic,
+            IScriptValidationHelper scriptValidationHelper,
+            IConfigurationHelper configurationHelper)
         {
             _botLogic = botLogic;
+            _scriptValidationHelper = scriptValidationHelper;
+            _configurationHelper = configurationHelper;
         }
 
         public IActionResult Template()
@@ -44,26 +53,41 @@ namespace CSharpWars.Web.Controllers
         {
             if (HttpContext.Session.Keys.Contains("PLAYER"))
             {
+                var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
+
                 var valid = IsValid(vm);
+                string sadMessage = "You have made some errors!";
+
                 if (valid)
                 {
-                    var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
+                    var script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode();
 
-                    var botToCreate = new BotToCreateDto
+                    var scriptValidationResult = await _scriptValidationHelper.Validate(
+                        new ScriptToValidateDto { Script = script });
+
+                    if (scriptValidationResult.Messages.Count == 0)
                     {
-                        PlayerId = player.Id,
-                        Name = vm.BotName,
-                        MaximumHealth = vm.BotHealth,
-                        MaximumStamina = vm.BotStamina,
-                        Script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode()
-                    };
+                        var botToCreate = new BotToCreateDto
+                        {
+                            PlayerId = player.Id,
+                            Name = vm.BotName,
+                            MaximumHealth = vm.BotHealth,
+                            MaximumStamina = vm.BotStamina,
+                            Script = script
+                        };
 
-                    await _botLogic.CreateBot(botToCreate);
+                        await _botLogic.CreateBot(botToCreate);
+                    }
+                    else
+                    {
+                        valid = false;
+                        sadMessage = string.Join(", ", scriptValidationResult.Messages.Select(x => x.Message));
+                    }
                 }
 
                 vm = new PlayViewModel
                 {
-                    PlayerName = vm.PlayerName,
+                    PlayerName = player.Name,
                     BotName = vm.BotName,
                     BotHealth = vm.BotHealth,
                     BotStamina = vm.BotStamina,
@@ -77,7 +101,7 @@ namespace CSharpWars.Web.Controllers
                 }
                 else
                 {
-                    vm.SadMessage = "You have made some errors!";
+                    vm.SadMessage = sadMessage;
                 }
 
                 return View(vm);
@@ -110,26 +134,42 @@ namespace CSharpWars.Web.Controllers
         {
             if (HttpContext.Session.Keys.Contains("PLAYER"))
             {
+                var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
+
                 var valid = IsValid(vm);
+                string sadMessage = "You have made some errors!";
+
                 if (valid)
                 {
-                    var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
+                    var script = vm.Script.Base64Encode();
 
-                    var botToCreate = new BotToCreateDto
+                    var scriptValidationResult = await _scriptValidationHelper.Validate(
+                        new ScriptToValidateDto { Script = script });
+
+                    if (scriptValidationResult.Messages.Count == 0)
                     {
-                        PlayerId = player.Id,
-                        Name = vm.BotName,
-                        MaximumHealth = vm.BotHealth,
-                        MaximumStamina = vm.BotStamina,
-                        Script = vm.Script.Base64Encode()
-                    };
+                        var botToCreate = new BotToCreateDto
+                        {
+                            PlayerId = player.Id,
+                            Name = vm.BotName,
+                            MaximumHealth = vm.BotHealth,
+                            MaximumStamina = vm.BotStamina,
+                            Script = script
+                        };
 
-                    await _botLogic.CreateBot(botToCreate);
+                        await _botLogic.CreateBot(botToCreate);
+                    }
+                    else
+                    {
+                        valid = false;
+                        sadMessage = string.Join(", ",
+                            scriptValidationResult.Messages.Select(x => $"{x.Message} [{x.LocationStart},{x.LocationEnd}]"));
+                    }
                 }
 
                 vm = new PlayViewModel
                 {
-                    PlayerName = vm.PlayerName,
+                    PlayerName = player.Name,
                     BotName = vm.BotName,
                     BotHealth = vm.BotHealth,
                     BotStamina = vm.BotStamina,
@@ -142,7 +182,7 @@ namespace CSharpWars.Web.Controllers
                 }
                 else
                 {
-                    vm.SadMessage = "You have made some errors!";
+                    vm.SadMessage = sadMessage;
                 }
 
                 return View(vm);
@@ -154,7 +194,7 @@ namespace CSharpWars.Web.Controllers
         private Boolean IsValid(PlayViewModel vm)
         {
             var validBotName = !String.IsNullOrEmpty(vm.BotName);
-            var validHealthAndStamina = vm.BotHealth > 0 && vm.BotStamina > 0;
+            var validHealthAndStamina = vm.BotHealth > 0 && vm.BotStamina > 0 && vm.BotHealth + vm.BotStamina <= _configurationHelper.PointsLimit;
             var validScript = vm.SelectedScript != Guid.Empty || !string.IsNullOrEmpty(vm.Script);
             return validBotName && validHealthAndStamina && validScript;
         }

@@ -19,19 +19,18 @@ namespace CSharpWars.Web.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigurationHelper(c =>
             {
                 c.ConnectionString = GetEnvironmentVariable("CONNECTION_STRING");
                 c.ArenaSize = ToInt32(GetEnvironmentVariable("ARENA_SIZE"));
+                c.ValidationHost = GetEnvironmentVariable("VALIDATION_HOST");
             });
 
             services.ConfigureWebApi();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

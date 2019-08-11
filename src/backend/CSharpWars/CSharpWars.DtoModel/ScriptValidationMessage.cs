@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSharpWars.Web.Api.Validation.DtoModel
+namespace CSharpWars.DtoModel
 {
     public class ScriptValidationMessage
     {

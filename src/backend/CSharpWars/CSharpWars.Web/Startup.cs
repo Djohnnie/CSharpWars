@@ -26,6 +26,8 @@ namespace CSharpWars.Web
             {
                 c.ConnectionString = GetEnvironmentVariable("CONNECTION_STRING");
                 c.ArenaSize = ToInt32(GetEnvironmentVariable("ARENA_SIZE"));
+                c.ValidationHost = GetEnvironmentVariable("VALIDATION_HOST");
+                c.PointsLimit = ToInt32(GetEnvironmentVariable("POINTS_LIMIT"));
             });
 
             services.ConfigureWeb();

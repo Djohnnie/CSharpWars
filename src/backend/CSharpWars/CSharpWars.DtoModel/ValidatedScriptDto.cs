@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSharpWars.Web.Api.Validation.DtoModel
+namespace CSharpWars.DtoModel
 {
     public class ValidatedScriptDto
     {

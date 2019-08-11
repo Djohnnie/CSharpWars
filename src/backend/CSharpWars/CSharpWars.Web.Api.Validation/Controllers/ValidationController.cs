@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CSharpWars.Web.Api.Validation.DtoModel;
+using CSharpWars.DtoModel;
 using CSharpWars.Web.Api.Validation.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
