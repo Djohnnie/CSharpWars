@@ -133,8 +133,9 @@ namespace CSharpWars.Web.Api.Validation.Helpers
                 var systemCore = typeof(Enumerable).Assembly;
                 var dynamic = typeof(DynamicAttribute).Assembly;
                 var csharpScript = typeof(BotProperties).Assembly;
-                var scriptOptions = ScriptOptions.Default.AddReferences(mscorlib, systemCore, dynamic, csharpScript);
-                scriptOptions = scriptOptions.WithImports("System", "System.Linq", "System.Collections", "System.Collections.Generic", "CSharpWars.Scripting.Model", "System.Runtime.CompilerServices");
+                var enums = typeof(PossibleMoves).Assembly;
+                var scriptOptions = ScriptOptions.Default.AddReferences(mscorlib, systemCore, dynamic, csharpScript, enums);
+                scriptOptions = scriptOptions.WithImports("System", "System.Linq", "System.Collections", "System.Collections.Generic", "CSharpWars.Enums", "CSharpWars.Scripting", "CSharpWars.Scripting.Model", "System.Runtime.CompilerServices");
                 var botScript = CSharpScript.Create(decodedScript, scriptOptions, typeof(ScriptGlobals));
                 botScript.WithOptions(botScript.Options.AddReferences(mscorlib, systemCore));
                 botScript.Compile();
