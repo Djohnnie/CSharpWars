@@ -56,7 +56,7 @@ namespace CSharpWars.ScriptProcessor.Middleware
                 await _botLogic.UpdateBots(context.Bots);
                 var elapsedUpdateBots = stopwatch.ElapsedMilliseconds - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
 
-                await _messageLogic.CreateMessages(context.Messages);
+                //await _messageLogic.CreateMessages(context.Messages);
                 var elapsedCreateMessages = stopwatch.ElapsedMilliseconds - elapsedUpdateBots - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
 
                 Console.WriteLine(
