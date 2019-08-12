@@ -65,7 +65,7 @@ namespace CSharpWars.Web.Controllers
                     var scriptValidationResult = await _scriptValidationHelper.Validate(
                         new ScriptToValidateDto { Script = script });
 
-                    if (scriptValidationResult.Messages.Count == 0)
+                    if (scriptValidationResult != null && scriptValidationResult.Messages.Count == 0)
                     {
                         var botToCreate = new BotToCreateDto
                         {
@@ -81,7 +81,15 @@ namespace CSharpWars.Web.Controllers
                     else
                     {
                         valid = false;
-                        sadMessage = string.Join(", ", scriptValidationResult.Messages.Select(x => x.Message));
+                        if (scriptValidationResult == null)
+                        {
+                            sadMessage = "Your script could not be validated for an unknown reason.";
+                        }
+                        else
+                        {
+                            var scriptErrors = string.Join(", ", scriptValidationResult.Messages.Select(x => x.Message));
+                            sadMessage = $"Your script contains some compile errors: {scriptErrors}";
+                        }
                     }
                 }
 
@@ -146,7 +154,7 @@ namespace CSharpWars.Web.Controllers
                     var scriptValidationResult = await _scriptValidationHelper.Validate(
                         new ScriptToValidateDto { Script = script });
 
-                    if (scriptValidationResult.Messages.Count == 0)
+                    if (scriptValidationResult != null && scriptValidationResult.Messages.Count == 0)
                     {
                         var botToCreate = new BotToCreateDto
                         {
@@ -162,8 +170,15 @@ namespace CSharpWars.Web.Controllers
                     else
                     {
                         valid = false;
-                        sadMessage = string.Join(", ",
-                            scriptValidationResult.Messages.Select(x => $"{x.Message} [{x.LocationStart},{x.LocationEnd}]"));
+                        if (scriptValidationResult == null)
+                        {
+                            sadMessage = "Your script could not be validated for an unknown reason.";
+                        }
+                        else
+                        {
+                            var scriptErrors = string.Join(", ", scriptValidationResult.Messages.Select(x => x.Message));
+                            sadMessage = $"Your script contains some compile errors: {scriptErrors}";
+                        }
                     }
                 }
 
