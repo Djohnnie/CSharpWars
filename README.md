@@ -4,7 +4,7 @@
 
 | Build | Status | Tests | Coverage | Deployment |
 |-------|--------|-------|----------|------------|
-| CSharpWars CI | [![Build Status](https://involvedcloud.visualstudio.com/CSharp-Wars/_apis/build/status/Djohnnie.CSharpWars?branchName=master)](https://involvedcloud.visualstudio.com/CSharp-Wars/_build/latest?definitionId=54&branchName=master) | ![Azure DevOps tests](http://my.djohnnie.be:8088/azure-devops/tests/involvedcloud/csharp-wars/54.svg?logo=visual-studio-code&label=UnitTests) | ![Azure DevOps coverage](http://my.djohnnie.be:8088/azure-devops/coverage/involvedcloud/csharp-wars/54.svg?logo=visual-studio-code&label=Code%20Coverage) | ![Deployment Status](https://vsrm.dev.azure.com/involvedcloud/_apis/public/Release/badge/6878c17f-2774-49d3-8302-7217465e6bb7/1/1) |
+| CSharpWars CI | [![Build Status](https://dev.azure.com/djohnnieke/CSharpWars/_apis/build/status/Djohnnie.CSharpWars?branchName=master)](https://dev.azure.com/djohnnieke/CSharpWars/_build/latest?definitionId=4&branchName=master) | ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/djohnnieke/csharpwars/4/master) | ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/djohnnieke/csharpwars/4/master) | ![Deployment Status](https://vsrm.dev.azure.com/djohnnieke/_apis/public/Release/badge/bcd38fdd-dc13-4325-bee3-9112645bbde6/1/1) |
 
 | Docker Hub | | |
 |------------|--------------|----------------|
