@@ -76,7 +76,7 @@ namespace CSharpWars.Logic
             var arena = await _arenaLogic.GetArena();
             var player = await _playerRepository.Single(x => x.Id == botToCreate.PlayerId);
 
-            if (player.LastDeployment >= DateTime.UtcNow.AddMinutes(_configurationHelper.BotDeploymentLimit))
+            if (player.LastDeployment >= DateTime.UtcNow.AddMinutes(-_configurationHelper.BotDeploymentLimit))
             {
                 throw new LogicException("You are not allowed to create multiple robots in rapid succession!");
             }
