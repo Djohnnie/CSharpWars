@@ -8,5 +8,6 @@ namespace CSharpWars.Common.Configuration.Interfaces
         Int32 ArenaSize { get; set; }
         String ValidationHost { get; set; }
         Int32 PointsLimit { get; set; }
+        Int32 BotDeploymentLimit { get; set; }
     }
 }

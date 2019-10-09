@@ -43,6 +43,7 @@ namespace CSharpWars.DataAccess
                 e.ToTable("PLAYERS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
                 e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
                 e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.Property(x => x.LastDeployment).IsRequired();
             });
 
             modelBuilder.Entity<Bot>(e =>

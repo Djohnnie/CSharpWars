@@ -26,6 +26,7 @@ namespace CSharpWars.Web.Api
                 c.ConnectionString = GetEnvironmentVariable("CONNECTION_STRING");
                 c.ArenaSize = ToInt32(GetEnvironmentVariable("ARENA_SIZE"));
                 c.ValidationHost = GetEnvironmentVariable("VALIDATION_HOST");
+                c.BotDeploymentLimit = ToInt32(GetEnvironmentVariable("BOT_DEPLOYMENT_LIMIT"));
             });
 
             services.ConfigureWebApi();

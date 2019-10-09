@@ -23,34 +23,42 @@ namespace CSharpWars.ScriptProcessor.Middleware
             var botProperties = context.GetOrderedBotProperties();
             foreach (var botProperty in botProperties)
             {
-                var bot = context.Bots.Single(x => x.Id == botProperty.BotId);
-                var botResult = Move.Build(botProperty, _randomHelper).Go();
-                bot.Orientation = botResult.Orientation;
-                bot.FromX = bot.X;
-                bot.FromY = bot.Y;
-                bot.X = botResult.X;
-                bot.Y = botResult.Y;
-                bot.CurrentHealth = botResult.CurrentHealth;
-                bot.CurrentStamina = botResult.CurrentStamina;
-                bot.Move = botResult.Move;
-                bot.Memory = botResult.Memory.Serialize();
-                bot.LastAttackX = botResult.LastAttackX;
-                bot.LastAttackY = botResult.LastAttackY;
-
-                context.UpdateBotProperties(bot);
-                context.UpdateMessages(bot, botProperty);
-
-                foreach (var otherBot in context.Bots.Where(x => x.Id != bot.Id))
+                try
                 {
-                    otherBot.CurrentHealth -= botResult.GetInflictedDamage(otherBot.Id);
-                    var teleportation = botResult.GetTeleportation(otherBot.Id);
-                    if (teleportation != (-1, -1))
+                    var bot = context.Bots.Single(x => x.Id == botProperty.BotId);
+                    var botResult = Move.Build(botProperty, _randomHelper).Go();
+                    bot.Orientation = botResult.Orientation;
+                    bot.FromX = bot.X;
+                    bot.FromY = bot.Y;
+                    bot.X = botResult.X;
+                    bot.Y = botResult.Y;
+                    bot.CurrentHealth = botResult.CurrentHealth;
+                    bot.CurrentStamina = botResult.CurrentStamina;
+                    bot.Move = botResult.Move;
+                    bot.Memory = botResult.Memory.Serialize();
+                    bot.LastAttackX = botResult.LastAttackX;
+                    bot.LastAttackY = botResult.LastAttackY;
+
+                    context.UpdateBotProperties(bot);
+                    context.UpdateMessages(bot, botProperty);
+
+                    foreach (var otherBot in context.Bots.Where(x => x.Id != bot.Id))
                     {
-                        otherBot.X = teleportation.X;
-                        otherBot.Y = teleportation.Y;
+                        otherBot.CurrentHealth -= botResult.GetInflictedDamage(otherBot.Id);
+                        var teleportation = botResult.GetTeleportation(otherBot.Id);
+                        if (teleportation != (-1, -1))
+                        {
+                            otherBot.X = teleportation.X;
+                            otherBot.Y = teleportation.Y;
+                        }
+
+                        var otherBotProperties = botProperties.Single(x => x.BotId == otherBot.Id);
+                        otherBotProperties.Update(otherBot);
                     }
-                    var otherBotProperties = botProperties.Single(x => x.BotId == otherBot.Id);
-                    otherBotProperties.Update(otherBot);
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
 

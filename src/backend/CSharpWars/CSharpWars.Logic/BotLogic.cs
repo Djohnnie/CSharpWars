@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
+using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Common.Extensions;
 using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.DataAccess.Repositories.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
+using CSharpWars.Logic.Exceptions;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Mapping.Interfaces;
 using CSharpWars.Model;
@@ -24,6 +26,7 @@ namespace CSharpWars.Logic
         private readonly IMapper<Bot, BotDto> _botMapper;
         private readonly IMapper<Bot, BotToCreateDto> _botToCreateMapper;
         private readonly IArenaLogic _arenaLogic;
+        private readonly IConfigurationHelper _configurationHelper;
 
         public BotLogic(
             IRandomHelper randomHelper,
@@ -33,7 +36,8 @@ namespace CSharpWars.Logic
             IRepository<Player> playerRepository,
             IMapper<Bot, BotDto> botMapper,
             IMapper<Bot, BotToCreateDto> botToCreateMapper,
-            IArenaLogic arenaLogic)
+            IArenaLogic arenaLogic,
+            IConfigurationHelper configurationHelper)
         {
             _randomHelper = randomHelper;
             _botRepository = botRepository;
@@ -43,6 +47,7 @@ namespace CSharpWars.Logic
             _botMapper = botMapper;
             _botToCreateMapper = botToCreateMapper;
             _arenaLogic = arenaLogic;
+            _configurationHelper = configurationHelper;
         }
 
         public async Task<IList<BotDto>> GetAllActiveBots()
@@ -70,6 +75,14 @@ namespace CSharpWars.Logic
             var bot = _botToCreateMapper.Map(botToCreate);
             var arena = await _arenaLogic.GetArena();
             var player = await _playerRepository.Single(x => x.Id == botToCreate.PlayerId);
+
+            if (player.LastDeployment >= DateTime.UtcNow.AddMinutes(_configurationHelper.BotDeploymentLimit))
+            {
+                throw new LogicException("You are not allowed to create multiple robots in rapid succession!");
+            }
+
+            player.LastDeployment = DateTime.UtcNow;
+
             bot.Player = player;
             bot.Orientation = _randomHelper.Get<PossibleOrientations>();
             var bots = await GetAllActiveBots();
@@ -90,6 +103,7 @@ namespace CSharpWars.Logic
                 var botScript = await _scriptRepository.Single(x => x.Id == bot.Id);
                 botScript.Script = botToCreate.Script;
                 await _scriptRepository.Update(botScript);
+                await _playerRepository.Update(player);
 
                 transaction.Complete();
             }

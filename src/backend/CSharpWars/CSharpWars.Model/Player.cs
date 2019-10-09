@@ -10,6 +10,7 @@ namespace CSharpWars.Model
         public String Name { get; set; }
         public String Salt { get; set; }
         public String Hashed { get; set; }
+        public DateTime LastDeployment { get; set; }
         public virtual ICollection<Bot> Bots { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
+using CSharpWars.Logic.Exceptions;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Web.Constants;
 using CSharpWars.Web.Extensions;
@@ -76,7 +77,15 @@ namespace CSharpWars.Web.Controllers
                             Script = script
                         };
 
-                        await _botLogic.CreateBot(botToCreate);
+                        try
+                        {
+                            await _botLogic.CreateBot(botToCreate);
+                        }
+                        catch (LogicException ex)
+                        {
+                            valid = false;
+                            sadMessage = ex.Message;
+                        }
                     }
                     else
                     {
@@ -165,7 +174,15 @@ namespace CSharpWars.Web.Controllers
                             Script = script
                         };
 
-                        await _botLogic.CreateBot(botToCreate);
+                        try
+                        {
+                            await _botLogic.CreateBot(botToCreate);
+                        }
+                        catch (LogicException ex)
+                        {
+                            valid = false;
+                            sadMessage = ex.Message;
+                        }
                     }
                     else
                     {
