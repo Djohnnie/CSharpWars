@@ -37,6 +37,12 @@ namespace CSharpWars.Web.Constants
                 Id = Guid.NewGuid(),
                 Description = "Teleport around at random",
                 Script = TeleportAround
+            },
+            new ScriptViewModel
+            {
+                Id = Guid.NewGuid(),
+                Description = "Hunt down other robots",
+                Script = HuntDown
             }
         };
 
@@ -104,5 +110,75 @@ namespace CSharpWars.Web.Constants
             "var destinationX = r.Next(0, Width);\r\n" +
             "var destinationY = r.Next(0, Height);\r\n" +
             "Teleport( destinationX , destinationY );\r\n";
+
+        public const String HuntDown =
+            "bool inMyFace = false;\r\n" +
+            "foreach (var enemyBot in Vision.EnemyBots)\r\n" +
+            "{\r\n" +
+            "    if (IsInMyFace(X, Y, enemyBot))\r\n" +
+            "    {\r\n" +
+            "        MeleeAttack();\r\n" +
+            "        inMyFace = true;\r\n" +
+            "        break;\r\n" +
+            "    }\r\n" +
+            "}\r\n" +
+            "\r\n" +
+            "if (!inMyFace)\r\n" +
+            "{\r\n" +
+            "    Bot targetBot = null;\r\n" +
+            "\r\n" +
+            "    foreach (var enemyBot in Vision.EnemyBots)\r\n" +
+            "    {\r\n" +
+            "        if (targetBot == null || CalculateDistance(X, Y, enemyBot) < CalculateDistance(X, Y, targetBot))\r\n" +
+            "        {\r\n" +
+            "            targetBot = enemyBot;\r\n" +
+            "        }\r\n" +
+            "    }\r\n" +
+            "\r\n" +
+            "    if (targetBot == null)\r\n" +
+            "    {\r\n" +
+            "        TurnLeft();\r\n" +
+            "        StoreInMemory(\"DISTANCE\", 0);\r\n" +
+            "    }\r\n" +
+            "    else\r\n" +
+            "    {\r\n" +
+            "        double distance = LoadFromMemory<double>(\"DISTANCE\");\r\n" +
+            "        if (distance == 0)\r\n" +
+            "        {\r\n" +
+            "            WalkForward();\r\n" +
+            "        }\r\n" +
+            "        else if (CalculateDistance(X, Y, targetBot) < distance)\r\n" +
+            "        {\r\n" +
+            "            WalkForward();\r\n" +
+            "            StoreInMemory(\"DISTANCE\", CalculateDistance(X, Y, targetBot));\r\n" +
+            "        }\r\n" +
+            "        else\r\n" +
+            "        {\r\n" +
+            "            TurnRight();\r\n" +
+            "        }\r\n" +
+            "    }\r\n" +
+            "}\r\n" +
+            "\r\n" +
+            "public bool IsInMyFace(int myX, int myY, Bot target)\r\n" +
+            "{\r\n" +
+            "    switch (Orientation)\r\n" +
+            "    {\r\n" +
+            "        case NORTH:\r\n" +
+            "            return myX == target.X && myY == target.Y + 1;\r\n" +
+            "        case EAST:\r\n" +
+            "            return myY == target.Y && myX == target.X - 1;\r\n" +
+            "        case SOUTH:\r\n" +
+            "            return myX == target.X && myY == target.Y - 1;\r\n" +
+            "        case WEST:\r\n" +
+            "            return myY == target.Y && myX == target.X + 1;\r\n" +
+            "    }\r\n" +
+            "\r\n" +
+            "    return false;\r\n" +
+            "}\r\n" +
+            "\r\n" +
+            "public double CalculateDistance(int myX, int myY, Bot target)\r\n" +
+            "{\r\n" +
+            "    return Math.Sqrt(Math.Pow(myX - target.X, 2) + Math.Pow(myY - target.Y, 2));\r\n" +
+            "}\r\n";
     }
 }
