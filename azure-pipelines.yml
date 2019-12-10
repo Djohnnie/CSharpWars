@@ -67,7 +67,7 @@ steps:
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web/bin/Release/publish
 
 - script: |
-    dotnet publish ./src/backend/CSharpWars/CSharpWars.ScriptProcessor --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.ScriptProcessor/bin/Release/publish
+    dotnet publish ./src/backend/CSharpWars/CSharpWars.Processor --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Processor/bin/Release/publish
 
 - script: |
     cd ./src/backend/CSharpWars/CSharpWars.Web.Api
@@ -88,7 +88,7 @@ steps:
     docker push djohnnie/csharpwars-web
 
 - script: |
-    cd ./src/backend/CSharpWars/CSharpWars.ScriptProcessor
+    cd ./src/backend/CSharpWars/CSharpWars.Processor
     docker build -t djohnnie/csharpwars-processor .
     docker login -u $(dockerId) -p $(dockerPwd)
     docker push djohnnie/csharpwars-processor
