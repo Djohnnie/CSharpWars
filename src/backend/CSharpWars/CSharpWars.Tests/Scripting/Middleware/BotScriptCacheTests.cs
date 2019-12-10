@@ -1,5 +1,5 @@
 ﻿using System;
-using CSharpWars.ScriptProcessor.Middleware;
+using CSharpWars.Processor.Middleware;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Xunit;

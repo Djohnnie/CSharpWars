@@ -1,5 +1,5 @@
 ﻿using CSharpWars.Enums;
-using CSharpWars.ScriptProcessor.Middleware;
+using CSharpWars.Processor.Middleware;
 using CSharpWars.Tests.Framework.FluentAssertions;
 using FluentAssertions;
 using Xunit;

@@ -3,7 +3,7 @@ using CSharpWars.Common.Helpers.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
-using CSharpWars.ScriptProcessor.Moves;
+using CSharpWars.Processor.Moves;
 using FluentAssertions;
 using Moq;
 using Xunit;

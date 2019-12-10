@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
-using CSharpWars.ScriptProcessor.Middleware;
+using CSharpWars.Processor.Middleware;
 using FluentAssertions;
 using Xunit;
 

@@ -1,4 +1,4 @@
-﻿using CSharpWars.ScriptProcessor.Middleware;
+﻿using CSharpWars.Processor.Middleware;
 using FluentAssertions;
 using Xunit;
 

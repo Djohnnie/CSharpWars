@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
-using CSharpWars.ScriptProcessor.Middleware;
+using CSharpWars.Processor.Middleware;
 using FluentAssertions;
 using Xunit;
 

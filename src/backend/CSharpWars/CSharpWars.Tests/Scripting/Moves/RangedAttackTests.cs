@@ -5,7 +5,7 @@ using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
-using CSharpWars.ScriptProcessor.Moves;
+using CSharpWars.Processor.Moves;
 using CSharpWars.Tests.Framework.FluentAssertions;
 using FluentAssertions;
 using Moq;

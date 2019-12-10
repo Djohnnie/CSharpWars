@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
-using CSharpWars.ScriptProcessor.Middleware;
-using CSharpWars.ScriptProcessor.Middleware.Interfaces;
+using CSharpWars.Processor.Middleware;
+using CSharpWars.Processor.Middleware.Interfaces;
 using Moq;
 using Xunit;
 
@@ -16,7 +16,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
         {
             // Arrange
             var botProcessingFactory = new Mock<IBotProcessingFactory>();
-            var processor = new Processor(botProcessingFactory.Object);
+            var processor = new Processor.Middleware.Processor(botProcessingFactory.Object);
             var arena = new ArenaDto { Width = 4, Height = 6 };
             var bots = new List<BotDto>();
             var processingContext = ProcessingContext.Build(arena, bots);
@@ -33,7 +33,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
         {
             // Arrange
             var botProcessingFactory = new Mock<IBotProcessingFactory>();
-            var processor = new Processor(botProcessingFactory.Object);
+            var processor = new Processor.Middleware.Processor(botProcessingFactory.Object);
             var arena = new ArenaDto { Width = 4, Height = 6 };
             var bot1 = new BotDto { Id = Guid.NewGuid() };
             var bot2 = new BotDto { Id = Guid.NewGuid() };

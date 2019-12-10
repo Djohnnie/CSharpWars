@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -27,6 +27,7 @@
     <ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
     <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
     <ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
+    <ProjectReference Include="..\CSharpWars.Processor\CSharpWars.Processor.csproj" />
     <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
     <ProjectReference Include="..\CSharpWars.Tests.Framework\CSharpWars.Tests.Framework.csproj" />
   </ItemGroup>

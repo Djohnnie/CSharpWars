@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using CSharpWars.Logic.Interfaces;
-using CSharpWars.ScriptProcessor.Middleware;
-using CSharpWars.ScriptProcessor.Middleware.Interfaces;
+using CSharpWars.Processor.Middleware;
+using CSharpWars.Processor.Middleware.Interfaces;
 using Moq;
 using Xunit;
-using MiddlewareProcessor = CSharpWars.ScriptProcessor.Middleware.Middleware;
+using MiddlewareProcessor = CSharpWars.Processor.Middleware.Middleware;
 
 namespace CSharpWars.Tests.Scripting.Middleware
 {
