@@ -17,9 +17,9 @@ variables:
 steps:
 
 - task: DotNetCoreInstaller@0
-  displayName: Install latest version of .NET Core 3.0 SDK (3.0.100)
+  displayName: Install latest version of .NET Core 3.0 SDK (3.1.100)
   inputs:
-    version: '3.0.100'
+    version: '3.1.100'
 
 - task: DotNetCoreCLI@2
   displayName: Restore NuGet packages
