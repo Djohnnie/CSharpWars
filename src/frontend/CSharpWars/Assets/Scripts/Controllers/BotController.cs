@@ -150,6 +150,11 @@ namespace Assets.Scripts.Controllers
                 _animation.Play(animationName);
                 _lastAnimation = animationName;
             }
+
+            if (!_animation.IsPlaying(animationName))
+            {
+                _lastAnimation = null;
+            }
         }
 
         public void SetBot(Bot bot)
