@@ -7,7 +7,7 @@ namespace Assets.Scripts.Networking
 {
     public static class ApiClient
     {
-        private static readonly String _baseUrl = "http://csharpwars.azurefd.net/api";
+        private static readonly String _baseUrl = "http://my.djohnnie.be:8801/api";
 
         public static Arena GetArena()
         {
