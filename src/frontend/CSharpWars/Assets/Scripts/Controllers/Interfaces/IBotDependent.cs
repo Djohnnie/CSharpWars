@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Controllers.Interfaces
 {
-    public interface IBotDependant
+    public interface IBotDependent
     {
         void UpdateBot(Bot bot);
         void Destroy();

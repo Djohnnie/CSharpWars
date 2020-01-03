@@ -59,12 +59,11 @@
      <Compile Include="Assets\Scripts\Controllers\BotsController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ExplosionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\HealthTagController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\Interfaces\IBotDependant.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Interfaces\IBotDependent.cs" />
      <Compile Include="Assets\Scripts\Controllers\NameTagController.cs" />
      <Compile Include="Assets\Scripts\Controllers\RangedAttackController.cs" />
      <Compile Include="Assets\Scripts\Controllers\StaminaTagController.cs" />
      <Compile Include="Assets\Scripts\Controllers\TagController.cs" />
-     <Compile Include="Assets\Scripts\Extensions\MonoBehaviourExtensions.cs" />
      <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
      <Compile Include="Assets\Scripts\Helpers\OrientationVector.cs" />
      <Compile Include="Assets\Scripts\Model\Arena.cs" />

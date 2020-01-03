@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Model;
 using RestSharp;
 
@@ -7,7 +6,7 @@ namespace Assets.Scripts.Networking
 {
     public static class ApiClient
     {
-        private static readonly String _baseUrl = "http://my.djohnnie.be:8801/api";
+        private static readonly string _baseUrl = "http://my.djohnnie.be:8801/api";
 
         public static Arena GetArena()
         {
@@ -19,7 +18,7 @@ namespace Assets.Scripts.Networking
             return Get<List<Bot>>("bots");
         }
 
-        private static TResult Get<TResult>(String resource) where TResult : new()
+        private static TResult Get<TResult>(string resource) where TResult : new()
         {
             var client = new RestClient(_baseUrl);
             var request = new RestRequest(resource, Method.GET);

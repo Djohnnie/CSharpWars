@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
-    public class HealthTagController : TagController, IBotDependant
+    public class HealthTagController : TagController, IBotDependent
     {
         public HealthTagController() : base(1.725f) { }
 

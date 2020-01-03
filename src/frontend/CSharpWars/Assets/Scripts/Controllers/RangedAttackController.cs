@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
     public class RangedAttackController : MonoBehaviour
     {
         public GameObject Projectile;
-        public Single Height = 3;
+        public float Height = 3;
 
         // Use this for initialization
         public void Fire(Vector3 startPos, Vector3 targetPos)

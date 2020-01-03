@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
-    public class StaminaTagController : TagController, IBotDependant
+    public class StaminaTagController : TagController, IBotDependent
     {
         public StaminaTagController() : base(1.8f) { }
 

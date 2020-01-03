@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
@@ -7,7 +6,7 @@ namespace Assets.Scripts.Controllers
     {
         public GameObject BotGameObject { get; set; }
 
-        private readonly Single _offset;
+        private readonly float _offset;
 
         private float variableOffset = 0;
 
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Controllers
             return this.gameObject;
         }
 
-        public TagController(Single offset)
+        public TagController(float offset)
         {
             _offset = offset;
         }

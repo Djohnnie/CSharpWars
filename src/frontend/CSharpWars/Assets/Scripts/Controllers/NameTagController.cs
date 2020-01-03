@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class NameTagController : TagController, IBotDependant
+    public class NameTagController : TagController, IBotDependent
     {
         public NameTagController() : base(2.0f) { }
 

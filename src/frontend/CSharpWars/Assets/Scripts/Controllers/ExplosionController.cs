@@ -20,7 +20,7 @@ namespace Assets.Scripts.Controllers
 
         public IEnumerator Explosion()
         {
-            GameObject container = (GameObject)Instantiate(ExplosionEffectsContainer, transform.position, Quaternion.identity);
+            GameObject container = Instantiate(ExplosionEffectsContainer, transform.position, Quaternion.identity);
             ParticleSystem[] systems = container.GetComponentsInChildren<ParticleSystem>();
             foreach (ParticleSystem system in systems)
             {

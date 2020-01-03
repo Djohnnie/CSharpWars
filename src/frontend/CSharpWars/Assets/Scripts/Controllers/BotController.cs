@@ -34,7 +34,7 @@ namespace Assets.Scripts.Controllers
             if (_animation != null)
             {
                 _animation[Animations.Walk].speed = Speed * 2;
-                _animation[Animations.TurnRight].speed = Speed * 2;
+                _animation[Animations.Turn].speed = Speed * 2;
                 _animation[Animations.Jump].speed = Speed;
             }
             InstantRefresh();
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Controllers
 
             if ((targetOrientation - newDir).magnitude > 0.01)
             {
-                RunAnimation(Animations.TurnRight);
+                RunAnimation(Animations.Turn);
                 return;
             }
 
