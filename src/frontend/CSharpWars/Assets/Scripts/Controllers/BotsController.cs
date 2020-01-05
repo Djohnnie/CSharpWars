@@ -10,25 +10,32 @@ namespace Assets.Scripts.Controllers
     public class BotsController : MonoBehaviour
     {
         private readonly Dictionary<Guid, BotController> _bots = new Dictionary<Guid, BotController>();
-        private GameObject _floor;
         private ArenaController _arenaController;
 
-        public Single RefreshRate = 2;
+        [Header("The refresh rate in seconds")]
+        public float RefreshRate = 2;
+
+        [Space(10)]
+
+        [Header("The PREFAB to use for bots")]
         public GameObject BotPrefab;
+        [Header("The PREFAB to use for name tags")]
         public GameObject NameTagPrefab;
+        [Header("The PREFAB to use for health bars")]
         public GameObject HealthTagPrefab;
+        [Header("The PREFAB to use for stamina bars")]
         public GameObject StaminaTagPrefab;
 
         void Start()
         {
-            InvokeRepeating(nameof(RefreshBots), RefreshRate, RefreshRate);
-            _floor = GameObject.Find("Floor");
             _arenaController = GetComponent<ArenaController>();
+            InvokeRepeating(nameof(RefreshBots), RefreshRate, RefreshRate);
         }
 
         private void RefreshBots()
         {
             var bots = ApiClient.GetBots();
+
             CleanKilledBots(bots);
             foreach (var bot in bots)
             {
@@ -42,27 +49,10 @@ namespace Assets.Scripts.Controllers
                     botController.SetArenaController(_arenaController);
                     botController.InstantRefresh();
                     _bots.Add(bot.Id, botController);
-
-                    var nameTag = Instantiate(NameTagPrefab);
-                    nameTag.transform.SetParent(botController.Head);
-                    var nameTagController = nameTag.GetComponent<NameTagController>();
-                    nameTagController.BotGameObject = newBot;
-                    nameTagController.UpdateBot(bot);
-                    botController.SetNameTagController(nameTagController);
-
-                    var healthTag = Instantiate(HealthTagPrefab);
-                    healthTag.transform.SetParent(botController.Head);
-                    var healthTagController = healthTag.GetComponent<HealthTagController>();
-                    healthTagController.BotGameObject = newBot;
-                    healthTagController.UpdateBot(bot);
-                    botController.SetHealthTagController(healthTagController);
-
-                    var staminaTag = Instantiate(StaminaTagPrefab);
-                    staminaTag.transform.SetParent(botController.Head);
-                    var staminaTagController = staminaTag.GetComponent<StaminaTagController>();
-                    staminaTagController.BotGameObject = newBot;
-                    staminaTagController.UpdateBot(bot);
-                    botController.SetStaminaTagController(staminaTagController);
+                    
+                    InstantiateTag<NameTagController>(NameTagPrefab, botController, bot);
+                    InstantiateTag<HealthTagController>(HealthTagPrefab, botController, bot);
+                    InstantiateTag<StaminaTagController>(StaminaTagPrefab, botController, bot);
                 }
                 else
                 {
@@ -72,9 +62,20 @@ namespace Assets.Scripts.Controllers
             }
         }
 
+        private void InstantiateTag<TTagController>(
+            GameObject tagPrefab, BotController botController, Bot bot) where TTagController : TagController
+        {
+            var tagObject = Instantiate(tagPrefab);
+            tagObject.transform.SetParent(botController.Head);
+            var tagController = tagObject.GetComponent<TTagController>();
+            tagController.UpdateTag(bot);
+            botController.SetTagController(tagController);
+        }
+
         private void CleanKilledBots(List<Bot> bots)
         {
             var botIdsToClean = new List<Guid>();
+
             foreach (var botId in _bots.Keys)
             {
                 if (bots.All(b => b.Id != botId))

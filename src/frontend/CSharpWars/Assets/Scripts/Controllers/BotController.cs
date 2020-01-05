@@ -14,15 +14,15 @@ namespace Assets.Scripts.Controllers
         private HealthTagController _healthTagController;
         private StaminaTagController _staminaTagController;
 
-        private String _lastAnimation;
+        private string _lastAnimation;
 
         private GameObject _errorGameObject;
         private GameObject _rangedAttackGameObject;
-        private Boolean _rangeAttackExecuted;
-        private Boolean _died;
+        private bool _rangeAttackExecuted;
+        private bool _died;
 
-        public Single Speed = 1;
-        public Single RotationSpeed = 2;
+        public float Speed = 1;
+        public float RotationSpeed = 2;
 
         public Transform Head;
         public GameObject ErrorPrefab;
@@ -37,7 +37,6 @@ namespace Assets.Scripts.Controllers
                 _animation[Animations.Turn].speed = Speed * 2;
                 _animation[Animations.Jump].speed = Speed;
             }
-            InstantRefresh();
         }
 
         void Update()
@@ -66,7 +65,7 @@ namespace Assets.Scripts.Controllers
                 _errorGameObject = null;
             }
 
-            Single step = Math.Abs(_bot.X - _bot.FromX) > 1 || Math.Abs(_bot.Y - _bot.FromY) > 1 ? 100 : Speed * Time.deltaTime;
+            float step = Math.Abs(_bot.X - _bot.FromX) > 1 || Math.Abs(_bot.Y - _bot.FromY) > 1 ? 100 : Speed * Time.deltaTime;
             Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
             Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
             if ((newPos - transform.position).magnitude > 0.01)
@@ -77,7 +76,7 @@ namespace Assets.Scripts.Controllers
             }
 
             Vector3 targetOrientation = OrientationVector.CreateFrom(_bot.Orientation);
-            Single rotationStep = RotationSpeed * Time.deltaTime;
+            float rotationStep = RotationSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetOrientation, rotationStep, 0.0F);
             if (targetOrientation != newDir)
             {
@@ -132,7 +131,7 @@ namespace Assets.Scripts.Controllers
             RunAnimation(Animations.Idle);
         }
 
-        void RunAnimation(String animationName)
+        void RunAnimation(string animationName)
         {
             if (!_animation.IsPlaying(animationName))
             {
@@ -142,7 +141,7 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        void RunAnimationOnce(String animationName)
+        void RunAnimationOnce(string animationName)
         {
             if (!_animation.IsPlaying(animationName) && _lastAnimation != animationName)
             {
@@ -162,30 +161,31 @@ namespace Assets.Scripts.Controllers
             SetBot(bot);
             if (_healthTagController != null)
             {
-                _healthTagController.UpdateBot(bot);
+                _healthTagController.UpdateTag(bot);
             }
 
             if (_staminaTagController != null)
             {
-                _staminaTagController.UpdateBot(bot);
+                _staminaTagController.UpdateTag(bot);
             }
 
             _rangeAttackExecuted = false;
         }
 
-        public void SetNameTagController(NameTagController nameTagController)
+        public void SetTagController(TagController tagController)
         {
-            _nameTagController = nameTagController;
-        }
-
-        public void SetHealthTagController(HealthTagController healthTagController)
-        {
-            _healthTagController = healthTagController;
-        }
-
-        public void SetStaminaTagController(StaminaTagController staminaTagController)
-        {
-            _staminaTagController = staminaTagController;
+            switch (tagController)
+            {
+                case HealthTagController t:
+                    _healthTagController = t;
+                    break;
+                case StaminaTagController t:
+                    _staminaTagController = t;
+                    break;
+                case NameTagController t:
+                    _nameTagController = t;
+                    break;
+            }
         }
 
         public void SetArenaController(ArenaController arenaController)
@@ -210,37 +210,37 @@ namespace Assets.Scripts.Controllers
 
 
 
-        private Boolean BotIsNotAvailable()
+        private bool BotIsNotAvailable()
         {
             return _bot == null || _died;
         }
 
-        private Boolean RobotIsConfused()
+        private bool RobotIsConfused()
         {
             return _bot.Move == PossibleMoves.ScriptError;
         }
 
-        private Boolean RobotHasDied()
+        private bool RobotHasDied()
         {
             return _bot.CurrentHealth <= 0 && _bot.Move != PossibleMoves.SelfDestruct;
         }
 
-        private Boolean RobotIsAttackingUsingMelee()
+        private bool RobotIsAttackingUsingMelee()
         {
             return _bot.Move == PossibleMoves.MeleeAttack;
         }
 
-        private Boolean RobotIsAttackingUsingRanged()
+        private bool RobotIsAttackingUsingRanged()
         {
             return _bot.Move == PossibleMoves.RangedAttack;
         }
 
-        private Boolean RobotIsSelfDestructing()
+        private bool RobotIsSelfDestructing()
         {
             return _bot.Move == PossibleMoves.SelfDestruct;
         }
 
-        private Boolean RobotIsTeleporting()
+        private bool RobotIsTeleporting()
         {
             return _bot.Move == PossibleMoves.Teleport;
         }

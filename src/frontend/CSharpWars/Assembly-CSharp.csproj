@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\Controllers\BotsController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ExplosionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\HealthTagController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\Interfaces\IBotDependent.cs" />
      <Compile Include="Assets\Scripts\Controllers\NameTagController.cs" />
      <Compile Include="Assets\Scripts\Controllers\RangedAttackController.cs" />
      <Compile Include="Assets\Scripts\Controllers\StaminaTagController.cs" />

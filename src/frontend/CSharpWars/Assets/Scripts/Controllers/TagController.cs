@@ -1,39 +1,33 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Model;
+using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class TagController : MonoBehaviour
+    public abstract class TagController : MonoBehaviour
     {
-        public GameObject BotGameObject { get; set; }
-
         private readonly float _offset;
 
-        private float variableOffset = 0;
-
-        public void SetVariableOffset(float offset)
-        {
-            variableOffset = offset;
-        }
-
-        public GameObject GetGameObject()
-        {
-            return this.gameObject;
-        }
-
-        public TagController(float offset)
+        protected TagController(float offset)
         {
             _offset = offset;
         }
 
+        // Camera related movements should execute after all other updates have been processed!
         private void LateUpdate()
         {
-            // Position the name tag centered above the bot.
-            //var botPosition = BotGameObject.transform.position;
             // Always let the name tags look directly at the camera.
             var mainCameraRotation = Camera.main.transform.rotation;
             transform.LookAt(transform.position + mainCameraRotation * Vector3.forward, mainCameraRotation * Vector3.up);
             transform.localPosition = new Vector3(0, 0, 0);
-            transform.position = new Vector3(transform.position.x, _offset + variableOffset, transform.position.z);
+            transform.position = new Vector3(transform.position.x, _offset, transform.position.z);
+        }
+
+        public abstract void UpdateTag(Bot bot);
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+            Destroy(this);
         }
     }
 }
