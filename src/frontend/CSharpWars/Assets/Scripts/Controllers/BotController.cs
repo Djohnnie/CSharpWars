@@ -125,6 +125,7 @@ namespace Assets.Scripts.Controllers
             {
                 GetComponent<ExplosionController>().Explode();
                 RunAnimationOnce(Animations.Death);
+                _died = true;
                 return;
             }
 
