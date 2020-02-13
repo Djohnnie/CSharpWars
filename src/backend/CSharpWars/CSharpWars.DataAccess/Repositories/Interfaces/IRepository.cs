@@ -29,11 +29,4 @@ namespace CSharpWars.DataAccess.Repositories.Interfaces
 
         Task Delete(IList<TModel> toDelete);
     }
-
-    public interface IRepository<TModel1, TModel2> : IRepository<TModel1>
-        where TModel1 : class, IHasId
-        where TModel2 : class, IHasId, new()
-    {
-
-    }
 }

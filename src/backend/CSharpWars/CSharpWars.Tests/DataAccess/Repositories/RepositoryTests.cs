@@ -138,28 +138,6 @@ namespace CSharpWars.Tests.DataAccess.Repositories
         }
 
         [Fact]
-        public async Task Repository_Create_Should_Create_Two_Records_For_Multi_Model_Repository()
-        {
-            // Arrange
-            var configurationHelper = new ConfigurationHelper();
-            var dbContext = new CSharpWarsDbContext(configurationHelper);
-            var botScriptRepository = new Repository<Bot, BotScript>(dbContext, dbContext.Bots, dbContext.BotScripts);
-            var bot = new Bot { Name = "Bot" };
-
-            // Act
-            var result = await botScriptRepository.Create(bot);
-
-            // Assert
-            var botResult = await dbContext.Bots.SingleOrDefaultAsync();
-            botResult.Should().NotBeNull();
-            botResult.Should().BeEquivalentTo(bot);
-            botResult.Id.Should().NotBe(Guid.Empty);
-            var botScriptResult = await dbContext.BotScripts.SingleOrDefaultAsync();
-            botScriptResult.Should().NotBeNull();
-            botScriptResult.Id.Should().Be(botResult.Id);
-        }
-
-        [Fact]
         public async Task Repository_Update_Should_Update_A_Record()
         {
             // Arrange

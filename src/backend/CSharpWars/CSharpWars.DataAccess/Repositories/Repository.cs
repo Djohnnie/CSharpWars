@@ -103,33 +103,4 @@ namespace CSharpWars.DataAccess.Repositories
             _dbContext.Entry(toUpdate).State = EntityState.Modified;
         }
     }
-
-    public class Repository<TModel1, TModel2> : Repository<TModel1>, IRepository<TModel1, TModel2>
-        where TModel1 : class, IHasId
-        where TModel2 : class, IHasId, new()
-    {
-        private readonly DbSet<TModel2> _dbSet2;
-
-        public Repository(DbContext dbContext, DbSet<TModel1> dbSet1, DbSet<TModel2> dbSet2) : base(dbContext, dbSet1)
-        {
-            _dbSet2 = dbSet2;
-        }
-
-        public override async Task<TModel1> Create(TModel1 toCreate)
-        {
-            toCreate.Id = Guid.NewGuid();
-            await _dbSet.AddAsync(toCreate);
-            await _dbSet2.AddAsync(new TModel2 { Id = toCreate.Id });
-            await _dbContext.SaveChangesAsync();
-            return toCreate;
-        }
-
-        public override async Task Delete(IList<TModel1> toDelete)
-        {
-            var toDelete2 = await _dbSet2.Where(x => toDelete.Select(d => d.Id).Contains(x.Id)).ToListAsync();
-            _dbSet.RemoveRange(toDelete);
-            _dbSet2.RemoveRange(toDelete2);
-            await _dbContext.SaveChangesAsync();
-        }
-    }
 }

@@ -29,15 +29,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var bots = new List<Bot>
             {
@@ -68,15 +67,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var bots = new List<Bot>
             {
@@ -115,15 +113,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var bots = new List<Bot>
             {
@@ -164,15 +161,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var botId = Guid.NewGuid();
             var script = "BotScript!";
@@ -203,15 +199,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var arenaDto = new ArenaDto { Width = 4, Height = 3 };
             var player = new Player { Id = Guid.NewGuid(), LastDeployment = DateTime.MinValue };
@@ -236,7 +231,7 @@ namespace CSharpWars.Tests.Logic
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), i => i.Player)).ReturnsAsync(new List<Bot>());
             randomHelper.Setup(x => x.Get(It.IsAny<Int32>())).Returns(5);
             arenaLogic.Setup(x => x.GetArena()).ReturnsAsync(arenaDto);
-            botScriptRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
+            botRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>())).ReturnsAsync(player);
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
                 .ReturnsAsync((Expression<Func<BotScript, Boolean>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
@@ -268,15 +263,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var arenaDto = new ArenaDto { Width = 3, Height = 3 };
             var player = new Player { Id = Guid.NewGuid(), LastDeployment = DateTime.MinValue };
@@ -312,7 +306,7 @@ namespace CSharpWars.Tests.Logic
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), i => i.Player)).ReturnsAsync(otherBots);
             randomHelper.Setup(x => x.Get(It.IsAny<Int32>())).Returns(0);
             arenaLogic.Setup(x => x.GetArena()).ReturnsAsync(arenaDto);
-            botScriptRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
+            botRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>())).ReturnsAsync(player);
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
                 .ReturnsAsync((Expression<Func<BotScript, Boolean>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
@@ -334,15 +328,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var arenaDto = new ArenaDto { Width = 3, Height = 3 };
             var player = new Player { Id = Guid.NewGuid(), LastDeployment = DateTime.UtcNow };
@@ -373,15 +366,14 @@ namespace CSharpWars.Tests.Logic
             var randomHelper = new Mock<IRandomHelper>();
             var botRepository = new Mock<IRepository<Bot>>();
             var scriptRepository = new Mock<IRepository<BotScript>>();
-            var botScriptRepository = new Mock<IRepository<Bot, BotScript>>();
             var playerRepository = new Mock<IRepository<Player>>();
             var botMapper = new BotMapper();
             var botToCreateMapper = new BotToCreateMapper();
             var arenaLogic = new Mock<IArenaLogic>();
             var configurationHelper = new Mock<IConfigurationHelper>();
             IBotLogic botLogic = new BotLogic(
-                randomHelper.Object, botRepository.Object, scriptRepository.Object, botScriptRepository.Object,
-                playerRepository.Object, botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
+                randomHelper.Object, botRepository.Object, scriptRepository.Object, playerRepository.Object, 
+                botMapper, botToCreateMapper, arenaLogic.Object, configurationHelper.Object);
 
             var botDto = new BotDto();
 

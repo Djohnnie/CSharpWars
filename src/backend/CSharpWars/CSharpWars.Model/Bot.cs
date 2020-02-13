@@ -23,5 +23,6 @@ namespace CSharpWars.Model
         public Int32 LastAttackX { get; set; }
         public Int32 LastAttackY { get; set; }
         public virtual Player Player { get; set; }
+        public BotScript BotScript { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace CSharpWars.Tests.DataAccess.DependencyInjection
         [InlineData(typeof(IRepository<Player>), typeof(PlayerRepository))]
         [InlineData(typeof(IRepository<Bot>), typeof(BotRepository))]
         [InlineData(typeof(IRepository<BotScript>), typeof(ScriptRepository))]
-        [InlineData(typeof(IRepository<Bot, BotScript>), typeof(BotScriptRepository))]
         public void ConfigureDataAccess_Should_Register_Scoped_Repository_Classes(Type repositoryType, Type repositoryImplementation)
         {
             // Arrange

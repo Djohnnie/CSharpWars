@@ -40,30 +40,30 @@ namespace CSharpWars.DataAccess
         {
             modelBuilder.Entity<Player>(e =>
             {
-                e.ToTable("PLAYERS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
-                e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.ToTable("PLAYERS").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
                 e.Property(x => x.LastDeployment).IsRequired();
             });
 
             modelBuilder.Entity<Bot>(e =>
             {
-                e.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
-                e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.ToTable("BOTS").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
+                e.HasOne(x => x.BotScript).WithOne().HasForeignKey<BotScript>(x => x.Id);
             });
 
             modelBuilder.Entity<BotScript>(e =>
             {
-                e.ToTable("BOTS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.HasOne<Bot>().WithOne().HasForeignKey<BotScript>(x => x.Id);
+                e.ToTable("BOTS").HasKey(x => x.Id).IsClustered(false);
             });
 
             modelBuilder.Entity<Message>(e =>
             {
-                e.ToTable("MESSAGES").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
-                e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.ToTable("MESSAGES").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
             });
         }
     }
