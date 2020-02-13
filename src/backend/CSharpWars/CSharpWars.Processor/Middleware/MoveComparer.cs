@@ -6,7 +6,7 @@ namespace CSharpWars.Processor.Middleware
 {
     public class MoveComparer : IComparer<PossibleMoves>
     {
-        private readonly Dictionary<PossibleMoves, Int32> _weights = new Dictionary<PossibleMoves, Int32>
+        private readonly Dictionary<PossibleMoves, int> _weights = new Dictionary<PossibleMoves, int>
         {
             { PossibleMoves.Idling, 0 },
             { PossibleMoves.Died, 0 },
@@ -21,7 +21,7 @@ namespace CSharpWars.Processor.Middleware
             { PossibleMoves.TurningAround, 6 }
         };
 
-        public Int32 Compare(PossibleMoves x, PossibleMoves y)
+        public int Compare(PossibleMoves x, PossibleMoves y)
         {
             return _weights[x].CompareTo(_weights[y]);
         }

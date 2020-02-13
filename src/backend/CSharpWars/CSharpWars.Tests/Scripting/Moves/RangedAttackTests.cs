@@ -41,7 +41,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(0, 2)]
         [InlineData(1, 2)]
         [InlineData(2, 2)]
-        public void Executing_A_RangedAttack_Into_Thin_Air_Should_Not_Inflict_Damage(Int32 moveDestinationX, Int32 moveDestinationY)
+        public void Executing_A_RangedAttack_Into_Thin_Air_Should_Not_Inflict_Damage(int moveDestinationX, int moveDestinationY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 1, Y = 1, Orientation = PossibleOrientations.North };

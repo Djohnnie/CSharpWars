@@ -34,7 +34,7 @@ namespace CSharpWars.Processor.Moves
             return BotProperties.Bots.SingleOrDefault(bot => bot.X == neighbourLocation.X && bot.Y == neighbourLocation.Y);
         }
 
-        private (Int32 X, Int32 Y) GetNeighbourLocation()
+        private (int X, int Y) GetNeighbourLocation()
         {
             switch (BotProperties.Orientation)
             {

@@ -5,6 +5,6 @@ namespace CSharpWars.Processor.Middleware.Interfaces
 {
     public interface IBotScriptCompiler
     {
-        Script Compile(String script);
+        Script Compile(string script);
     }
 }

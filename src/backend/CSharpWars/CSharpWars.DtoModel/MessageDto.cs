@@ -4,8 +4,8 @@ namespace CSharpWars.DtoModel
 {
     public class MessageDto
     {
-        public String Message { get; set; }
+        public string Message { get; set; }
 
-        public String BotName { get; set; }
+        public string BotName { get; set; }
     }
 }

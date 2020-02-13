@@ -13,7 +13,7 @@ namespace CSharpWars.Processor.Middleware
 {
     public class BotScriptCompiler : IBotScriptCompiler
     {
-        public Script Compile(String script)
+        public Script Compile(string script)
         {
             var decodedScript = script.Base64Decode();
             var mscorlib = typeof(Object).Assembly;

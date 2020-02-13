@@ -4,10 +4,10 @@ namespace CSharpWars.Common.Configuration.Interfaces
 {
     public interface IConfigurationHelper
     {
-        String ConnectionString { get; set; }
-        Int32 ArenaSize { get; set; }
-        String ValidationHost { get; set; }
-        Int32 PointsLimit { get; set; }
-        Int32 BotDeploymentLimit { get; set; }
+        string ConnectionString { get; set; }
+        int ArenaSize { get; set; }
+        string ValidationHost { get; set; }
+        int PointsLimit { get; set; }
+        int BotDeploymentLimit { get; set; }
     }
 }

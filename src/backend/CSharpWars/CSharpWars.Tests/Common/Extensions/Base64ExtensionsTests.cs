@@ -38,7 +38,7 @@ namespace CSharpWars.Tests.Common.Extensions
         public void Base64Encode_Null_String_Should_Return_Null_String()
         {
             // Arrange
-            String input = null;
+            string input = null;
 
             // Act
             var output = input.Base64Encode();
@@ -78,7 +78,7 @@ namespace CSharpWars.Tests.Common.Extensions
         public void Base64Decode_Null_String_Should_Return_Null_String()
         {
             // Arrange
-            String input = null;
+            string input = null;
 
             // Act
             var output = input.Base64Decode();

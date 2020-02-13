@@ -4,7 +4,7 @@ namespace CSharpWars.DtoModel
 {
     public class LoginDto
     {
-        public String Name { get; set; }
-        public String Secret { get; set; }
+        public string Name { get; set; }
+        public string Secret { get; set; }
     }
 }

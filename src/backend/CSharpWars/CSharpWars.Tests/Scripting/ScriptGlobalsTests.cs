@@ -39,7 +39,7 @@ namespace CSharpWars.Tests.Scripting
 
         [Theory]
         [ClassData(typeof(ScriptGlobalsSetsCurrentMoveTheoryData))]
-        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, PossibleMoves expectedMove, Int32 moveDestinationX, Int32 moveDestinationY)
+        public void ScriptGlobals_Action_Correctly_Sets_CurrentMove_If_Idling(Action<ScriptGlobals> action, PossibleMoves expectedMove, int moveDestinationX, int moveDestinationY)
         {
             // Arrange
             var botProperties = BuildBotProperties();
@@ -120,7 +120,7 @@ namespace CSharpWars.Tests.Scripting
             var key = "VAL";
 
             // Act
-            var result = scriptGlobals.LoadFromMemory<Int32>(key);
+            var result = scriptGlobals.LoadFromMemory<int>(key);
 
             // Assert
             result.Should().BeZero();
@@ -137,7 +137,7 @@ namespace CSharpWars.Tests.Scripting
             scriptGlobals.StoreInMemory(key, value);
 
             // Act
-            var result = scriptGlobals.LoadFromMemory<Int32>(key);
+            var result = scriptGlobals.LoadFromMemory<int>(key);
 
             // Assert
             result.Should().Be(value);
@@ -188,13 +188,13 @@ namespace CSharpWars.Tests.Scripting
                 CurrentHealth = 99,
                 MaximumStamina = 250,
                 CurrentStamina = 150,
-                Memory = new Dictionary<String, String>().Serialize()
+                Memory = new Dictionary<string, string>().Serialize()
             };
             var arena = new ArenaDto { Width = 10, Height = 20 };
             return BotProperties.Build(bot, arena, new List<BotDto>());
         }
 
-        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves, Int32, Int32>
+        private class ScriptGlobalsSetsCurrentMoveTheoryData : TheoryData<Action<ScriptGlobals>, PossibleMoves, int, int>
         {
             public ScriptGlobalsSetsCurrentMoveTheoryData()
             {

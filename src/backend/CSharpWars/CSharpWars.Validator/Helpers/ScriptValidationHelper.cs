@@ -49,7 +49,7 @@ namespace CSharpWars.Validator.Helpers
                         X = 1,
                         Y = 1,
                         Orientation = PossibleOrientations.South,
-                        Memory = new Dictionary<String, String>().Serialize()
+                        Memory = new Dictionary<string, string>().Serialize()
                     };
                     var friendBot = new BotDto
                     {
@@ -121,7 +121,7 @@ namespace CSharpWars.Validator.Helpers
             return scriptValidation;
         }
 
-        private Task<Script<object>> PrepareScript(String script)
+        private Task<Script<object>> PrepareScript(string script)
         {
             return Task.Run(() =>
             {

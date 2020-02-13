@@ -49,7 +49,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), Any.Include<Bot, Player>()))
-                .ReturnsAsync((Expression<Func<Bot, Boolean>> predicate, Expression<Func<Bot, Player>> include) =>
+                .ReturnsAsync((Expression<Func<Bot, bool>> predicate, Expression<Func<Bot, Player>> include) =>
                     (IList<Bot>)bots.Where(predicate.Compile()).ToList());
 
             // Act
@@ -95,7 +95,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), Any.Include<Bot, Player>()))
-                .ReturnsAsync((Expression<Func<Bot, Boolean>> predicate, Expression<Func<Bot, Player>> include) =>
+                .ReturnsAsync((Expression<Func<Bot, bool>> predicate, Expression<Func<Bot, Player>> include) =>
                     (IList<Bot>)bots.Where(predicate.Compile()).ToList());
 
             // Act
@@ -143,7 +143,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), Any.Include<Bot, Player>()))
-                .ReturnsAsync((Expression<Func<Bot, Boolean>> predicate, Expression<Func<Bot, Player>> include) =>
+                .ReturnsAsync((Expression<Func<Bot, bool>> predicate, Expression<Func<Bot, Player>> include) =>
                     (IList<Bot>)bots.Where(predicate.Compile()).ToList());
 
             // Act
@@ -183,7 +183,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
-                .ReturnsAsync((Expression<Func<BotScript, Boolean>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
+                .ReturnsAsync((Expression<Func<BotScript, bool>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
 
             // Act
             var result = await botLogic.GetBotScript(botId);
@@ -229,12 +229,12 @@ namespace CSharpWars.Tests.Logic
             // Mock
             randomHelper.Setup(x => x.Get<PossibleOrientations>()).Returns(PossibleOrientations.South);
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), i => i.Player)).ReturnsAsync(new List<Bot>());
-            randomHelper.Setup(x => x.Get(It.IsAny<Int32>())).Returns(5);
+            randomHelper.Setup(x => x.Get(It.IsAny<int>())).Returns(5);
             arenaLogic.Setup(x => x.GetArena()).ReturnsAsync(arenaDto);
             botRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>())).ReturnsAsync(player);
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
-                .ReturnsAsync((Expression<Func<BotScript, Boolean>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
+                .ReturnsAsync((Expression<Func<BotScript, bool>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
             scriptRepository.Setup(x => x.Update(It.IsAny<BotScript>())).Returns<BotScript>(Task.FromResult);
 
             // Act
@@ -304,12 +304,12 @@ namespace CSharpWars.Tests.Logic
             // Mock
             randomHelper.Setup(x => x.Get<PossibleOrientations>()).Returns(PossibleOrientations.South);
             botRepository.Setup(x => x.Find(Any.Predicate<Bot>(), i => i.Player)).ReturnsAsync(otherBots);
-            randomHelper.Setup(x => x.Get(It.IsAny<Int32>())).Returns(0);
+            randomHelper.Setup(x => x.Get(It.IsAny<int>())).Returns(0);
             arenaLogic.Setup(x => x.GetArena()).ReturnsAsync(arenaDto);
             botRepository.Setup(x => x.Create(It.IsAny<Bot>())).Returns<Bot>(Task.FromResult);
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>())).ReturnsAsync(player);
             scriptRepository.Setup(x => x.Single(Any.Predicate<BotScript>()))
-                .ReturnsAsync((Expression<Func<BotScript, Boolean>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
+                .ReturnsAsync((Expression<Func<BotScript, bool>> predicate) => botScripts.SingleOrDefault(predicate.Compile()));
             scriptRepository.Setup(x => x.Update(It.IsAny<BotScript>())).Returns<BotScript>(Task.FromResult);
 
             // Act

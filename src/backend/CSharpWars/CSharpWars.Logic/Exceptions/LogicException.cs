@@ -4,6 +4,6 @@ namespace CSharpWars.Logic.Exceptions
 {
     public class LogicException : Exception
     {
-        public LogicException(String message) : base(message) { }
+        public LogicException(string message) : base(message) { }
     }
 }

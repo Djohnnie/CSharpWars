@@ -7,7 +7,7 @@ namespace CSharpWars.Common.Tools
     {
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
-        public Int64 ElapsedMilliseconds => _stopwatch.ElapsedMilliseconds;
+        public long ElapsedMilliseconds => _stopwatch.ElapsedMilliseconds;
 
         public SimpleStopwatch()
         {

@@ -41,7 +41,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(0, 2)]
         [InlineData(1, 2)]
         [InlineData(2, 2)]
-        public void Executing_A_MeleeAttack_Into_Thin_Air_Should_Not_Inflict_Damage(Int32 victimX, Int32 victimY)
+        public void Executing_A_MeleeAttack_Into_Thin_Air_Should_Not_Inflict_Damage(int victimX, int victimY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 1, Y = 1, Orientation = PossibleOrientations.North };
@@ -107,7 +107,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(2, 1, PossibleOrientations.East)]
         [InlineData(1, 2, PossibleOrientations.South)]
         [InlineData(0, 1, PossibleOrientations.West)]
-        public void Executing_A_MeleeAttack_Should_Work_In_The_Four_Possible_Orientations(Int32 victimX, Int32 victimY, PossibleOrientations orientation)
+        public void Executing_A_MeleeAttack_Should_Work_In_The_Four_Possible_Orientations(int victimX, int victimY, PossibleOrientations orientation)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 1, Y = 1, Orientation = orientation };

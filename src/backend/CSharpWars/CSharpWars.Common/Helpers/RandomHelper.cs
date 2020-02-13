@@ -7,12 +7,12 @@ namespace CSharpWars.Common.Helpers
     {
         private readonly Random _randomGenerator = new Random();
 
-        public Int32 Get(Int32 maxValue)
+        public int Get(int maxValue)
         {
             return _randomGenerator.Next(maxValue);
         }
 
-        public Int32 Get(Int32 minValue, Int32 maxValue)
+        public int Get(int minValue, int maxValue)
         {
             return _randomGenerator.Next(minValue, maxValue);
         }

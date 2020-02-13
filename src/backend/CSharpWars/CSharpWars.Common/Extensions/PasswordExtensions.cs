@@ -6,7 +6,7 @@ namespace CSharpWars.Common.Extensions
 {
     public static class PasswordExtensions
     {
-        public static (String Salt, String Hashed) HashPassword(this String password, String salt = null)
+        public static (string Salt, string Hashed) HashPassword(this string password, string salt = null)
         {
             if (salt == null)
             {

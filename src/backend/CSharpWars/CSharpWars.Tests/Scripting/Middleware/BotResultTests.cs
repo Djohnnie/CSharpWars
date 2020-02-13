@@ -24,7 +24,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
                 Orientation = PossibleOrientations.East,
                 CurrentHealth = 99,
                 CurrentStamina = 999,
-                Memory = new Dictionary<String, String>().Serialize()
+                Memory = new Dictionary<string, string>().Serialize()
             };
             var arena = new ArenaDto { Width = 1, Height = 1 };
             var botProperties = BotProperties.Build(bot, arena, new List<BotDto>());
@@ -41,8 +41,8 @@ namespace CSharpWars.Tests.Scripting.Middleware
             result.Orientation.Should().Be(bot.Orientation);
             result.CurrentHealth.Should().Be(bot.CurrentHealth);
             result.CurrentStamina.Should().Be(bot.CurrentStamina);
-            result.Memory.Should().BeEquivalentTo(bot.Memory.Deserialize<Dictionary<String, String>>());
-            result.Messages.Should().BeEquivalentTo(new List<String>());
+            result.Memory.Should().BeEquivalentTo(bot.Memory.Deserialize<Dictionary<string, string>>());
+            result.Messages.Should().BeEquivalentTo(new List<string>());
             result.Move.Should().Be(PossibleMoves.Idling);
             result.LastAttackX.Should().Be(botProperties.MoveDestinationX);
             result.LastAttackY.Should().Be(botProperties.MoveDestinationY);

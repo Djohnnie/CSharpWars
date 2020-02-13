@@ -26,12 +26,12 @@ namespace CSharpWars.DataAccess.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<IList<TModel>> Find(Expression<Func<TModel, Boolean>> predicate)
+        public async Task<IList<TModel>> Find(Expression<Func<TModel, bool>> predicate)
         {
             return await _dbSet.Where(predicate).ToListAsync();
         }
 
-        public async Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, Boolean>> predicate, Expression<Func<TModel, TProperty>> include)
+        public async Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, bool>> predicate, Expression<Func<TModel, TProperty>> include)
         {
             return await _dbSet.AsNoTracking().Where(predicate).Include(include).ToListAsync();
         }
@@ -46,7 +46,7 @@ namespace CSharpWars.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate)
+        public async Task<TModel> Single(Expression<Func<TModel, bool>> predicate)
         {
             return await _dbSet.SingleOrDefaultAsync(predicate);
         }

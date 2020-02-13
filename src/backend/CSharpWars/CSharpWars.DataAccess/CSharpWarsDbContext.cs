@@ -26,7 +26,7 @@ namespace CSharpWars.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (String.IsNullOrEmpty(_configurationHelper.ConnectionString))
+            if (string.IsNullOrEmpty(_configurationHelper.ConnectionString))
             {
                 optionsBuilder.UseInMemoryDatabase($"{Guid.NewGuid()}");
             }
@@ -41,7 +41,7 @@ namespace CSharpWars.DataAccess
             modelBuilder.Entity<Player>(e =>
             {
                 e.ToTable("PLAYERS").HasKey(x => x.Id).IsClustered(false);
-                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.Property<int>("SysId").UseIdentityColumn();
                 e.HasIndex("SysId").IsClustered();
                 e.Property(x => x.LastDeployment).IsRequired();
             });
@@ -49,7 +49,7 @@ namespace CSharpWars.DataAccess
             modelBuilder.Entity<Bot>(e =>
             {
                 e.ToTable("BOTS").HasKey(x => x.Id).IsClustered(false);
-                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.Property<int>("SysId").UseIdentityColumn();
                 e.HasIndex("SysId").IsClustered();
                 e.HasOne(x => x.BotScript).WithOne().HasForeignKey<BotScript>(x => x.Id);
             });
@@ -62,7 +62,7 @@ namespace CSharpWars.DataAccess
             modelBuilder.Entity<Message>(e =>
             {
                 e.ToTable("MESSAGES").HasKey(x => x.Id).IsClustered(false);
-                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.Property<int>("SysId").UseIdentityColumn();
                 e.HasIndex("SysId").IsClustered();
             });
         }

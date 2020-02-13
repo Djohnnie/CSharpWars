@@ -9,9 +9,9 @@ namespace CSharpWars.Tests.Common.Extensions
     {
         public class Data
         {
-            public Boolean BooleanProperty { get; set; }
-            public String StringProperty { get; set; }
-            public Int32 IntegerProperty { get; set; }
+            public bool BooleanProperty { get; set; }
+            public string StringProperty { get; set; }
+            public int IntegerProperty { get; set; }
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace CSharpWars.Tests.Common.Extensions
         {
             // Arrange
             Data input = null;
-            var expectedOutput = String.Empty;
+            var expectedOutput = string.Empty;
 
             // Act
             var result = input.Serialize();

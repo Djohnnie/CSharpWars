@@ -44,12 +44,12 @@ namespace CSharpWars.Processor.Moves
             return botResult;
         }
 
-        private IList<Bot> FindBotsInVicinity(Int32 range)
+        private IList<Bot> FindBotsInVicinity(int range)
         {
             var botsInVicinity = new List<Bot>();
-            for (Int32 x = BotProperties.X - range; x <= BotProperties.X + range; x++)
+            for (int x = BotProperties.X - range; x <= BotProperties.X + range; x++)
             {
-                for (Int32 y = BotProperties.Y - range; y <= BotProperties.Y + range; y++)
+                for (int y = BotProperties.Y - range; y <= BotProperties.Y + range; y++)
                 {
                     if (x != BotProperties.X || y != BotProperties.Y)
                     {

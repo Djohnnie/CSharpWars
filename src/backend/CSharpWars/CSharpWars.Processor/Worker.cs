@@ -11,7 +11,7 @@ namespace CSharpWars.Processor
 {
     public class Worker : BackgroundService
     {
-        private const Int32 DELAY_MS = 2000;
+        private const int DELAY_MS = 2000;
 
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<Worker> _logger;
@@ -43,7 +43,7 @@ namespace CSharpWars.Processor
                     }
 
                     var timeTaken = DateTime.UtcNow - start;
-                    var delay = (Int32)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
+                    var delay = (int)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
                     await Task.Delay(delay, stoppingToken);
                 }
             }

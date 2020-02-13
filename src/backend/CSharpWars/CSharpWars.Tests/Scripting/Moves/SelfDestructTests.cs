@@ -78,7 +78,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(4, 6)]
         [InlineData(5, 6)]
         [InlineData(6, 6)]
-        public void Executing_A_SelfDestruct_Should_Damage_Minimum_Vicinity_Bots_With_Minimum_Damage(Int32 victimX, Int32 victimY)
+        public void Executing_A_SelfDestruct_Should_Damage_Minimum_Vicinity_Bots_With_Minimum_Damage(int victimX, int victimY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 3, Y = 3 };
@@ -114,7 +114,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(2, 4)]
         [InlineData(3, 4)]
         [InlineData(4, 4)]
-        public void Executing_A_SelfDestruct_Should_Damage_Medium_Vicinity_Bots_With_Medium_Damage(Int32 victimX, Int32 victimY)
+        public void Executing_A_SelfDestruct_Should_Damage_Medium_Vicinity_Bots_With_Medium_Damage(int victimX, int victimY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 2, Y = 2 };
@@ -142,7 +142,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(0, 2)]
         [InlineData(1, 2)]
         [InlineData(2, 2)]
-        public void Executing_A_SelfDestruct_Should_Damage_Maximum_Vicinity_Bots_With_Maximum_Damage(Int32 victimX, Int32 victimY)
+        public void Executing_A_SelfDestruct_Should_Damage_Maximum_Vicinity_Bots_With_Maximum_Damage(int victimX, int victimY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 1, Y = 1 };

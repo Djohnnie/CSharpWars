@@ -14,7 +14,7 @@ namespace CSharpWars.Web.Api
             CreateHostBuilder(args, certificateFileName, certificatePassword).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args, String certificateFileName, String certificatePassword) =>
+        public static IHostBuilder CreateHostBuilder(string[] args, string certificateFileName, string certificatePassword) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -26,7 +26,7 @@ namespace CSharpWars.Tests.Scripting
                 CurrentHealth = 99,
                 MaximumStamina = 1000,
                 CurrentStamina = 999,
-                Memory = new Dictionary<String, String>().Serialize()
+                Memory = new Dictionary<string, string>().Serialize()
             };
             var arena = new ArenaDto { Width = 7, Height = 8 };
             var bots = new List<BotDto>
@@ -53,8 +53,8 @@ namespace CSharpWars.Tests.Scripting
             result.CurrentHealth.Should().Be(bot.CurrentHealth);
             result.MaximumStamina.Should().Be(bot.MaximumStamina);
             result.CurrentStamina.Should().Be(bot.CurrentStamina);
-            result.Memory.Should().BeEquivalentTo(bot.Memory.Deserialize<Dictionary<String, String>>());
-            result.Messages.Should().BeEquivalentTo(new List<String>());
+            result.Memory.Should().BeEquivalentTo(bot.Memory.Deserialize<Dictionary<string, string>>());
+            result.Messages.Should().BeEquivalentTo(new List<string>());
             result.Bots.Should().BeEquivalentTo(bots, p => p
                 .Including(x => x.Id)
                 .Including(x => x.Name)

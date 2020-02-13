@@ -5,7 +5,7 @@ namespace CSharpWars.Processor.Middleware.Interfaces
 {
     public interface IBotScriptCache
     {
-        Boolean ScriptStored(Guid botId);
+        bool ScriptStored(Guid botId);
 
         void StoreScript(Guid botId, Script script);
 

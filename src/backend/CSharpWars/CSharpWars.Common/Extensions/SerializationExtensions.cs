@@ -6,9 +6,9 @@ namespace CSharpWars.Common.Extensions
 {
     public static class SerializationExtensions
     {
-        public static String Serialize<T>(this T objectToSerialize)
+        public static string Serialize<T>(this T objectToSerialize)
         {
-            if (objectToSerialize == null) return String.Empty;
+            if (objectToSerialize == null) return string.Empty;
             using (var writer = new StringWriter())
             {
                 var serializer = new JsonSerializer();
@@ -17,7 +17,7 @@ namespace CSharpWars.Common.Extensions
             }
         }
 
-        public static T Deserialize<T>(this String objectToDeserialize)
+        public static T Deserialize<T>(this string objectToDeserialize)
         {
             if (objectToDeserialize == null) return default(T);
             using (var stringReader = new StringReader(objectToDeserialize))

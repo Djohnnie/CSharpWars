@@ -16,16 +16,16 @@ namespace CSharpWars.Scripting
 
         #region <| Public Properties |>
 
-        public Int32 Width => _50437079C366407D978Fe4Afd60C535F.Width;
-        public Int32 Height => _50437079C366407D978Fe4Afd60C535F.Height;
-        public Int32 X => _50437079C366407D978Fe4Afd60C535F.X;
-        public Int32 Y => _50437079C366407D978Fe4Afd60C535F.Y;
+        public int Width => _50437079C366407D978Fe4Afd60C535F.Width;
+        public int Height => _50437079C366407D978Fe4Afd60C535F.Height;
+        public int X => _50437079C366407D978Fe4Afd60C535F.X;
+        public int Y => _50437079C366407D978Fe4Afd60C535F.Y;
         public PossibleOrientations Orientation => _50437079C366407D978Fe4Afd60C535F.Orientation;
         public PossibleMoves LastMove => _50437079C366407D978Fe4Afd60C535F.LastMove;
-        public Int32 MaximumHealth => _50437079C366407D978Fe4Afd60C535F.MaximumHealth;
-        public Int32 CurrentHealth => _50437079C366407D978Fe4Afd60C535F.CurrentHealth;
-        public Int32 MaximumStamina => _50437079C366407D978Fe4Afd60C535F.MaximumStamina;
-        public Int32 CurrentStamina => _50437079C366407D978Fe4Afd60C535F.CurrentStamina;
+        public int MaximumHealth => _50437079C366407D978Fe4Afd60C535F.MaximumHealth;
+        public int CurrentHealth => _50437079C366407D978Fe4Afd60C535F.CurrentHealth;
+        public int MaximumStamina => _50437079C366407D978Fe4Afd60C535F.MaximumStamina;
+        public int CurrentStamina => _50437079C366407D978Fe4Afd60C535F.CurrentStamina;
 
         public Vision Vision => _vision;
 
@@ -33,16 +33,16 @@ namespace CSharpWars.Scripting
 
         #region <| Constants |>
 
-        public const Int32 MELEE_DAMAGE = Constants.MELEE_DAMAGE;
-        public const Int32 MELEE_BACKSTAB_DAMAGE = Constants.MELEE_BACKSTAB_DAMAGE;
-        public const Int32 RANGED_DAMAGE = Constants.RANGED_DAMAGE;
-        public const Int32 SELF_DESTRUCT_MAX_DAMAGE = Constants.SELF_DESTRUCT_MAX_DAMAGE;
-        public const Int32 SELF_DESTRUCT_MED_DAMAGE = Constants.SELF_DESTRUCT_MED_DAMAGE;
-        public const Int32 SELF_DESTRUCT_MIN_DAMAGE = Constants.SELF_DESTRUCT_MIN_DAMAGE;
-        public const Int32 MAXIMUM_RANGE = Constants.MAXIMUM_RANGE;
-        public const Int32 MAXIMUM_TELEPORT = Constants.MAXIMUM_TELEPORT;
-        public const Int32 STAMINA_ON_MOVE = Constants.STAMINA_ON_MOVE;
-        public const Int32 STAMINA_ON_TELEPORT = Constants.STAMINA_ON_TELEPORT;
+        public const int MELEE_DAMAGE = Constants.MELEE_DAMAGE;
+        public const int MELEE_BACKSTAB_DAMAGE = Constants.MELEE_BACKSTAB_DAMAGE;
+        public const int RANGED_DAMAGE = Constants.RANGED_DAMAGE;
+        public const int SELF_DESTRUCT_MAX_DAMAGE = Constants.SELF_DESTRUCT_MAX_DAMAGE;
+        public const int SELF_DESTRUCT_MED_DAMAGE = Constants.SELF_DESTRUCT_MED_DAMAGE;
+        public const int SELF_DESTRUCT_MIN_DAMAGE = Constants.SELF_DESTRUCT_MIN_DAMAGE;
+        public const int MAXIMUM_RANGE = Constants.MAXIMUM_RANGE;
+        public const int MAXIMUM_TELEPORT = Constants.MAXIMUM_TELEPORT;
+        public const int STAMINA_ON_MOVE = Constants.STAMINA_ON_MOVE;
+        public const int STAMINA_ON_TELEPORT = Constants.STAMINA_ON_TELEPORT;
 
         public const PossibleMoves IDLING = PossibleMoves.Idling;
         public const PossibleMoves TURNING_LEFT = PossibleMoves.TurningLeft;
@@ -131,7 +131,7 @@ namespace CSharpWars.Scripting
         /// <summary>
         /// Calling this method will execute a ranged attack to the specified location.
         /// </summary>
-        public void RangedAttack(Int32 x, Int32 y)
+        public void RangedAttack(int x, int y)
         {
             SetCurrentMove(PossibleMoves.RangedAttack, x, y);
         }
@@ -139,7 +139,7 @@ namespace CSharpWars.Scripting
         /// <summary>
         /// Calling this method will teleport the player to the specified location.
         /// </summary>
-        public void Teleport(Int32 x, Int32 y)
+        public void Teleport(int x, int y)
         {
             SetCurrentMove(PossibleMoves.Teleport, x, y);
         }
@@ -150,7 +150,7 @@ namespace CSharpWars.Scripting
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void StoreInMemory<T>(String key, T value)
+        public void StoreInMemory<T>(string key, T value)
         {
             if (_50437079C366407D978Fe4Afd60C535F.Memory.ContainsKey(key))
             {
@@ -168,7 +168,7 @@ namespace CSharpWars.Scripting
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public T LoadFromMemory<T>(String key)
+        public T LoadFromMemory<T>(string key)
         {
             if (_50437079C366407D978Fe4Afd60C535F.Memory.ContainsKey(key))
             {
@@ -181,7 +181,7 @@ namespace CSharpWars.Scripting
         /// Calling this method will remove information from the players memory.
         /// </summary>
         /// <param name="key"></param>
-        public void RemoveFromMemory(String key)
+        public void RemoveFromMemory(string key)
         {
             if (_50437079C366407D978Fe4Afd60C535F.Memory.ContainsKey(key))
             {
@@ -193,7 +193,7 @@ namespace CSharpWars.Scripting
         /// Calling this method will make the player talk.
         /// </summary>
         /// <param name="message"></param>
-        public void Talk(String message)
+        public void Talk(string message)
         {
             _50437079C366407D978Fe4Afd60C535F.Messages.Add(message);
         }
@@ -202,7 +202,7 @@ namespace CSharpWars.Scripting
 
         #region <| Helper Methods |>
 
-        private Boolean SetCurrentMove(PossibleMoves currentMove)
+        private bool SetCurrentMove(PossibleMoves currentMove)
         {
             if (_50437079C366407D978Fe4Afd60C535F.CurrentMove == PossibleMoves.Idling)
             {
@@ -213,7 +213,7 @@ namespace CSharpWars.Scripting
             return false;
         }
 
-        private void SetCurrentMove(PossibleMoves currentMove, Int32 x, Int32 y)
+        private void SetCurrentMove(PossibleMoves currentMove, int x, int y)
         {
             if (SetCurrentMove(currentMove))
             {

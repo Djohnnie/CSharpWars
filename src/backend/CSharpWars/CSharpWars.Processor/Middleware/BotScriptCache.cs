@@ -9,7 +9,7 @@ namespace CSharpWars.Processor.Middleware
     {
         private readonly ConcurrentDictionary<Guid, Script> _scriptCache = new ConcurrentDictionary<Guid, Script>();
 
-        public Boolean ScriptStored(Guid botId)
+        public bool ScriptStored(Guid botId)
         {
             return _scriptCache.ContainsKey(botId);
         }

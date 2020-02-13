@@ -5,13 +5,13 @@ namespace CSharpWars.Web.Models
 {
     public class PlayViewModel
     {
-        public String HappyMessage { get; set; }
-        public String SadMessage { get; set; }
-        public String PlayerName { get; set; }
-        public String BotName { get; set; }
-        public Int32 BotHealth { get; set; }
-        public Int32 BotStamina { get; set; }
-        public String Script { get; set; }
+        public string HappyMessage { get; set; }
+        public string SadMessage { get; set; }
+        public string PlayerName { get; set; }
+        public string BotName { get; set; }
+        public int BotHealth { get; set; }
+        public int BotStamina { get; set; }
+        public string Script { get; set; }
         public Guid SelectedScript { get; set; }
         public List<ScriptViewModel> Scripts { get; set; }
     }

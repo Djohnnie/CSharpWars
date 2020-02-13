@@ -96,7 +96,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>()))
-                .ReturnsAsync((Expression<Func<Player, Boolean>> predicate) =>
+                .ReturnsAsync((Expression<Func<Player, bool>> predicate) =>
                     new[] { player }.SingleOrDefault(predicate.Compile()));
 
             // Act
@@ -126,7 +126,7 @@ namespace CSharpWars.Tests.Logic
 
             // Mock
             playerRepository.Setup(x => x.Single(Any.Predicate<Player>()))
-                .ReturnsAsync((Expression<Func<Player, Boolean>> predicate) =>
+                .ReturnsAsync((Expression<Func<Player, bool>> predicate) =>
                     new[] { player }.SingleOrDefault(predicate.Compile()));
 
             // Act

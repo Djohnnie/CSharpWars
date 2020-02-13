@@ -5,7 +5,7 @@ namespace CSharpWars.Logging
 {
     public class ConsoleLogger : ILogger
     {
-        public void Log(String message)
+        public void Log(string message)
         {
             Console.WriteLine(message);
         }

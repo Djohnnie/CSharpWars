@@ -5,14 +5,14 @@ namespace CSharpWars.Common.Extensions
 {
     public static class Base64Extensions
     {
-        public static String Base64Encode(this String data)
+        public static string Base64Encode(this string data)
         {
             if (data == null) return null;
             var bytes = Encoding.UTF8.GetBytes(data);
             return Convert.ToBase64String(bytes);
         }
 
-        public static String Base64Decode(this String encodedData)
+        public static string Base64Decode(this string encodedData)
         {
             if (encodedData == null) return null;
             var bytes = Convert.FromBase64String(encodedData);

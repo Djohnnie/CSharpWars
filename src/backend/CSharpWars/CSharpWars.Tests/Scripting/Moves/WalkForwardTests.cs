@@ -95,7 +95,7 @@ namespace CSharpWars.Tests.Scripting.Moves
 
         [Theory]
         [ClassData(typeof(WalkForwardTheoryData))]
-        private void Walking_Forward_Should_Work(PossibleOrientations orientation, Int32 destinationX, Int32 destinationY)
+        private void Walking_Forward_Should_Work(PossibleOrientations orientation, int destinationX, int destinationY)
         {
             // Arrange
             var bot = new BotDto
@@ -123,7 +123,7 @@ namespace CSharpWars.Tests.Scripting.Moves
             botResult.CurrentStamina.Should().Be(bot.CurrentStamina - Constants.STAMINA_ON_MOVE);
         }
 
-        private class WalkForwardTheoryData : TheoryData<PossibleOrientations, Int32, Int32>
+        private class WalkForwardTheoryData : TheoryData<PossibleOrientations, int, int>
         {
             public WalkForwardTheoryData()
             {

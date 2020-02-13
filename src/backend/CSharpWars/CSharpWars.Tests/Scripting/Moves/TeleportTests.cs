@@ -59,7 +59,7 @@ namespace CSharpWars.Tests.Scripting.Moves
         [InlineData(5, 0)]
         [InlineData(4, 1)]
         [InlineData(-1, 0)]
-        public void Executing_A_Teleport_Into_An_Invalid_Spot_Should_Randomly_Teleport(Int32 destinationX, Int32 destinationY)
+        public void Executing_A_Teleport_Into_An_Invalid_Spot_Should_Randomly_Teleport(int destinationX, int destinationY)
         {
             // Arrange
             var bot = new BotDto { CurrentHealth = 100, X = 0, Y = 0, Orientation = PossibleOrientations.North, CurrentStamina = 10 };
@@ -73,8 +73,8 @@ namespace CSharpWars.Tests.Scripting.Moves
             var randomY = 0;
 
             // Mock
-            randomHelper.Setup(x => x.Get(It.Is<Int32>(w => w == arena.Width))).Returns(randomX);
-            randomHelper.Setup(x => x.Get(It.Is<Int32>(w => w == arena.Height))).Returns(randomY);
+            randomHelper.Setup(x => x.Get(It.Is<int>(w => w == arena.Width))).Returns(randomX);
+            randomHelper.Setup(x => x.Get(It.Is<int>(w => w == arena.Height))).Returns(randomY);
 
             // Act
             var result = Move.Build(botProperties, randomHelper.Object).Go();

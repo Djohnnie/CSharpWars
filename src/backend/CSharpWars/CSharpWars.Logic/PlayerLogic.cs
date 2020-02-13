@@ -29,7 +29,7 @@ namespace CSharpWars.Logic
 
         public async Task<PlayerDto> Login(LoginDto login)
         {
-            (String Salt, String Hashed) hashedPassword;
+            (string Salt, string Hashed) hashedPassword;
             var existingPlayer = await _playerRepository.Single(x => x.Name == login.Name);
             if (existingPlayer == null)
             {

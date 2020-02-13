@@ -4,9 +4,9 @@ namespace CSharpWars.Common.Helpers.Interfaces
 {
     public interface IRandomHelper
     {
-        Int32 Get(Int32 maxValue);
+        int Get(int maxValue);
 
-        Int32 Get(Int32 minValue, Int32 maxValue);
+        int Get(int minValue, int maxValue);
 
         TEnum Get<TEnum>() where TEnum : Enum;
     }

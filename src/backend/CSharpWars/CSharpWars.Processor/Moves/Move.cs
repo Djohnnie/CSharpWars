@@ -39,7 +39,7 @@ namespace CSharpWars.Processor.Moves
 
         public abstract BotResult Go();
 
-        protected Boolean WillCollide(Int32 x, Int32 y)
+        protected bool WillCollide(int x, int y)
         {
             var collidingEdge = x < 0 || x >= BotProperties.Width || y < 0 || y >= BotProperties.Height;
             var collidingBot = BotProperties.Bots.FirstOrDefault(b => b.X == x && b.Y == y);

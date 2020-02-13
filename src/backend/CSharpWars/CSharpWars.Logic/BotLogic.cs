@@ -61,7 +61,7 @@ namespace CSharpWars.Logic
             return _botMapper.Map(activeBots);
         }
 
-        public async Task<String> GetBotScript(Guid botId)
+        public async Task<string> GetBotScript(Guid botId)
         {
             var botScript = await _scriptRepository.Single(x => x.Id == botId);
             return botScript?.Script;
@@ -91,7 +91,7 @@ namespace CSharpWars.Logic
             bot.FromY = bot.Y;
             bot.CurrentHealth = bot.MaximumHealth;
             bot.CurrentStamina = bot.MaximumStamina;
-            bot.Memory = new Dictionary<String, String>().Serialize();
+            bot.Memory = new Dictionary<string, string>().Serialize();
             bot.TimeOfDeath = DateTime.MaxValue;
             bot.BotScript = new BotScript { Script = botToCreate.Script };
 
@@ -107,13 +107,13 @@ namespace CSharpWars.Logic
             return createdBot;
         }
 
-        private IList<(Int32 X, Int32 Y)> BuildFreeLocation(ArenaDto arena, IList<BotDto> bots)
+        private IList<(int X, int Y)> BuildFreeLocation(ArenaDto arena, IList<BotDto> bots)
         {
-            var freeLocations = new List<(Int32 X, Int32 Y)>();
+            var freeLocations = new List<(int X, int Y)>();
 
-            for (Int32 x = 0; x < arena.Width; x++)
+            for (int x = 0; x < arena.Width; x++)
             {
-                for (Int32 y = 0; y < arena.Height; y++)
+                for (int y = 0; y < arena.Height; y++)
                 {
                     if (!bots.Any(b => b.X == x && b.Y == y))
                     {

@@ -223,9 +223,9 @@ namespace CSharpWars.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private Boolean IsValid(PlayViewModel vm)
+        private bool IsValid(PlayViewModel vm)
         {
-            var validBotName = !String.IsNullOrEmpty(vm.BotName);
+            var validBotName = !string.IsNullOrEmpty(vm.BotName);
             var validHealthAndStamina = vm.BotHealth > 0 && vm.BotStamina > 0 && vm.BotHealth + vm.BotStamina <= _configurationHelper.PointsLimit;
             var validScript = vm.SelectedScript != Guid.Empty || !string.IsNullOrEmpty(vm.Script);
             return validBotName && validHealthAndStamina && validScript;

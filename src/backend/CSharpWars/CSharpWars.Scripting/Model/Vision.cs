@@ -34,7 +34,7 @@ namespace CSharpWars.Scripting.Model
             return vision;
         }
 
-        private static Boolean BotIsVisible(Bot bot, BotProperties botProperties)
+        private static bool BotIsVisible(Bot bot, BotProperties botProperties)
         {
             var result = false;
 

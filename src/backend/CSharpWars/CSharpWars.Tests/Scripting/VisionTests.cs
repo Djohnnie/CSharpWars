@@ -98,7 +98,7 @@ namespace CSharpWars.Tests.Scripting
         [InlineData(PossibleOrientations.West, 2, 2, "ME", "ME", 0, 0, 0)]
         [InlineData(PossibleOrientations.West, 2, 2, "ME", "THEY", 0, 0, 0)]
         public void Vision_Build_Should_Identify_Bots_Correctly(
-            PossibleOrientations orientation, Int32 x, Int32 y, String playerName, String botName, Int32 expectedBots, Int32 expectedFriendlies, Int32 expectedEnemies)
+            PossibleOrientations orientation, int x, int y, string playerName, string botName, int expectedBots, int expectedFriendlies, int expectedEnemies)
         {
             // Arrange
             var arena = new ArenaDto { Width = 3, Height = 3 };

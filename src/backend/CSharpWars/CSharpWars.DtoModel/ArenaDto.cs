@@ -4,7 +4,7 @@ namespace CSharpWars.DtoModel
 {
     public class ArenaDto
     {
-        public Int32 Width { get; set; }
-        public Int32 Height { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }

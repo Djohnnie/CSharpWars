@@ -46,8 +46,8 @@ namespace CSharpWars.Web.Constants
             }
         };
 
-        public const String WalkAround =
-            "var step = LoadFromMemory<Int32>(\"STEP\");\r\n" +
+        public const string WalkAround =
+            "var step = LoadFromMemory<int>(\"STEP\");\r\n" +
             "if( step % 3 == 0 )\r\n" +
             "{\r\n" +
             "    TurnLeft();\r\n" +
@@ -57,10 +57,10 @@ namespace CSharpWars.Web.Constants
             "    WalkForward();\r\n" +
             "}\r\n" +
             "step++;\r\n" +
-            "StoreInMemory<Int32>(\"STEP\", step);\r\n";
+            "StoreInMemory<int>(\"STEP\", step);\r\n";
 
-        public const String WalkBackAndForth =
-            "var step = LoadFromMemory<Int32>(\"STEP\");\r\n" +
+        public const string WalkBackAndForth =
+            "var step = LoadFromMemory<int>(\"STEP\");\r\n" +
             "if( step % 5 == 0 )\r\n" +
             "{\r\n" +
             "    TurnAround();\r\n" +
@@ -70,9 +70,9 @@ namespace CSharpWars.Web.Constants
             "    WalkForward();\r\n" +
             "}\r\n" +
             "step++;\r\n" +
-            "StoreInMemory<Int32>(\"STEP\", step);\r\n";
+            "StoreInMemory<int>(\"STEP\", step);\r\n";
 
-        public const String LookAroundAndSelfDestruct =
+        public const string LookAroundAndSelfDestruct =
             "var selfDestructed = false;\r\n" +
             "foreach( var enemy in Vision.EnemyBots )\r\n" +
             "{\r\n" +
@@ -91,7 +91,7 @@ namespace CSharpWars.Web.Constants
             "    TurnLeft();\r\n" +
             "}\r\n";
 
-        public const String LookAroundAndRangeAttack =
+        public const string LookAroundAndRangeAttack =
             "var attacked = false;\r\n" +
             "foreach( var enemy in Vision.EnemyBots )\r\n" +
             "{\r\n" +
@@ -105,13 +105,13 @@ namespace CSharpWars.Web.Constants
             "    TurnLeft();\r\n" +
             "}\r\n";
 
-        public const String TeleportAround =
+        public const string TeleportAround =
             "var r = new Random();\r\n" +
             "var destinationX = r.Next(0, Width);\r\n" +
             "var destinationY = r.Next(0, Height);\r\n" +
             "Teleport( destinationX , destinationY );\r\n";
 
-        public const String HuntDown =
+        public const string HuntDown =
             "bool inMyFace = false;\r\n" +
             "foreach (var enemyBot in Vision.EnemyBots)\r\n" +
             "{\r\n" +

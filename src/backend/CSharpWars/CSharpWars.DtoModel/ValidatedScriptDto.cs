@@ -5,11 +5,11 @@ namespace CSharpWars.DtoModel
 {
     public class ValidatedScriptDto
     {
-        public String Script { get; set; }
+        public string Script { get; set; }
 
-        public Int64 CompilationTimeInMilliseconds { get; set; }
+        public long CompilationTimeInMilliseconds { get; set; }
 
-        public Int64 RunTimeInMilliseconds { get; set; }
+        public long RunTimeInMilliseconds { get; set; }
 
         public List<ScriptValidationMessage> Messages { get; set; }
     }

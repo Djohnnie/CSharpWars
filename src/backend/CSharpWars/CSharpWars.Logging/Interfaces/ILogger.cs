@@ -4,6 +4,6 @@ namespace CSharpWars.Logging.Interfaces
 {
     public interface ILogger
     {
-        void Log(String message);
+        void Log(string message);
     }
 }

@@ -4,9 +4,9 @@ namespace CSharpWars.DtoModel
 {
     public class MessageToCreateDto
     {
-        public String BotName { get; set; }
+        public string BotName { get; set; }
 
-        public String Content { get; set; }
+        public string Content { get; set; }
 
         public DateTime DateTime { get; set; }
     }
