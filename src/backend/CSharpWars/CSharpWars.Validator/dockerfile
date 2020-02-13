@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+﻿FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 # Set the working directory
 WORKDIR /app
@@ -6,9 +6,7 @@ WORKDIR /app
 # Copy the app
 COPY bin/Release/publish /app
 
-EXPOSE 5000
-
 ENV TZ=Europe/Brussels
 
 # Start the app
-ENTRYPOINT ["dotnet", "CSharpWars.Web.Api.Validation.dll"]
+ENTRYPOINT ["dotnet", "CSharpWars.Validator.dll"]

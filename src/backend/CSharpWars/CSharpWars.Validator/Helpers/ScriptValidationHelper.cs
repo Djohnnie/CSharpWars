@@ -10,24 +10,20 @@ using CSharpWars.DtoModel;
 using CSharpWars.Enums;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
+using CSharpWars.Validator.Helpers.Interfaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using ScriptToValidateDto = CSharpWars.DtoModel.ScriptToValidateDto;
 
-namespace CSharpWars.Web.Api.Validation.Helpers
+namespace CSharpWars.Validator.Helpers
 {
-    public class ScriptValidationHelper
+    public class ScriptValidationHelper : IScriptValidationHelper
     {
-        public async Task<ValidatedScriptDto> Validate(ScriptToValidateDto script)
+        public async Task<ScriptValidationResponse> Validate(ScriptValidationRequest request)
         {
-            var scriptValidation = new ValidatedScriptDto
-            {
-                Script = script.Script,
-                Messages = new List<ScriptValidationMessage>()
-            };
+            var scriptValidation = new ScriptValidationResponse();
 
-            var botScript = await PrepareScript(script.Script);
+            var botScript = await PrepareScript(request.Script);
 
             ImmutableArray<Diagnostic> diagnostics;
 
@@ -89,7 +85,7 @@ namespace CSharpWars.Web.Api.Validation.Helpers
                         }
                         catch (Exception ex)
                         {
-                            scriptValidation.Messages.Add(new ScriptValidationMessage
+                            scriptValidation.ValidationMessages.Add(new ScriptValidationMessage
                             {
                                 Message = "Runtime error: " + ex.Message
                             });
@@ -100,11 +96,12 @@ namespace CSharpWars.Web.Api.Validation.Helpers
 
                 if (!task.Wait(TimeSpan.FromSeconds(2)))
                 {
-                    scriptValidation.Messages.Add(new ScriptValidationMessage
+                    scriptValidation.ValidationMessages.Add(new ScriptValidationMessage
                     {
                         Message = "Your script did not finish in a timely fashion!"
                     });
-                    scriptValidation.RunTimeInMilliseconds = Int64.MaxValue;
+
+                    scriptValidation.RunTimeInMilliseconds = long.MaxValue;
                 }
             }
 
@@ -112,7 +109,7 @@ namespace CSharpWars.Web.Api.Validation.Helpers
             {
                 if (diagnostic.Severity == DiagnosticSeverity.Error)
                 {
-                    scriptValidation.Messages.Add(new ScriptValidationMessage
+                    scriptValidation.ValidationMessages.Add(new ScriptValidationMessage
                     {
                         Message = diagnostic.GetMessage(),
                         LocationStart = diagnostic.Location.SourceSpan.Start,
@@ -124,12 +121,12 @@ namespace CSharpWars.Web.Api.Validation.Helpers
             return scriptValidation;
         }
 
-        public Task<Script<Object>> PrepareScript(String script)
+        private Task<Script<object>> PrepareScript(String script)
         {
             return Task.Run(() =>
             {
                 var decodedScript = script.Base64Decode();
-                var mscorlib = typeof(Object).Assembly;
+                var mscorlib = typeof(object).Assembly;
                 var systemCore = typeof(Enumerable).Assembly;
                 var dynamic = typeof(DynamicAttribute).Assembly;
                 var csharpScript = typeof(BotProperties).Assembly;

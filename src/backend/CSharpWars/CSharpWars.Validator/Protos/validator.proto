@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "CSharpWars.Validator";
+
+package Validator;
+
+
+service ScriptValidator 
+{
+	rpc Validate (ScriptValidationRequest) returns (ScriptValidationResponse);
+}
+
+
+message ScriptValidationRequest 
+{
+	string Script = 1;
+}
+
+
+message ScriptValidationResponse 
+{
+	int64 CompilationTimeInMilliseconds = 1;
+	int64 RunTimeInMilliseconds = 2;
+	repeated ScriptValidationMessage ValidationMessages = 3;
+}
+
+
+message ScriptValidationMessage
+{
+	int32 LocationStart = 1;
+	int32 LocationEnd = 2;
+	string Message = 3;
+}

@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.DtoModel;
+using CSharpWars.Validator;
 using CSharpWars.Web.Helpers.Interfaces;
-using RestSharp;
+using Grpc.Net.Client;
+using ScriptValidationMessage = CSharpWars.DtoModel.ScriptValidationMessage;
 
 namespace CSharpWars.Web.Helpers
 {
@@ -20,16 +24,25 @@ namespace CSharpWars.Web.Helpers
         {
             try
             {
-                var validationClient = new RestClient(_configurationHelper.ValidationHost);
-                var validationRequest = new RestRequest("api/validation", Method.POST);
-                validationRequest.AddJsonBody(script);
-                var validationResponse = await validationClient.ExecuteTaskAsync<ValidatedScriptDto>(validationRequest);
-                if (validationResponse.IsSuccessful)
-                {
-                    return validationResponse.Data;
-                }
+                var request = new ScriptValidationRequest { Script = script.Script };
 
-                return null;
+                var validationHost = _configurationHelper.ValidationHost;
+                var channel = GrpcChannel.ForAddress(validationHost);
+                var client = new ScriptValidator.ScriptValidatorClient(channel);
+                var response = await client.ValidateAsync(request);
+
+                return new ValidatedScriptDto
+                {
+                    Script = script.Script,
+                    CompilationTimeInMilliseconds = response.CompilationTimeInMilliseconds,
+                    RunTimeInMilliseconds = response.RunTimeInMilliseconds,
+                    Messages = new List<ScriptValidationMessage>(response.ValidationMessages.Select(x => new ScriptValidationMessage
+                    {
+                        Message = x.Message,
+                        LocationStart = x.LocationStart,
+                        LocationEnd = x.LocationEnd
+                    }))
+                };
             }
             catch
             {

@@ -6,6 +6,12 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.11.3" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.27.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.27.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview7.19365.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
@@ -14,13 +20,22 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0-preview7.19362.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0-preview7-19378-04" />
-    <PackageReference Include="RestSharp" Version="106.6.10" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
     <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Protos\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Protobuf Include="..\CSharpWars.Validator\Protos\validator.proto" Link="Protos\validator.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

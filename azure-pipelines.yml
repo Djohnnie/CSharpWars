@@ -17,9 +17,9 @@ variables:
 steps:
 
 - task: DotNetCoreInstaller@0
-  displayName: Install latest version of .NET Core 3.0 SDK (3.1.100)
+  displayName: Install latest version of .NET Core 3.1 SDK (3.1.101)
   inputs:
-    version: '3.1.100'
+    version: '3.1.101'
 
 - task: DotNetCoreCLI@2
   displayName: Restore NuGet packages
@@ -61,7 +61,7 @@ steps:
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api/bin/Release/publish
 
 - script: |
-    dotnet publish ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation/bin/Release/publish
+    dotnet publish ./src/backend/CSharpWars/CSharpWars.Validator --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Validator/bin/Release/publish
 
 - script: |
     dotnet publish ./src/backend/CSharpWars/CSharpWars.Web --configuration "Release" --output ./src/backend/CSharpWars/CSharpWars.Web/bin/Release/publish
@@ -76,10 +76,10 @@ steps:
     docker push djohnnie/csharpwars-api
 
 - script: |
-    cd ./src/backend/CSharpWars/CSharpWars.Web.Api.Validation
-    docker build -t djohnnie/csharpwars-api-validation .
+    cd ./src/backend/CSharpWars/CSharpWars.Validator
+    docker build -t djohnnie/csharpwars-validator .
     docker login -u $(dockerId) -p $(dockerPwd)
-    docker push djohnnie/csharpwars-api-validation
+    docker push djohnnie/csharpwars-validator
 
 - script: |
     cd ./src/backend/CSharpWars/CSharpWars.Web
