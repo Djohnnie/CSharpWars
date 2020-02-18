@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
 using CSharpWars.Enums;
@@ -12,6 +13,8 @@ namespace CSharpWars.Processor.Middleware
 {
     public class BotProcessingFactory : IBotProcessingFactory
     {
+        private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+
         private readonly IBotLogic _botLogic;
         private readonly IBotScriptCompiler _botScriptCompiler;
         private readonly IBotScriptCache _botScriptCache;
@@ -35,7 +38,7 @@ namespace CSharpWars.Processor.Middleware
             {
                 var botScript = await GetCompiledBotScript(bot);
                 var scriptGlobals = ScriptGlobals.Build(botProperties);
-                await botScript.RunAsync(scriptGlobals);
+                await botScript.Invoke(scriptGlobals);
             }
             catch
             {
@@ -43,12 +46,13 @@ namespace CSharpWars.Processor.Middleware
             }
         }
 
-        private async Task<Script> GetCompiledBotScript(BotDto bot)
+        private async Task<ScriptRunner<object>> GetCompiledBotScript(BotDto bot)
         {
             if (!_botScriptCache.ScriptStored(bot.Id))
             {
                 try
                 {
+                    await _lock.WaitAsync();
                     var script = await _botLogic.GetBotScript(bot.Id);
                     var botScript = _botScriptCompiler.Compile(script);
                     _botScriptCache.StoreScript(bot.Id, botScript);
@@ -56,6 +60,10 @@ namespace CSharpWars.Processor.Middleware
                 catch (Exception ex)
                 {
                     _logger.Log($"{ex}");
+                }
+                finally
+                {
+                    _lock.Release();
                 }
             }
 

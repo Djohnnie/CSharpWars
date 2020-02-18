@@ -7,9 +7,9 @@ namespace CSharpWars.Processor.Middleware.Interfaces
     {
         bool ScriptStored(Guid botId);
 
-        void StoreScript(Guid botId, Script script);
+        void StoreScript(Guid botId, ScriptRunner<object> script);
 
-        Script LoadScript(Guid botId);
+        ScriptRunner<object> LoadScript(Guid botId);
 
         void ClearScript(Guid botId);
     }

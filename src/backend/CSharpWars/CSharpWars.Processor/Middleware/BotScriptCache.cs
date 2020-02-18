@@ -7,19 +7,19 @@ namespace CSharpWars.Processor.Middleware
 {
     public class BotScriptCache : IBotScriptCache
     {
-        private readonly ConcurrentDictionary<Guid, Script> _scriptCache = new ConcurrentDictionary<Guid, Script>();
+        private readonly ConcurrentDictionary<Guid, ScriptRunner<object>> _scriptCache = new ConcurrentDictionary<Guid, ScriptRunner<object>>();
 
         public bool ScriptStored(Guid botId)
         {
             return _scriptCache.ContainsKey(botId);
         }
 
-        public void StoreScript(Guid botId, Script script)
+        public void StoreScript(Guid botId, ScriptRunner<object> script)
         {
             _scriptCache.AddOrUpdate(botId, script, (a, b) => script);
         }
 
-        public Script LoadScript(Guid botId)
+        public ScriptRunner<object> LoadScript(Guid botId)
         {
             if (ScriptStored(botId))
             {
@@ -32,8 +32,7 @@ namespace CSharpWars.Processor.Middleware
         {
             if (ScriptStored(botId))
             {
-                Script script;
-                _scriptCache.TryRemove(botId, out script);
+                _scriptCache.TryRemove(botId, out _);
             }
         }
     }

@@ -27,7 +27,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             // Arrange
             var botScriptCache = new BotScriptCache();
             var botId = Guid.NewGuid();
-            botScriptCache.StoreScript(botId, CSharpScript.Create(""));
+            botScriptCache.StoreScript(botId, CSharpScript.Create("").CreateDelegate());
 
             // Act
             var result = botScriptCache.ScriptStored(botId);
@@ -43,13 +43,14 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var botScriptCache = new BotScriptCache();
             var botId = Guid.NewGuid();
             var script = CSharpScript.Create("");
-            botScriptCache.StoreScript(botId, script);
+            var scriptDelegate = script.CreateDelegate();
+            botScriptCache.StoreScript(botId, scriptDelegate);
 
             // Act
             var result = botScriptCache.LoadScript(botId);
 
             // Assert
-            result.Should().Be(script);
+            result.Should().Be(scriptDelegate);
         }
 
         [Fact]
@@ -72,7 +73,7 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var botScriptCache = new BotScriptCache();
             var botId = Guid.NewGuid();
             var script = CSharpScript.Create("");
-            botScriptCache.StoreScript(botId, script);
+            botScriptCache.StoreScript(botId, script.CreateDelegate());
 
             // Act
             botScriptCache.ClearScript(botId);
