@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
@@ -57,6 +58,8 @@ namespace CSharpWars.Web.Controllers
                     PlayerName = player.Name,
                     SampleScript = BotScripts.WalkAround
                 };
+                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 

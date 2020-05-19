@@ -43,6 +43,8 @@ namespace CSharpWars.Web.Controllers
                     BotStamina = 100,
                     Scripts = BotScripts.All
                 };
+                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -121,6 +123,8 @@ namespace CSharpWars.Web.Controllers
                     vm.SadMessage = sadMessage;
                 }
 
+                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -140,6 +144,8 @@ namespace CSharpWars.Web.Controllers
                     BotStamina = 100,
                     Script = BotScripts.WalkBackAndForth
                 };
+                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -217,6 +223,8 @@ namespace CSharpWars.Web.Controllers
                     vm.SadMessage = sadMessage;
                 }
 
+                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
