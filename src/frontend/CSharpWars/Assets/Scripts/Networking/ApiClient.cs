@@ -6,7 +6,7 @@ namespace Assets.Scripts.Networking
 {
     public static class ApiClient
     {
-        private static readonly string _baseUrl = "http://my.djohnnie.be:8801/api";
+        private static readonly string _baseUrl = "https://api.djohnnie.be:8801/api";
 
         public static Arena GetArena()
         {
