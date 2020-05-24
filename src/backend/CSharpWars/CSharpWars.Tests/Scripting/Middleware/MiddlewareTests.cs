@@ -2,6 +2,7 @@
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Processor.Middleware;
 using CSharpWars.Processor.Middleware.Interfaces;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using MiddlewareProcessor = CSharpWars.Processor.Middleware.Middleware;
@@ -20,9 +21,10 @@ namespace CSharpWars.Tests.Scripting.Middleware
             var preprocessor = new Mock<IPreprocessor>();
             var processor = new Mock<IProcessor>();
             var postprocessor = new Mock<IPostprocessor>();
+            var logger = new Mock<ILogger<MiddlewareProcessor>>();
             var middleware = new MiddlewareProcessor(
                 arenaLogic.Object, botLogic.Object, messageLogic.Object,
-                preprocessor.Object, processor.Object, postprocessor.Object);
+                preprocessor.Object, processor.Object, postprocessor.Object, logger.Object);
 
             // Mock
 

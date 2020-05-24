@@ -26,6 +26,7 @@ namespace CSharpWars.Tests.Scripting.DependencyInjection
             var serviceCollection = new ServiceCollection();
 
             // Act
+            serviceCollection.AddLogging();
             serviceCollection.ConfigureScriptProcessor();
             serviceCollection.ConfigurationHelper(c =>
             {
