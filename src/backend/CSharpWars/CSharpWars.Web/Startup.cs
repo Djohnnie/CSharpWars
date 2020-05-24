@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 using static System.Convert;
 using static System.Environment;
 
@@ -45,6 +46,7 @@ namespace CSharpWars.Web
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+            app.UseHttpMetrics();
             app.UseCookiePolicy();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
@@ -53,6 +55,7 @@ namespace CSharpWars.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapMetrics();
             });
         }
     }

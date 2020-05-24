@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 using static System.Convert;
 using static System.Environment;
 
@@ -40,11 +41,13 @@ namespace CSharpWars.Web.Api
             }
 
             app.UseRouting();
+            app.UseHttpMetrics();
             app.UseAuthorization();
             app.UseCors("AllowAll");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapMetrics();
             });
         }
     }
