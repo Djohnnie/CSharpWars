@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CSharpWars.Common.Tools;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Processor.Middleware.Interfaces;
+using Microsoft.Extensions.Logging;
 using IProcessor = CSharpWars.Processor.Middleware.Interfaces.IProcessor;
 
 namespace CSharpWars.Processor.Middleware
@@ -15,6 +15,7 @@ namespace CSharpWars.Processor.Middleware
         private readonly IPreprocessor _preprocessor;
         private readonly IProcessor _processor;
         private readonly IPostprocessor _postprocessor;
+        private readonly ILogger<Middleware> _logger;
 
         public Middleware(
             IArenaLogic arenaLogic,
@@ -22,7 +23,8 @@ namespace CSharpWars.Processor.Middleware
             IMessageLogic messageLogic,
             IPreprocessor preprocessor,
             IProcessor processor,
-            IPostprocessor postprocessor)
+            IPostprocessor postprocessor,
+            ILogger<Middleware> logger)
         {
             _arenaLogic = arenaLogic;
             _botLogic = botLogic;
@@ -30,38 +32,38 @@ namespace CSharpWars.Processor.Middleware
             _preprocessor = preprocessor;
             _processor = processor;
             _postprocessor = postprocessor;
+            _logger = logger;
         }
 
         public async Task Process()
         {
-            using (var stopwatch = new SimpleStopwatch())
-            {
-                var arena = await _arenaLogic.GetArena();
-                var elapsedArena = stopwatch.ElapsedMilliseconds;
+            using var stopwatch = new SimpleStopwatch();
 
-                var bots = await _botLogic.GetAllLiveBots();
-                var elapsedBots = stopwatch.ElapsedMilliseconds - elapsedArena;
+            var arena = await _arenaLogic.GetArena();
+            var elapsedArena = stopwatch.ElapsedMilliseconds;
 
-                var context = ProcessingContext.Build(arena, bots);
+            var bots = await _botLogic.GetAllLiveBots();
+            var elapsedBots = stopwatch.ElapsedMilliseconds - elapsedArena;
 
-                await _preprocessor.Go(context);
-                var elapsedPreprocessing = stopwatch.ElapsedMilliseconds - elapsedBots - elapsedArena;
+            var context = ProcessingContext.Build(arena, bots);
 
-                await _processor.Go(context);
-                var elapsedProcessing = stopwatch.ElapsedMilliseconds - elapsedPreprocessing - elapsedBots - elapsedArena;
+            await _preprocessor.Go(context);
+            var elapsedPreprocessing = stopwatch.ElapsedMilliseconds - elapsedBots - elapsedArena;
 
-                await _postprocessor.Go(context);
-                var elapsedPostprocessing = stopwatch.ElapsedMilliseconds - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
+            await _processor.Go(context);
+            var elapsedProcessing = stopwatch.ElapsedMilliseconds - elapsedPreprocessing - elapsedBots - elapsedArena;
 
-                await _botLogic.UpdateBots(context.Bots);
-                var elapsedUpdateBots = stopwatch.ElapsedMilliseconds - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
+            await _postprocessor.Go(context);
+            var elapsedPostprocessing = stopwatch.ElapsedMilliseconds - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
 
-                //await _messageLogic.CreateMessages(context.Messages);
-                var elapsedCreateMessages = stopwatch.ElapsedMilliseconds - elapsedUpdateBots - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
+            await _botLogic.UpdateBots(context.Bots);
+            var elapsedUpdateBots = stopwatch.ElapsedMilliseconds - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
 
-                Console.WriteLine(
-                    $"{elapsedArena}ms, {elapsedBots}ms, {elapsedPreprocessing}ms, {elapsedProcessing}ms, {elapsedPostprocessing}ms, {elapsedUpdateBots}ms, {elapsedCreateMessages}ms");
-            }
+            //await _messageLogic.CreateMessages(context.Messages);
+            var elapsedCreateMessages = stopwatch.ElapsedMilliseconds - elapsedUpdateBots - elapsedPostprocessing - elapsedProcessing - elapsedPreprocessing - elapsedBots - elapsedArena;
+
+            _logger.LogInformation("{elapsedArena}ms, {elapsedBots}ms, {elapsedPreprocessing}ms, {elapsedProcessing}ms, {elapsedPostprocessing}ms, {elapsedUpdateBots}ms, {elapsedCreateMessages}ms",
+                elapsedArena, elapsedBots, elapsedPreprocessing, elapsedProcessing, elapsedPostprocessing, elapsedUpdateBots, elapsedCreateMessages);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CSharpWars.Processor
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<Worker> _logger;
 
-        public Worker(IServiceScopeFactory scopeFactory,ILogger<Worker> logger)
+        public Worker(IServiceScopeFactory scopeFactory, ILogger<Worker> logger)
         {
             _scopeFactory = scopeFactory;
             _logger = logger;
@@ -26,26 +26,24 @@ namespace CSharpWars.Processor
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                using (var scopedServiceProvider = _scopeFactory.CreateScope())
+                using var scopedServiceProvider = _scopeFactory.CreateScope();
+                var start = DateTime.UtcNow;
+
+                try
                 {
-                    var start = DateTime.UtcNow;
-
-                    try
-                    {
-                        using var sw = new SimpleStopwatch();
-                        var middleware = scopedServiceProvider.ServiceProvider.GetService<IMiddleware>();
-                        await middleware.Process();
-                        _logger.LogInformation($"[ CSharpWars Script Processor - PROCESSING {sw.ElapsedMilliseconds}ms! ]");
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError($"[ CSharpWars Script Processor - EXCEPTION - '{ex.Message}'! ]");
-                    }
-
-                    var timeTaken = DateTime.UtcNow - start;
-                    var delay = (int)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
-                    await Task.Delay(delay, stoppingToken);
+                    using var sw = new SimpleStopwatch();
+                    var middleware = scopedServiceProvider.ServiceProvider.GetService<IMiddleware>();
+                    await middleware.Process();
+                    _logger.LogInformation("[ CSharpWars Script Processor - PROCESSING {elapsedMilliseconds}ms! ]", sw.ElapsedMilliseconds);
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "[ CSharpWars Script Processor - EXCEPTION - '{exceptionMessage}'! ]", ex.Message);
+                }
+
+                var timeTaken = DateTime.UtcNow - start;
+                var delay = (int)(timeTaken.TotalMilliseconds < DELAY_MS ? DELAY_MS - timeTaken.TotalMilliseconds : 0);
+                await Task.Delay(delay, stoppingToken);
             }
         }
     }
