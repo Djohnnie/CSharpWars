@@ -11,20 +11,24 @@ using CSharpWars.Web.Extensions;
 using CSharpWars.Web.Helpers.Interfaces;
 using CSharpWars.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace CSharpWars.Web.Controllers
 {
     public class PlayController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly IBotLogic _botLogic;
         private readonly IScriptValidationHelper _scriptValidationHelper;
         private readonly IConfigurationHelper _configurationHelper;
 
         public PlayController(
+            IConfiguration configuration,
             IBotLogic botLogic,
             IScriptValidationHelper scriptValidationHelper,
             IConfigurationHelper configurationHelper)
         {
+            _configuration = configuration;
             _botLogic = botLogic;
             _scriptValidationHelper = scriptValidationHelper;
             _configurationHelper = configurationHelper;
@@ -43,8 +47,8 @@ namespace CSharpWars.Web.Controllers
                     BotStamina = 100,
                     Scripts = BotScripts.All
                 };
-                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
-                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
+                ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -123,8 +127,8 @@ namespace CSharpWars.Web.Controllers
                     vm.SadMessage = sadMessage;
                 }
 
-                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
-                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
+                ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -144,8 +148,8 @@ namespace CSharpWars.Web.Controllers
                     BotStamina = 100,
                     Script = BotScripts.WalkBackAndForth
                 };
-                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
-                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
+                ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 
@@ -223,8 +227,8 @@ namespace CSharpWars.Web.Controllers
                     vm.SadMessage = sadMessage;
                 }
 
-                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
-                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
+                ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 

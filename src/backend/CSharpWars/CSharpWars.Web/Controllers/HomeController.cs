@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
@@ -7,15 +6,20 @@ using CSharpWars.Web.Constants;
 using CSharpWars.Web.Extensions;
 using CSharpWars.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace CSharpWars.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly IPlayerLogic _playerLogic;
 
-        public HomeController(IPlayerLogic playerLogic)
+        public HomeController(
+            IConfiguration configuration,
+            IPlayerLogic playerLogic)
         {
+            _configuration = configuration;
             _playerLogic = playerLogic;
         }
 
@@ -27,7 +31,7 @@ namespace CSharpWars.Web.Controllers
             }
 
             var vm = new PlayerViewModel();
-            return View();
+            return View(vm);
         }
 
         [HttpPost]
@@ -56,10 +60,12 @@ namespace CSharpWars.Web.Controllers
                 var vm = new GameViewModel
                 {
                     PlayerName = player.Name,
-                    SampleScript = BotScripts.WalkAround
+                    SampleScript = BotScripts.WalkAround,
+                    IsTemplatePlayEnabled = _configuration.GetValue<bool>("ENABLE_TEMPLATE_PLAY"),
+                    IsCustomPlayEnabled = _configuration.GetValue<bool>("ENABLE_CUSTOM_PLAY")
                 };
-                ViewData["ArenaUrl"] = Environment.GetEnvironmentVariable("ARENA_URL");
-                ViewData["ScriptTemplateUrl"] = Environment.GetEnvironmentVariable("SCRIPT_TEMPLATE_URL");
+                ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
+                ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
                 return View(vm);
             }
 

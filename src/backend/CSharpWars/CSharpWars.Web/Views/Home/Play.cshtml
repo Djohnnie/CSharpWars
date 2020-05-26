@@ -15,8 +15,15 @@
 </div>
 
 <div class="text-center">
-    <a class="btn btn-primary" asp-controller="Play" asp-action="Template">Play a script from a template</a>
-    <a class="btn btn-primary" asp-controller="Play" asp-action="Custom">Play a script from scratch</a>
+    @if (Model.IsTemplatePlayEnabled)
+    {
+        <a class="btn btn-primary" asp-controller="Play" asp-action="Template">Play a script from a template</a>
+    }
+
+    @if (Model.IsCustomPlayEnabled)
+    {
+        <a class="btn btn-primary" asp-controller="Play" asp-action="Custom">Play a script from scratch</a>
+    }
 </div>
 
 <div class="row">
