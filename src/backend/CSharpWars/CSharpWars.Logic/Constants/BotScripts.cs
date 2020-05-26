@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CSharpWars.Model;
 
 namespace CSharpWars.Logic.Constants
@@ -9,31 +10,37 @@ namespace CSharpWars.Logic.Constants
         {
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Walk around in circles",
                 Script = WalkAround
             },
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Walk back and forth",
                 Script = WalkBackAndForth
             },
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Look around and self destruct",
                 Script = LookAroundAndSelfDestruct
             },
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Look around and range attack",
                 Script = LookAroundAndRangeAttack
             },
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Teleport around at random",
                 Script = TeleportAround
             },
             new Template
             {
+                Id = Guid.NewGuid(),
                 Name = "Hunt down other robots",
                 Script = HuntDown
             }
