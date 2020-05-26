@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpWars.DtoModel;
 
 namespace CSharpWars.Web.Models
 {
@@ -13,6 +14,6 @@ namespace CSharpWars.Web.Models
         public int BotStamina { get; set; }
         public string Script { get; set; }
         public Guid SelectedScript { get; set; }
-        public List<ScriptViewModel> Scripts { get; set; }
+        public IList<TemplateDto> Scripts { get; set; }
     }
 }

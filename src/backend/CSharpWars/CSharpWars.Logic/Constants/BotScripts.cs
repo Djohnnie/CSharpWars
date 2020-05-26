@@ -1,47 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using CSharpWars.Web.Models;
+﻿using System.Collections.Generic;
+using CSharpWars.Model;
 
-namespace CSharpWars.Web.Constants
+namespace CSharpWars.Logic.Constants
 {
     public static class BotScripts
     {
-        public static List<ScriptViewModel> All = new List<ScriptViewModel>
+        public static List<Template> All = new List<Template>
         {
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Walk around in circles",
+                Name = "Walk around in circles",
                 Script = WalkAround
             },
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Walk back and forth",
+                Name = "Walk back and forth",
                 Script = WalkBackAndForth
             },
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Look around and self destruct",
+                Name = "Look around and self destruct",
                 Script = LookAroundAndSelfDestruct
             },
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Look around and range attack",
+                Name = "Look around and range attack",
                 Script = LookAroundAndRangeAttack
             },
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Teleport around at random",
+                Name = "Teleport around at random",
                 Script = TeleportAround
             },
-            new ScriptViewModel
+            new Template
             {
-                Id = Guid.NewGuid(),
-                Description = "Hunt down other robots",
+                Name = "Hunt down other robots",
                 Script = HuntDown
             }
         };

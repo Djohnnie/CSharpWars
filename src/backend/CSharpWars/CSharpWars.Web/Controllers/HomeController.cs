@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using CSharpWars.DtoModel;
+using CSharpWars.Logic.Constants;
 using CSharpWars.Logic.Interfaces;
-using CSharpWars.Web.Constants;
 using CSharpWars.Web.Extensions;
 using CSharpWars.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +14,16 @@ namespace CSharpWars.Web.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IPlayerLogic _playerLogic;
+        private readonly ITemplateLogic _templateLogic;
 
         public HomeController(
             IConfiguration configuration,
-            IPlayerLogic playerLogic)
+            IPlayerLogic playerLogic,
+            ITemplateLogic templateLogic)
         {
             _configuration = configuration;
             _playerLogic = playerLogic;
+            _templateLogic = templateLogic;
         }
 
         public IActionResult Index()

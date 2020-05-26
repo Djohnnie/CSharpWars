@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace CSharpWars.Web.Models
+namespace CSharpWars.DtoModel
 {
-    public class ScriptViewModel
+    public class TemplateDto
     {
         public Guid Id { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
         public string Script { get; set; }
     }
 }

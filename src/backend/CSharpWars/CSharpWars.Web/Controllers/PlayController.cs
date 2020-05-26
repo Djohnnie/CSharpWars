@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.Common.Extensions;
 using CSharpWars.DtoModel;
+using CSharpWars.Logic.Constants;
 using CSharpWars.Logic.Exceptions;
 using CSharpWars.Logic.Interfaces;
-using CSharpWars.Web.Constants;
 using CSharpWars.Web.Extensions;
 using CSharpWars.Web.Helpers.Interfaces;
 using CSharpWars.Web.Models;
@@ -19,22 +19,25 @@ namespace CSharpWars.Web.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IBotLogic _botLogic;
+        private readonly ITemplateLogic _templateLogic;
         private readonly IScriptValidationHelper _scriptValidationHelper;
         private readonly IConfigurationHelper _configurationHelper;
 
         public PlayController(
             IConfiguration configuration,
             IBotLogic botLogic,
+            ITemplateLogic templateLogic,
             IScriptValidationHelper scriptValidationHelper,
             IConfigurationHelper configurationHelper)
         {
             _configuration = configuration;
             _botLogic = botLogic;
+            _templateLogic = templateLogic;
             _scriptValidationHelper = scriptValidationHelper;
             _configurationHelper = configurationHelper;
         }
 
-        public IActionResult Template()
+        public async Task<IActionResult> Template()
         {
             if (HttpContext.Session.Keys.Contains("PLAYER"))
             {
@@ -45,7 +48,7 @@ namespace CSharpWars.Web.Controllers
                     BotName = "<name your bot>",
                     BotHealth = 100,
                     BotStamina = 100,
-                    Scripts = BotScripts.All
+                    Scripts = await _templateLogic.GetAllTemplates()
                 };
                 ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
                 ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");
@@ -62,12 +65,14 @@ namespace CSharpWars.Web.Controllers
             {
                 var player = HttpContext.Session.GetObject<PlayerDto>("PLAYER");
 
+                var templates = await _templateLogic.GetAllTemplates();
+
                 var valid = IsValid(vm);
                 string sadMessage = "You have made some errors!";
 
                 if (valid)
                 {
-                    var script = BotScripts.All.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode();
+                    var script = templates.Single(x => x.Id == vm.SelectedScript).Script.Base64Encode();
 
                     var scriptValidationResult = await _scriptValidationHelper.Validate(
                         new ScriptToValidateDto { Script = script });
@@ -115,7 +120,7 @@ namespace CSharpWars.Web.Controllers
                     BotHealth = vm.BotHealth,
                     BotStamina = vm.BotStamina,
                     SelectedScript = vm.SelectedScript,
-                    Scripts = BotScripts.All
+                    Scripts = templates
                 };
 
                 if (valid)
@@ -146,7 +151,7 @@ namespace CSharpWars.Web.Controllers
                     BotName = "<name your bot>",
                     BotHealth = 100,
                     BotStamina = 100,
-                    Script = BotScripts.WalkBackAndForth
+                    Script = BotScripts.WalkAround
                 };
                 ViewData["ArenaUrl"] = _configuration.GetValue<string>("ARENA_URL");
                 ViewData["ScriptTemplateUrl"] = _configuration.GetValue<string>("SCRIPT_TEMPLATE_URL");

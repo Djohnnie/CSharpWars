@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label asp-for="SelectedScript" class="control-label">Select a pre-made script for your robot</label>
                 <select id="selectedScript" asp-for="SelectedScript" class="custom-select custom-select-lg mb-3"
-                        asp-items="@(new SelectList(Model.Scripts, "Id", "Description"))">
+                        asp-items="@(new SelectList(Model.Scripts, "Id", "Name"))">
                     <option>Please select an item...</option>
                 </select>
             </div>
