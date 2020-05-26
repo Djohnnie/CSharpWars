@@ -21,11 +21,6 @@ namespace CSharpWars.DataAccess
 
         public DbSet<Template> Templates { get; set; }
 
-        public CSharpWarsDbContext()
-        {
-            
-        }
-
         public CSharpWarsDbContext(IConfigurationHelper configurationHelper)
         {
             _configurationHelper = configurationHelper;
@@ -33,16 +28,14 @@ namespace CSharpWars.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (string.IsNullOrEmpty(_configurationHelper.ConnectionString))
-            //{
-            //    optionsBuilder.UseInMemoryDatabase($"{Guid.NewGuid()}");
-            //}
-            //else
-            //{
-            //    optionsBuilder.UseSqlServer(_configurationHelper.ConnectionString);
-            //}
-            optionsBuilder.UseSqlServer(
-                "Server=my.djohnnie.be;Database=CSharpWars;User Id=sa;Password=6p7RvYEg^kfJZ7XH5E@pHlhiOrN*zD8H;");
+            if (string.IsNullOrEmpty(_configurationHelper.ConnectionString))
+            {
+                optionsBuilder.UseInMemoryDatabase($"{Guid.NewGuid()}");
+            }
+            else
+            {
+                optionsBuilder.UseSqlServer(_configurationHelper.ConnectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
