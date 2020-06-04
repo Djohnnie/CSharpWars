@@ -5,6 +5,14 @@ public class CameraRotator : MonoBehaviour
     [Header("Rotations per minute around the arena.")]
     public float RotationsPerMinute = 1.0f;
 
+    void Awake()
+    {
+#if UNITY_EDITOR
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+#endif
+    }
+
     void Update()
     {
         // yAngle (in degrees) = 6 * x * deltaTime (seconds).
