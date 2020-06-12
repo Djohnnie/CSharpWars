@@ -1,28 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Assets.Scripts.Model;
 using RestSharp;
 
 namespace Assets.Scripts.Networking
 {
-    public static class ApiClient
+    public interface IApiClient
     {
-        private static readonly string _baseUrl = "https://api.djohnnie.be:8801/api";
+        Task<Arena> GetArena();
 
-        public static Arena GetArena()
+        Task<List<Bot>> GetBots();
+    }
+
+    public class ApiClient : IApiClient
+    {
+        private readonly string _baseUrl = "https://api.djohnnie.be:8801/api";
+
+        public Task<Arena> GetArena()
         {
             return Get<Arena>("arena");
         }
 
-        public static List<Bot> GetBots()
+        public Task<List<Bot>> GetBots()
         {
             return Get<List<Bot>>("bots");
         }
 
-        private static TResult Get<TResult>(string resource) where TResult : new()
+        private async Task<TResult> Get<TResult>(string resource) where TResult : new()
         {
             var client = new RestClient(_baseUrl);
             var request = new RestRequest(resource, Method.GET);
-            var response = client.Execute<TResult>(request);
+            var response = await client.ExecuteTaskAsync<TResult>(request);
             return response.Data;
         }
     }

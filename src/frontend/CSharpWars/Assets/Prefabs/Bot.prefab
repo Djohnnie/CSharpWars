@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7842690366862279648}
-  - component: {fileID: 7842690366862279649}
-  - component: {fileID: 6058409851926237027}
+  - component: {fileID: -6186352752785644401}
+  - component: {fileID: -7313548381712625294}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7842690366862279649
+--- !u!114 &-6186352752785644401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,9 +48,9 @@ MonoBehaviour:
   Speed: 1.5
   RotationSpeed: 2.5
   Head: {fileID: 7842690368561100459}
-  ErrorPrefab: {fileID: 140918, guid: 1e814b6698e48b2419979f7f2534fca0, type: 3}
-  RangedAttackPrefab: {fileID: 157740, guid: ad2b4aecfc5a65e469a2714b557e8218, type: 3}
---- !u!114 &6058409851926237027
+  ErrorPrefab: {fileID: 0}
+  RangedAttackPrefab: {fileID: 0}
+--- !u!114 &-7313548381712625294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,16 +62,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1c059ddf16884b92125de153f58ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionEffectsContainer: {fileID: 100000, guid: 6ffdec4a9fbd09a41b89400337aaeb48,
-    type: 3}
-  scale: 0.5
-  playbackSpeed: 0.5
+  scale: 1
+  playbackSpeed: 1
   explosionTime: 0
   randomizeExplosionTime: 0
-  radius: 5
+  radius: 15
   power: 1
   probeCount: 150
-  explodeDuration: 1
+  explodeDuration: 0.5
 --- !u!1001 &7842690368560704555
 PrefabInstance:
   m_ObjectHideFlags: 0

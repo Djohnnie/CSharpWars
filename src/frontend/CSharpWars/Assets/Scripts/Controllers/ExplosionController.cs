@@ -1,11 +1,18 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
+using Adic;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class ExplosionController : MonoBehaviour
+    public class ExplosionController : BaseBehaviour
     {
-        public GameObject ExplosionEffectsContainer;
+        #region <| Dependencies |>
+
+        [Inject("prefab-explosion")]
+        private GameObject ExplosionPrefab;
+
+        #endregion
 
         public float scale = 1;
         public float playbackSpeed = 1;
@@ -20,7 +27,7 @@ namespace Assets.Scripts.Controllers
 
         public IEnumerator Explosion()
         {
-            GameObject container = Instantiate(ExplosionEffectsContainer, transform.position, Quaternion.identity);
+            GameObject container = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             ParticleSystem[] systems = container.GetComponentsInChildren<ParticleSystem>();
             foreach (ParticleSystem system in systems)
             {
@@ -50,6 +57,12 @@ namespace Assets.Scripts.Controllers
             ShootRay(testRay, radius);
         }
 
+        public async override Task Start()
+        {
+            await base.Start();
+            Init();
+        }
+
         private void Init()
         {
             power *= 500000;
@@ -58,11 +71,6 @@ namespace Assets.Scripts.Controllers
             {
                 explosionTime += Random.Range(0.0f, randomizeExplosionTime);
             }
-        }
-
-        void Start()
-        {
-            Init();
         }
 
         public void Explode()

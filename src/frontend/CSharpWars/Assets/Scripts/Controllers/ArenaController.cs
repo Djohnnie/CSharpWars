@@ -1,36 +1,46 @@
-﻿using Assets.Scripts.Model;
-using Assets.Scripts.Networking;
+﻿using System.Threading.Tasks;
+using Adic;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class ArenaController : MonoBehaviour
+    public class ArenaController : BaseBehaviour
     {
-        private Arena _arena;
+        #region <| Dependencies |>
+
+        [Inject]
+        private IGameState _gameState;
+
+        [Inject("floor")]
         private GameObject _floor;
 
-        [Header("The height of the arena platform.")]
-        public float PlatformHeight = .2f;
+        [Inject("floor-renderer")]
+        private Renderer _floorRenderer;
 
-        void Start()
-        {
-            _arena = ApiClient.GetArena();
-            _floor = GameObject.Find("Floor");
-            _floor.transform.localScale = new Vector3(_arena.Width, PlatformHeight, _arena.Height);
-            _floor.GetComponent<Renderer>().material.mainTextureScale = new Vector2(_arena.Width, _arena.Height);
-        }
+        #endregion
 
-        public Vector3 ArenaToWorldPosition(int x, int y)
+        #region <| Start |>
+
+        public async override Task Start()
         {
-            if (_arena != null && _floor != null)
+            await base.Start();
+
+            // Refresh the arena on start!
+            await _gameState.RefreshArena((x, y, arena, arenaThickness) =>
             {
-                return new Vector3(
-                    .5f + x - _arena.Width / 2 + _floor.transform.position.x,
-                    PlatformHeight / 2,
-                    _arena.Height - .5f - y - _arena.Height / 2 + _floor.transform.position.z);
-            }
+                var vX = .5f + x - arena.Width / 2 + _floor.transform.position.x;
+                var vY = arenaThickness / 2;
+                var vZ = arena.Height - .5f - y - arena.Height / 2 + _floor.transform.position.z;
+                return new Vector3(vX, vY, vZ);
+            });
 
-            return Vector3.zero;
+            _floor.transform.localScale = new Vector3(
+                _gameState.Arena.Width, _gameState.ArenaThickness, _gameState.Arena.Height);
+
+            _floorRenderer.material.mainTextureScale = new Vector2(
+                _gameState.Arena.Width, _gameState.Arena.Height);
         }
+
+        #endregion
     }
 }

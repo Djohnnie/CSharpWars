@@ -1,18 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Adic;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class BotController : MonoBehaviour
+    public class BotController : BaseBehaviour
     {
+        #region <| Dependencies |>
+
+        [Inject]
+        private IGameState _gameState;
+
+        [Inject("robot-head")]
+        public Transform Head;
+
+        [Inject("prefab-explosion")]
+        private GameObject ExplosionPrefab;
+
+        [Inject("prefab-error")]
+        private GameObject ErrorPrefab;
+        
+        [Inject("prefab-ranged-attack")]
+        private GameObject RangedAttackPrefab;
+
+        #endregion
+
+        #region <| Private Members |>
+
         private Bot _bot;
         private Animation _animation;
-        private ArenaController _arenaController;
-        private NameTagController _nameTagController;
-        private HealthTagController _healthTagController;
-        private StaminaTagController _staminaTagController;
 
         private string _lastAnimation;
 
@@ -21,15 +40,28 @@ namespace Assets.Scripts.Controllers
         private bool _rangeAttackExecuted;
         private bool _died;
 
-        public float Speed = 1;
-        public float RotationSpeed = 2;
+        public float Speed = 1.5f;
+        public float RotationSpeed = 2.5f;
+        
 
-        public Transform Head;
-        public GameObject ErrorPrefab;
-        public GameObject RangedAttackPrefab;
+        private Guid _botId;
 
-        void Start()
+        public void SetBotId(Guid botId)
         {
+            _botId = botId;
+        }
+
+        #endregion
+
+        public async override Task Start()
+        {
+            await base.Start();
+
+            InstantRefresh();
+
+            _gameState.BotShouldBeUpdated.AddListener(OnBotShouldBeUpdated);
+            _gameState.BotShouldBeRemoved.AddListener(OnBotShouldBeRemoved);
+
             _animation = gameObject.GetComponentInChildren<Animation>();
             if (_animation != null)
             {
@@ -39,14 +71,36 @@ namespace Assets.Scripts.Controllers
             }
         }
 
+        #region <| Event Handlers |>
+
+        private void OnBotShouldBeUpdated(Guid botId)
+        {
+            if( botId == _botId )
+            {
+                _bot = _gameState[botId];
+                _rangeAttackExecuted = false;
+            }            
+        }
+
+        private void OnBotShouldBeRemoved(Guid botId)
+        {
+            if(botId == _botId)
+            {
+                Destroy(gameObject);
+                Destroy(this);
+            }            
+        }
+
+        #endregion
+
         void Update()
         {
-            if (BotIsNotAvailable())
+            if( _bot == null || _died )
             {
                 return;
             }
 
-            if (RobotIsConfused())
+            if ( _bot.Move == PossibleMoves.ScriptError )
             {
                 RunAnimationOnce(Animations.Defend);
                 if (_errorGameObject == null)
@@ -66,7 +120,7 @@ namespace Assets.Scripts.Controllers
             }
 
             float step = Math.Abs(_bot.X - _bot.FromX) > 1 || Math.Abs(_bot.Y - _bot.FromY) > 1 ? 100 : Speed * Time.deltaTime;
-            Vector3 targetWorldPosition = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
+            Vector3 targetWorldPosition = _gameState.ArenaToWorldPosition(_bot.X, _bot.Y);
             Vector3 newPos = Vector3.MoveTowards(transform.position, targetWorldPosition, step);
             if ((newPos - transform.position).magnitude > 0.01)
             {
@@ -89,23 +143,20 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
-            if (RobotHasDied())
+            if (_bot.CurrentHealth <= 0 && _bot.Move != PossibleMoves.SelfDestruct)
             {
                 _died = true;
                 RunAnimationOnce(Animations.Death);
-                _nameTagController.Destroy();
-                _healthTagController.Destroy();
-                _staminaTagController.Destroy();
                 return;
             }
 
-            if (RobotIsAttackingUsingMelee())
+            if (_bot.Move == PossibleMoves.MeleeAttack)
             {
                 RunAnimationOnce(Animations.MeleeAttack);
                 return;
             }
 
-            if (RobotIsAttackingUsingRanged())
+            if (_bot.Move == PossibleMoves.RangedAttack)
             {
                 if (!_rangeAttackExecuted)
                 {
@@ -113,15 +164,15 @@ namespace Assets.Scripts.Controllers
                     _rangedAttackGameObject = Instantiate(RangedAttackPrefab);
                     _rangedAttackGameObject.transform.SetParent(transform);
                     var rangedAttackController = _rangedAttackGameObject.GetComponent<RangedAttackController>();
-                    Vector3 startPos = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
-                    Vector3 targetPos = _arenaController.ArenaToWorldPosition(_bot.LastAttackX, _bot.LastAttackY);
+                    Vector3 startPos = _gameState.ArenaToWorldPosition(_bot.X, _bot.Y);
+                    Vector3 targetPos = _gameState.ArenaToWorldPosition(_bot.LastAttackX, _bot.LastAttackY);
                     rangedAttackController.Fire(startPos, targetPos);
                     RunAnimation(Animations.RangedAttack);
                 }
                 return;
             }
 
-            if (RobotIsSelfDestructing())
+            if (_bot.Move == PossibleMoves.SelfDestruct)
             {
                 GetComponent<ExplosionController>().Explode();
                 RunAnimationOnce(Animations.Death);
@@ -132,7 +183,7 @@ namespace Assets.Scripts.Controllers
             RunAnimation(Animations.Idle);
         }
 
-        void RunAnimation(string animationName)
+        private void RunAnimation(string animationName)
         {
             if (!_animation.IsPlaying(animationName))
             {
@@ -142,7 +193,7 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        void RunAnimationOnce(string animationName)
+        private void RunAnimationOnce(string animationName)
         {
             if (!_animation.IsPlaying(animationName) && _lastAnimation != animationName)
             {
@@ -157,119 +208,12 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public void SetBot(Bot bot)
+        private void InstantRefresh()
         {
-            _bot = bot;
-        }
-
-        public void UpdateBot(Bot bot)
-        {
-            SetBot(bot);
-            if (_healthTagController != null)
-            {
-                _healthTagController.UpdateTag(bot);
-            }
-
-            if (_staminaTagController != null)
-            {
-                _staminaTagController.UpdateTag(bot);
-            }
-
-            _rangeAttackExecuted = false;
-        }
-
-        public void SetTagController(TagController tagController)
-        {
-            switch (tagController)
-            {
-                case HealthTagController t:
-                    _healthTagController = t;
-                    break;
-                case StaminaTagController t:
-                    _staminaTagController = t;
-                    break;
-                case NameTagController t:
-                    _nameTagController = t;
-                    break;
-            }
-        }
-
-        public void SetArenaController(ArenaController arenaController)
-        {
-            _arenaController = arenaController;
-        }
-
-        public void InstantRefresh()
-        {
-            if (_bot != null)
-            {
-                transform.position = _arenaController.ArenaToWorldPosition(_bot.X, _bot.Y);
-                transform.eulerAngles = OrientationVector.CreateFrom(_bot.Orientation);
-                _lastAnimation = null;
-            }
-        }
-
-
-
-
-
-
-
-
-        private bool BotIsNotAvailable()
-        {
-            return _bot == null || _died;
-        }
-
-        private bool RobotIsConfused()
-        {
-            return _bot.Move == PossibleMoves.ScriptError;
-        }
-
-        private bool RobotHasDied()
-        {
-            return _bot.CurrentHealth <= 0 && _bot.Move != PossibleMoves.SelfDestruct;
-        }
-
-        private bool RobotIsAttackingUsingMelee()
-        {
-            return _bot.Move == PossibleMoves.MeleeAttack;
-        }
-
-        private bool RobotIsAttackingUsingRanged()
-        {
-            return _bot.Move == PossibleMoves.RangedAttack;
-        }
-
-        private bool RobotIsSelfDestructing()
-        {
-            return _bot.Move == PossibleMoves.SelfDestruct;
-        }
-
-        private bool RobotIsTeleporting()
-        {
-            return _bot.Move == PossibleMoves.Teleport;
-        }
-
-        public void Destroy()
-        {
-            if (_nameTagController != null)
-            {
-                _nameTagController.Destroy();
-            }
-
-            if (_healthTagController != null)
-            {
-                _healthTagController.Destroy();
-            }
-
-            if (_staminaTagController != null)
-            {
-                _staminaTagController.Destroy();
-            }
-
-            Destroy(gameObject);
-            Destroy(this);
+            var bot = _gameState[_botId];
+            transform.position = _gameState.ArenaToWorldPosition(bot.X, bot.Y);
+            transform.eulerAngles = OrientationVector.CreateFrom(bot.Orientation);
+            _lastAnimation = null;
         }
     }
 }
