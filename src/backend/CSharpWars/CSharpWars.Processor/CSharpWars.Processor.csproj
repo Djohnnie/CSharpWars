@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-CSharpWars.Processor-385F374A-2BE4-4206-965A-C7DBF37491CC</UserSecretsId>
   </PropertyGroup>
 
