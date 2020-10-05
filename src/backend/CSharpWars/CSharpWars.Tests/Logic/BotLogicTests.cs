@@ -322,7 +322,7 @@ namespace CSharpWars.Tests.Logic
         }
 
         [Fact]
-        public async Task BotLogic_CreateBot_Should_Not_Create_A_Bot_In_Rapid_Succession()
+        public void BotLogic_CreateBot_Should_Not_Create_A_Bot_In_Rapid_Succession()
         {
             // Arrange
             var randomHelper = new Mock<IRandomHelper>();
