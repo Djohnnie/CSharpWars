@@ -356,7 +356,7 @@ namespace CSharpWars.Tests.Logic
             Func<Task> act = async () => await botLogic.CreateBot(botToCreateDto);
 
             // Assert
-            act.Should().Throw<LogicException>().WithMessage("You are not allowed to create multiple robots in rapid succession!");
+            act.Should().ThrowAsync<LogicException>().WithMessage("You are not allowed to create multiple robots in rapid succession!");
         }
 
         [Fact]
