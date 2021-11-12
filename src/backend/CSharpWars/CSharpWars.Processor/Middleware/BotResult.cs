@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using CSharpWars.Enums;
+﻿using CSharpWars.Enums;
 using CSharpWars.Scripting.Model;
 
 namespace CSharpWars.Processor.Middleware
 {
     public class BotResult
     {
-        private readonly Dictionary<Guid, int> _damageInflicted = new Dictionary<Guid, int>();
-        private readonly Dictionary<Guid, (int X, int Y)> _teleportations = new Dictionary<Guid, (int X, int Y)>();
+        private readonly Dictionary<Guid, int> _damageInflicted = new();
+        private readonly Dictionary<Guid, (int X, int Y)> _teleportations = new();
 
         public int X { get; set; }
         public int Y { get; set; }

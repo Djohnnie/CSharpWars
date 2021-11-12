@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Logic.Interfaces
+namespace CSharpWars.Logic.Interfaces;
+
+public interface ITemplateLogic
 {
-    public interface ITemplateLogic
-    {
-        Task<IList<TemplateDto>> GetAllTemplates();
-    }
+    Task<IList<TemplateDto>> GetAllTemplates();
 }

@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Web.Helpers.Interfaces
+namespace CSharpWars.Web.Helpers.Interfaces;
+
+public interface IScriptValidationHelper
 {
-    public interface IScriptValidationHelper
-    {
-        Task<ValidatedScriptDto> Validate(ScriptToValidateDto script);
-    }
+    Task<ValidatedScriptDto> Validate(ScriptToValidateDto script);
 }

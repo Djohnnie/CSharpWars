@@ -1,35 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="coverlet.msbuild" Version="3.1.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="FluentAssertions" Version="6.2.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="3.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpWars.DataAccess\CSharpWars.DataAccess.csproj" />
-    <ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
-    <ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
-    <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
-    <ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
-    <ProjectReference Include="..\CSharpWars.Processor\CSharpWars.Processor.csproj" />
-    <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
-    <ProjectReference Include="..\CSharpWars.Tests.Framework\CSharpWars.Tests.Framework.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CSharpWars.DataAccess\CSharpWars.DataAccess.csproj" />
+		<ProjectReference Include="..\CSharpWars.DtoModel\CSharpWars.DtoModel.csproj" />
+		<ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
+		<ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
+		<ProjectReference Include="..\CSharpWars.Mapping\CSharpWars.Mapping.csproj" />
+		<ProjectReference Include="..\CSharpWars.Processor\CSharpWars.Processor.csproj" />
+		<ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
+		<ProjectReference Include="..\CSharpWars.Tests.Framework\CSharpWars.Tests.Framework.csproj" />
+	</ItemGroup>
 
 </Project>

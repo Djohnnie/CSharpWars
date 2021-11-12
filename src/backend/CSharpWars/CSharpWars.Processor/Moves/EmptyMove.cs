@@ -1,20 +1,19 @@
 ﻿using CSharpWars.Processor.Middleware;
 using CSharpWars.Scripting.Model;
 
-namespace CSharpWars.Processor.Moves
+namespace CSharpWars.Processor.Moves;
+
+public class EmptyMove : Move
 {
-    public class EmptyMove : Move
+    public EmptyMove(BotProperties botProperties) : base(botProperties) { }
+
+    public override BotResult Go()
     {
-        public EmptyMove(BotProperties botProperties) : base(botProperties) { }
+        // Build result based on current properties.
+        var botResult = BotResult.Build(BotProperties);
 
-        public override BotResult Go()
-        {
-            // Build result based on current properties.
-            var botResult = BotResult.Build(BotProperties);
+        botResult.Move = BotProperties.CurrentMove;
 
-            botResult.Move = BotProperties.CurrentMove;
-
-            return botResult;
-        }
+        return botResult;
     }
 }

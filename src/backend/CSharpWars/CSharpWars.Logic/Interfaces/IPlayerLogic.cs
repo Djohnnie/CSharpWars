@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Logic.Interfaces
+namespace CSharpWars.Logic.Interfaces;
+
+public interface IPlayerLogic : ILogic
 {
-    public interface IPlayerLogic : ILogic
-    {
-        Task<IList<PlayerDto>> GetAllPlayers();
+    Task<IList<PlayerDto>> GetAllPlayers();
 
-        Task<PlayerDto> Login(LoginDto login);
-    }
+    Task<PlayerDto> Login(LoginDto login);
 }

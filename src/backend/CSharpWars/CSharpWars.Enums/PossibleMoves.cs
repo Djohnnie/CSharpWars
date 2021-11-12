@@ -1,27 +1,26 @@
-﻿namespace CSharpWars.Enums
+﻿namespace CSharpWars.Enums;
+
+public enum PossibleMoves
 {
-    public enum PossibleMoves
-    {
-        Idling,
+    Idling,
 
-        TurningLeft,
+    TurningLeft,
 
-        TurningRight,
+    TurningRight,
 
-        TurningAround,
+    TurningAround,
 
-        WalkForward,
+    WalkForward,
 
-        Teleport,
+    Teleport,
 
-        MeleeAttack,
+    MeleeAttack,
 
-        RangedAttack,
+    RangedAttack,
 
-        SelfDestruct,
+    SelfDestruct,
 
-        Died,
+    Died,
 
-        ScriptError
-    }
+    ScriptError
 }

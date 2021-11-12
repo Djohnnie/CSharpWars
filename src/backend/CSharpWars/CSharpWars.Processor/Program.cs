@@ -1,51 +1,38 @@
-using System;
-using System.Threading.Tasks;
 using CSharpWars.Common.DependencyInjection;
+using CSharpWars.Processor;
 using CSharpWars.Processor.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
 
-namespace CSharpWars.Processor
-{
-    public class Program
+IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostContext, configBuilder) =>
     {
-        public static async Task Main(string[] args)
+        configBuilder.AddEnvironmentVariables();
+    })
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.ConfigurationHelper(c =>
         {
-            await CreateHostBuilder(args).RunConsoleAsync();
-        }
+            c.ConnectionString = hostContext.Configuration.GetValue<string>("CONNECTION_STRING");
+            c.ArenaSize = hostContext.Configuration.GetValue<int>("ARENA_SIZE");
+        });
+        services.ConfigureScriptProcessor();
+        services.AddHostedService<Worker>();
+    })
+    .ConfigureLogging((hostContext, logging) =>
+    {
+        var elasticHost = hostContext.Configuration.GetValue<string>("ELASTIC_HOST");
+        Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .Enrich.WithExceptionDetails()
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticHost))
+            {
+                AutoRegisterTemplate = true,
+                IndexFormat = "csharpwars-processor-{0:yyyy.MM}"
+            }).CreateLogger();
+        logging.AddSerilog();
+    })
+    .Build();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostContext, configBuilder) =>
-                {
-                    configBuilder.AddEnvironmentVariables();
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services.ConfigurationHelper(c =>
-                    {
-                        c.ConnectionString = hostContext.Configuration.GetValue<string>("CONNECTION_STRING");
-                        c.ArenaSize = hostContext.Configuration.GetValue<int>("ARENA_SIZE");
-                    });
-                    services.ConfigureScriptProcessor();
-                    services.AddHostedService<Worker>();
-                })
-                .ConfigureLogging((hostContext, logging) =>
-                {
-                    var elasticHost = hostContext.Configuration.GetValue<string>("ELASTIC_HOST");
-                    Log.Logger = new LoggerConfiguration()
-                        .Enrich.FromLogContext()
-                        .Enrich.WithExceptionDetails()
-                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticHost))
-                        {
-                            AutoRegisterTemplate = true,
-                            IndexFormat = "csharpwars-processor-{0:yyyy.MM}"
-                        }).CreateLogger();
-                    logging.AddSerilog();
-                });
-    }
-}
+await host.RunAsync();

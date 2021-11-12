@@ -1,4 +1,3 @@
-﻿namespace CSharpWars.Logic.Interfaces
-{
-    public interface ILogic { }
-}
+﻿namespace CSharpWars.Logic.Interfaces;
+
+public interface ILogic { }

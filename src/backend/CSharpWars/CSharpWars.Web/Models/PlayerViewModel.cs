@@ -1,10 +1,7 @@
-﻿using System;
+﻿namespace CSharpWars.Web.Models;
 
-namespace CSharpWars.Web.Models
+public class PlayerViewModel
 {
-    public class PlayerViewModel
-    {
-        public string Name { get; set; }
-        public string Secret { get; set; }
-    }
+    public string Name { get; set; }
+    public string Secret { get; set; }
 }

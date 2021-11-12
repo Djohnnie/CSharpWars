@@ -1,26 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <UserSecretsId>dotnet-CSharpWars.Processor-385F374A-2BE4-4206-965A-C7DBF37491CC</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-CSharpWars.Processor-385F374A-2BE4-4206-965A-C7DBF37491CC</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Exceptions" Version="7.1.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
-    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+		<PackageReference Include="Serilog" Version="2.10.0" />
+		<PackageReference Include="Serilog.Exceptions" Version="7.1.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
+		<PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
+		<PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+		<PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpWars.Common\CSharpWars.Common.csproj" />
-    <ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
-    <ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
-    <ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CSharpWars.Common\CSharpWars.Common.csproj" />
+		<ProjectReference Include="..\CSharpWars.Logging\CSharpWars.Logging.csproj" />
+		<ProjectReference Include="..\CSharpWars.Logic\CSharpWars.Logic.csproj" />
+		<ProjectReference Include="..\CSharpWars.Scripting\CSharpWars.Scripting.csproj" />
+	</ItemGroup>
 </Project>

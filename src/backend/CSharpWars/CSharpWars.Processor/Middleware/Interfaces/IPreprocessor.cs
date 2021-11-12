@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace CSharpWars.Processor.Middleware.Interfaces;
 
-namespace CSharpWars.Processor.Middleware.Interfaces
+public interface IPreprocessor
 {
-    public interface IPreprocessor
-    {
-        Task Go(ProcessingContext context);
-    }
+    Task Go(ProcessingContext context);
 }

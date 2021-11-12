@@ -1,10 +1,6 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
+public record ArenaDto(int Width, int Height)
 {
-    public class ArenaDto
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-    }
+    public static ArenaDto Empty => new ArenaDto(0, 0);
 }

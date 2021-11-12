@@ -1,5 +1,4 @@
-﻿using System;
-using CSharpWars.Enums;
+﻿using CSharpWars.Enums;
 
 namespace CSharpWars.DtoModel
 {

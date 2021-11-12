@@ -1,58 +1,49 @@
-﻿using System;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 using CSharpWars.Mapping;
 using CSharpWars.Model;
-using FluentAssertions;
-using Xunit;
 
-namespace CSharpWars.Tests.Mapping
+namespace CSharpWars.Tests.Mapping;
+
+public class TemplateMapperTests
 {
-    public class TemplateMapperTests
+    [Fact]
+    public void TemplateMapper_Can_Map_TemplateModel_To_TemplateDto()
     {
-        [Fact]
-        public void TemplateMapper_Can_Map_TemplateModel_To_TemplateDto()
+        // Arrange
+        var mapper = new TemplateMapper();
+        var templateModel = new Template
         {
-            // Arrange
-            var mapper = new TemplateMapper();
-            var templateModel = new Template
-            {
-                Id = Guid.NewGuid(),
-                Name = "TemplateName",
-                Script = "Script"
-            };
+            Id = Guid.NewGuid(),
+            Name = "TemplateName",
+            Script = "Script"
+        };
 
-            // Act
-            var templateDto = mapper.Map(templateModel);
+        // Act
+        var templateDto = mapper.Map(templateModel);
 
-            // Assert
-            templateDto.Should().BeEquivalentTo(templateModel,
-                properties => properties
-                    .Including(x => x.Id)
-                    .Including(x => x.Name)
-                    .Including(x => x.Script));
-        }
+        // Assert
+        templateDto.Should().BeEquivalentTo(templateModel,
+            properties => properties
+                .Including(x => x.Id)
+                .Including(x => x.Name)
+                .Including(x => x.Script));
+    }
 
-        [Fact]
-        public void TemplateMapper_Can_Map_TemplateDto_To_TemplateModel()
-        {
-            // Arrange
-            var mapper = new TemplateMapper();
-            var templateDto = new TemplateDto
-            {
-                Id = Guid.NewGuid(),
-                Name = "TemplateName",
-                Script = "Script"
-            };
+    [Fact]
+    public void TemplateMapper_Can_Map_TemplateDto_To_TemplateModel()
+    {
+        // Arrange
+        var mapper = new TemplateMapper();
+        var templateDto = new TemplateDto(Guid.NewGuid(), "TemplateName", "Script");
 
-            // Act
-            var templateModel = mapper.Map(templateDto);
+        // Act
+        var templateModel = mapper.Map(templateDto);
 
-            // Assert
-            templateModel.Should().BeEquivalentTo(templateDto,
-                properties => properties
-                    .Including(x => x.Id)
-                    .Including(x => x.Name)
-                    .Including(x => x.Script));
-        }
+        // Assert
+        templateModel.Should().BeEquivalentTo(templateDto,
+            properties => properties
+                .Including(x => x.Id)
+                .Including(x => x.Name)
+                .Including(x => x.Script));
     }
 }

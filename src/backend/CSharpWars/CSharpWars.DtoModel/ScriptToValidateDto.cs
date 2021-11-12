@@ -1,9 +1,3 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class ScriptToValidateDto
-    {
-        public string Script { get; set; }
-    }
-}
+public record ScriptToValidateDto(string Script);

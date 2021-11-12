@@ -1,13 +1,12 @@
-﻿namespace CSharpWars.Enums
+﻿namespace CSharpWars.Enums;
+
+public enum PossibleOrientations
 {
-    public enum PossibleOrientations
-    {
-        North,
+    North,
 
-        East,
+    East,
 
-        South,
+    South,
 
-        West
-    }
+    West
 }

@@ -1,19 +1,14 @@
-﻿using AutoMapper;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 using CSharpWars.Model;
 
-namespace CSharpWars.Mapping
+namespace CSharpWars.Mapping;
+
+public class BotToCreateMapper : Mapper<Bot, BotToCreateDto>
 {
-    public class BotToCreateMapper : Mapper<Bot, BotToCreateDto>
+    public BotToCreateMapper() : base(config =>
     {
-        public BotToCreateMapper()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Bot, BotToCreateDto>();
-                cfg.CreateMap<BotToCreateDto, Bot>();
-            });
-            _mapper = config.CreateMapper();
-        }
-    }
+        config.CreateMap<Bot, BotToCreateDto>();
+        config.CreateMap<BotToCreateDto, Bot>();
+    })
+    { }
 }

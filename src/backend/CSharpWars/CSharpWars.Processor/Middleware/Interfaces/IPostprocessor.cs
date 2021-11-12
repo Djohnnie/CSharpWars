@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace CSharpWars.Processor.Middleware.Interfaces;
 
-namespace CSharpWars.Processor.Middleware.Interfaces
+public interface IPostprocessor
 {
-    public interface IPostprocessor
-    {
-        Task Go(ProcessingContext context);
-    }
+    Task Go(ProcessingContext context);
 }

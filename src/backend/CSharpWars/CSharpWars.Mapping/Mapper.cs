@@ -1,32 +1,35 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using CSharpWars.Mapping.Interfaces;
 
-namespace CSharpWars.Mapping
+namespace CSharpWars.Mapping;
+
+public abstract class Mapper<TModel, TDto> : IMapper<TModel, TDto>
 {
-    public abstract class Mapper<TModel, TDto> : IMapper<TModel, TDto>
+    private readonly IMapper _mapper;
+
+    protected Mapper(Action<IMapperConfigurationExpression> configure)
     {
-        protected IMapper _mapper;
+        var config = new MapperConfiguration(configure);
+        _mapper = config.CreateMapper();
+    }
 
-        public TModel Map(TDto dto)
-        {
-            return _mapper.Map<TModel>(dto);
-        }
+    public TModel Map(TDto dto)
+    {
+        return _mapper.Map<TModel>(dto);
+    }
 
-        public IList<TModel> Map(IList<TDto> dtos)
-        {
-            return dtos?.Select(Map).ToList();
-        }
+    public IList<TModel> Map(IList<TDto> dtos)
+    {
+        return dtos?.Select(Map).ToList();
+    }
 
-        public TDto Map(TModel model)
-        {
-            return _mapper.Map<TDto>(model);
-        }
+    public TDto Map(TModel model)
+    {
+        return _mapper.Map<TDto>(model);
+    }
 
-        public IList<TDto> Map(IList<TModel> models)
-        {
-            return models?.Select(Map).ToList();
-        }
+    public IList<TDto> Map(IList<TModel> models)
+    {
+        return models?.Select(Map).ToList();
     }
 }

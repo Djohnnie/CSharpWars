@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Logic.Interfaces
+namespace CSharpWars.Logic.Interfaces;
+
+public interface IArenaLogic : ILogic
 {
-    public interface IArenaLogic : ILogic
-    {
-        Task<ArenaDto> GetArena();
-    }
+    Task<ArenaDto> GetArena();
 }

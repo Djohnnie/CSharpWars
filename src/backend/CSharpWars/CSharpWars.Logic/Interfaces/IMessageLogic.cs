@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Logic.Interfaces
+namespace CSharpWars.Logic.Interfaces;
+
+public interface IMessageLogic : ILogic
 {
-    public interface IMessageLogic : ILogic
-    {
-        Task<IList<MessageDto>> GetLastMessages();
+    Task<IList<MessageDto>> GetLastMessages();
 
-        Task CreateMessages(IList<MessageToCreateDto> messagesToCreate);
-    }
+    Task CreateMessages(IList<MessageToCreateDto> messagesToCreate);
 }

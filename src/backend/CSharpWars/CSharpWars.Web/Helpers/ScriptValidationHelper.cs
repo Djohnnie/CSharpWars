@@ -1,53 +1,40 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CSharpWars.Common.Configuration.Interfaces;
+﻿using CSharpWars.Common.Configuration.Interfaces;
 using CSharpWars.DtoModel;
 using CSharpWars.Validator;
 using CSharpWars.Web.Helpers.Interfaces;
 using Grpc.Net.Client;
 using ScriptValidationMessage = CSharpWars.DtoModel.ScriptValidationMessage;
 
-namespace CSharpWars.Web.Helpers
+namespace CSharpWars.Web.Helpers;
+
+public class ScriptValidationHelper : IScriptValidationHelper
 {
-    public class ScriptValidationHelper : IScriptValidationHelper
+    private readonly IConfigurationHelper _configurationHelper;
+
+    public ScriptValidationHelper(
+        IConfigurationHelper configurationHelper)
     {
-        private readonly IConfigurationHelper _configurationHelper;
+        _configurationHelper = configurationHelper;
+    }
 
-        public ScriptValidationHelper(
-            IConfigurationHelper configurationHelper)
+    public async Task<ValidatedScriptDto> Validate(ScriptToValidateDto script)
+    {
+        try
         {
-            _configurationHelper = configurationHelper;
+            var request = new ScriptValidationRequest { Script = script.Script };
+
+            var validationHost = _configurationHelper.ValidationHost;
+            var channel = GrpcChannel.ForAddress(validationHost);
+            var client = new ScriptValidator.ScriptValidatorClient(channel);
+            var response = await client.ValidateAsync(request);
+
+            return new ValidatedScriptDto(script.Script, response.CompilationTimeInMilliseconds, response.RunTimeInMilliseconds,
+                new List<ScriptValidationMessage>(response.ValidationMessages.Select(x => new ScriptValidationMessage(x.Message, x.LocationStart, x.LocationEnd)))
+            );
         }
-
-        public async Task<ValidatedScriptDto> Validate(ScriptToValidateDto script)
+        catch
         {
-            try
-            {
-                var request = new ScriptValidationRequest { Script = script.Script };
-
-                var validationHost = _configurationHelper.ValidationHost;
-                var channel = GrpcChannel.ForAddress(validationHost);
-                var client = new ScriptValidator.ScriptValidatorClient(channel);
-                var response = await client.ValidateAsync(request);
-
-                return new ValidatedScriptDto
-                {
-                    Script = script.Script,
-                    CompilationTimeInMilliseconds = response.CompilationTimeInMilliseconds,
-                    RunTimeInMilliseconds = response.RunTimeInMilliseconds,
-                    Messages = new List<ScriptValidationMessage>(response.ValidationMessages.Select(x => new ScriptValidationMessage
-                    {
-                        Message = x.Message,
-                        LocationStart = x.LocationStart,
-                        LocationEnd = x.LocationEnd
-                    }))
-                };
-            }
-            catch
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

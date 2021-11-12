@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿namespace CSharpWars.Mapping.Interfaces;
 
-namespace CSharpWars.Mapping.Interfaces
+public interface IMapper<TModel, TDto>
 {
-    public interface IMapper<TModel, TDto>
-    {
-        TModel Map(TDto dto);
+    TModel Map(TDto dto);
 
-        IList<TModel> Map(IList<TDto> dtos);
+    IList<TModel> Map(IList<TDto> dtos);
 
-        TDto Map(TModel model);
+    TDto Map(TModel model);
 
-        IList<TDto> Map(IList<TModel> models);
-    }
+    IList<TDto> Map(IList<TModel> models);
 }

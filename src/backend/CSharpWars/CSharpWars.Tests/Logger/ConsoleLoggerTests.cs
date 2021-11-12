@@ -1,32 +1,27 @@
-﻿using System;
-using System.IO;
-using CSharpWars.Logging;
-using FluentAssertions;
-using Xunit;
+﻿using CSharpWars.Logging;
 
-namespace CSharpWars.Tests.Logger
+namespace CSharpWars.Tests.Logger;
+
+public class ConsoleLoggerTests
 {
-    public class ConsoleLoggerTests
+    [Fact]
+    public void ConsoleLogger_Log_Should_Write_Message_To_Console_With_Additional_NewLine()
     {
-        [Fact]
-        public void ConsoleLogger_Log_Should_Write_Message_To_Console_With_Additional_NewLine()
-        {
-            // Arrange
-            var stringWriter = new StringWriter();
-            var originalOutput = Console.Out;
-            Console.SetOut(stringWriter);
-            var consoleLogger = new ConsoleLogger();
-            var message = "This is my message!";
-            var expectedOutput = $"{message}{Environment.NewLine}";
+        // Arrange
+        var stringWriter = new StringWriter();
+        var originalOutput = Console.Out;
+        Console.SetOut(stringWriter);
+        var consoleLogger = new ConsoleLogger();
+        var message = "This is my message!";
+        var expectedOutput = $"{message}{Environment.NewLine}";
 
-            // Act
-            consoleLogger.Log(message);
+        // Act
+        consoleLogger.Log(message);
 
-            // Assert
-            stringWriter.ToString().Should().Be(expectedOutput);
+        // Assert
+        stringWriter.ToString().Should().Be(expectedOutput);
 
-            // Cleanup
-            Console.SetOut(originalOutput);
-        }
+        // Cleanup
+        Console.SetOut(originalOutput);
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace CSharpWars.Model.Interfaces;
 
-namespace CSharpWars.Model.Interfaces
+public interface IHasId
 {
-    public interface IHasId
-    {
-        Guid Id { get; set; }
-    }
+    Guid Id { get; set; }
 }

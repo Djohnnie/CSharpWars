@@ -1,10 +1,3 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class PlayerDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-    }
-}
+public record PlayerDto(Guid Id, string Name);

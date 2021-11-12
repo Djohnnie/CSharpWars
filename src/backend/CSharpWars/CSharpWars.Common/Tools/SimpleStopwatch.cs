@@ -1,22 +1,18 @@
-﻿using System;
-using System.Diagnostics;
+﻿namespace CSharpWars.Common.Tools;
 
-namespace CSharpWars.Common.Tools
+public class SimpleStopwatch : IDisposable
 {
-    public class SimpleStopwatch : IDisposable
+    private readonly Stopwatch _stopwatch = new();
+
+    public long ElapsedMilliseconds => _stopwatch.ElapsedMilliseconds;
+
+    public SimpleStopwatch()
     {
-        private readonly Stopwatch _stopwatch = new Stopwatch();
+        _stopwatch.Start();
+    }
 
-        public long ElapsedMilliseconds => _stopwatch.ElapsedMilliseconds;
-
-        public SimpleStopwatch()
-        {
-            _stopwatch.Start();
-        }
-
-        public void Dispose()
-        {
-            _stopwatch.Stop();
-        }
+    public void Dispose()
+    {
+        _stopwatch.Stop();
     }
 }

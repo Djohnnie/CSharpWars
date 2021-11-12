@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class ValidatedScriptDto
-    {
-        public string Script { get; set; }
-
-        public long CompilationTimeInMilliseconds { get; set; }
-
-        public long RunTimeInMilliseconds { get; set; }
-
-        public List<ScriptValidationMessage> Messages { get; set; }
-    }
-}
+public record ValidatedScriptDto(
+    string Script,
+    long CompilationTimeInMilliseconds,
+    long RunTimeInMilliseconds,
+    List<ScriptValidationMessage> Messages);

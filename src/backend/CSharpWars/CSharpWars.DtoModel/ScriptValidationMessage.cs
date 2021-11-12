@@ -1,13 +1,3 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class ScriptValidationMessage
-    {
-        public string Message { get; set; }
-
-        public int LocationStart { get; set; }
-
-        public int LocationEnd { get; set; }
-    }
-}
+public record ScriptValidationMessage(string Message, int LocationStart, int LocationEnd);

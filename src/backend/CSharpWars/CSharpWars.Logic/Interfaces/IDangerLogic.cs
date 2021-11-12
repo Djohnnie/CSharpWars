@@ -1,13 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿namespace CSharpWars.Logic.Interfaces;
 
-namespace CSharpWars.Logic.Interfaces
+public interface IDangerLogic : ILogic
 {
-    public interface IDangerLogic : ILogic
-    {
-        Task CleanupMessages();
+    Task CleanupMessages();
 
-        Task CleanupBots();
+    Task CleanupBots();
 
-        Task CleanupPlayers();
-    }
+    Task CleanupPlayers();
 }

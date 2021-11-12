@@ -1,23 +1,20 @@
 ﻿using CSharpWars.Processor.Middleware;
-using FluentAssertions;
-using Xunit;
 
-namespace CSharpWars.Tests.Scripting.Middleware
+namespace CSharpWars.Tests.Scripting.Middleware;
+
+public class BotScriptCompilerTests
 {
-    public class BotScriptCompilerTests
+    [Fact]
+    public void BotScriptCompiler_Compile()
     {
-        [Fact]
-        public void BotScriptCompiler_Compile()
-        {
-            // Arrange
-            var botScriptCompiler = new BotScriptCompiler();
-            var script = "";
+        // Arrange
+        var botScriptCompiler = new BotScriptCompiler();
+        var script = "";
 
-            // Act
-            var result = botScriptCompiler.Compile(script);
+        // Act
+        var result = botScriptCompiler.Compile(script);
 
-            // Assert
-            result.Should().NotBeNull();
-        }
+        // Assert
+        result.Should().NotBeNull();
     }
 }

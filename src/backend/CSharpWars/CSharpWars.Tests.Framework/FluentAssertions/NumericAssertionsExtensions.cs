@@ -1,14 +1,12 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Numeric;
-using System;
 
-namespace CSharpWars.Tests.Framework.FluentAssertions
+namespace CSharpWars.Tests.Framework.FluentAssertions;
+
+public static class NumericAssertionsExtensions
 {
-    public static class NumericAssertionsExtensions
+    public static AndConstraint<NumericAssertions<T>> BeZero<T>(this NumericAssertions<T> value) where T : struct, IComparable<T>
     {
-        public static AndConstraint<NumericAssertions<T>> BeZero<T>(this NumericAssertions<T> value) where T : struct, IComparable<T>
-        {
-            return value.Be(default(T));
-        }
+        return value.Be(default(T));
     }
 }

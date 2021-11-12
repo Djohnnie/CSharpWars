@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace CSharpWars.Validator.Helpers.Interfaces;
 
-namespace CSharpWars.Validator.Helpers.Interfaces
+public interface IScriptValidationHelper
 {
-    public interface IScriptValidationHelper
-    {
-        Task<ScriptValidationResponse> Validate(ScriptValidationRequest script);
-    }
+    Task<ScriptValidationResponse> Validate(ScriptValidationRequest script);
 }

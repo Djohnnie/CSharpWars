@@ -1,34 +1,32 @@
-﻿using System.Linq;
-using CSharpWars.Enums;
+﻿using CSharpWars.Enums;
 using CSharpWars.Processor.Middleware;
 using CSharpWars.Scripting;
 using CSharpWars.Scripting.Model;
 
-namespace CSharpWars.Processor.Moves
+namespace CSharpWars.Processor.Moves;
+
+public class RangedAttack : Move
 {
-    public class RangedAttack : Move
+    public RangedAttack(BotProperties botProperties) : base(botProperties) { }
+
+    public override BotResult Go()
     {
-        public RangedAttack(BotProperties botProperties) : base(botProperties) { }
+        // Build result based on current properties.
+        var botResult = BotResult.Build(BotProperties);
 
-        public override BotResult Go()
+        var victimizedBot = FindVictimizedBot();
+        if (victimizedBot != null)
         {
-            // Build result based on current properties.
-            var botResult = BotResult.Build(BotProperties);
-
-            var victimizedBot = FindVictimizedBot();
-            if (victimizedBot != null)
-            {
-                botResult.InflictDamage(victimizedBot.Id, Constants.RANGED_DAMAGE);
-            }
-
-            botResult.Move = PossibleMoves.RangedAttack;
-
-            return botResult;
+            botResult.InflictDamage(victimizedBot.Id, Constants.RANGED_DAMAGE);
         }
 
-        private Bot FindVictimizedBot()
-        {
-            return BotProperties.Bots.FirstOrDefault(bot => bot.X == BotProperties.MoveDestinationX && bot.Y == BotProperties.MoveDestinationY);
-        }
+        botResult.Move = PossibleMoves.RangedAttack;
+
+        return botResult;
+    }
+
+    private Bot FindVictimizedBot()
+    {
+        return BotProperties.Bots.FirstOrDefault(bot => bot.X == BotProperties.MoveDestinationX && bot.Y == BotProperties.MoveDestinationY);
     }
 }

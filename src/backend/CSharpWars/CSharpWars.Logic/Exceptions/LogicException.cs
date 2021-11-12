@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace CSharpWars.Logic.Exceptions;
 
-namespace CSharpWars.Logic.Exceptions
+public class LogicException : Exception
 {
-    public class LogicException : Exception
-    {
-        public LogicException(string message) : base(message) { }
-    }
+    public LogicException(string message) : base(message) { }
 }

@@ -1,28 +1,26 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace CSharpWars.Common.Extensions
-{
-    public static class PasswordExtensions
-    {
-        public static (string Salt, string Hashed) HashPassword(this string password, string salt = null)
-        {
-            if (salt == null)
-            {
-                var saltData = new byte[16];
-                using (var randomNumberGenerator = RandomNumberGenerator.Create())
-                {
-                    randomNumberGenerator.GetBytes(saltData);
-                }
+namespace CSharpWars.Common.Extensions;
 
-                salt = Convert.ToBase64String(saltData);
+public static class PasswordExtensions
+{
+    public static (string Salt, string Hashed) HashPassword(this string password, string salt = null)
+    {
+        if (salt == null)
+        {
+            var saltData = new byte[16];
+            using (var randomNumberGenerator = RandomNumberGenerator.Create())
+            {
+                randomNumberGenerator.GetBytes(saltData);
             }
 
-            var x = KeyDerivation.Pbkdf2(password: password, salt: Convert.FromBase64String(salt), prf: KeyDerivationPrf.HMACSHA1, iterationCount: 10000, numBytesRequested: 32);
-            var hashed = Convert.ToBase64String(x);
-
-            return (salt, hashed);
+            salt = Convert.ToBase64String(saltData);
         }
+
+        var x = KeyDerivation.Pbkdf2(password: password, salt: Convert.FromBase64String(salt), prf: KeyDerivationPrf.HMACSHA1, iterationCount: 10000, numBytesRequested: 32);
+        var hashed = Convert.ToBase64String(x);
+
+        return (salt, hashed);
     }
 }

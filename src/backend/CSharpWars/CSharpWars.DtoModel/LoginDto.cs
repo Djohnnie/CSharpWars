@@ -1,10 +1,3 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class LoginDto
-    {
-        public string Name { get; set; }
-        public string Secret { get; set; }
-    }
-}
+public record LoginDto(string Name, string Secret);

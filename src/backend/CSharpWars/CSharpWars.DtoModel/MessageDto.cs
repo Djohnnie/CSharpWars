@@ -1,11 +1,3 @@
-﻿using System;
+﻿namespace CSharpWars.DtoModel;
 
-namespace CSharpWars.DtoModel
-{
-    public class MessageDto
-    {
-        public string Message { get; set; }
-
-        public string BotName { get; set; }
-    }
-}
+public record MessageDto(string Message, string BotName);

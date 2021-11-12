@@ -1,22 +1,21 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using CSharpWars.Processor.Middleware.Interfaces;
+﻿using CSharpWars.Processor.Middleware.Interfaces;
 
-namespace CSharpWars.Processor.Middleware
+namespace CSharpWars.Processor.Middleware;
+
+public class Processor : IProcessor
 {
-    public class Processor : IProcessor
+    private readonly IBotProcessingFactory _botProcessingFactory;
+
+    public Processor(IBotProcessingFactory botProcessingFactory)
     {
-        private readonly IBotProcessingFactory _botProcessingFactory;
+        _botProcessingFactory = botProcessingFactory;
+    }
 
-        public Processor(IBotProcessingFactory botProcessingFactory)
+    public Task Go(ProcessingContext context)
+    {
+        return Parallel.ForEachAsync(context.Bots, async (bot, _) =>
         {
-            _botProcessingFactory = botProcessingFactory;
-        }
-
-        public async Task Go(ProcessingContext context)
-        {
-            var botProcessing = context.Bots.Select(bot => _botProcessingFactory.Process(bot, context));
-            await Task.WhenAll(botProcessing);
-        }
+            await _botProcessingFactory.Process(bot, context);
+        });
     }
 }

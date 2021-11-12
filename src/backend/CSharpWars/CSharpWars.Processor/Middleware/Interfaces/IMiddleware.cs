@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace CSharpWars.Processor.Middleware.Interfaces;
 
-namespace CSharpWars.Processor.Middleware.Interfaces
+public interface IMiddleware
 {
-    public interface IMiddleware
-    {
-        Task Process();
-    }
+    Task Process();
 }

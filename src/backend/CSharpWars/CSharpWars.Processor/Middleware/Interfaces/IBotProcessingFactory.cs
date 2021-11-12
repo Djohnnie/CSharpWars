@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 
-namespace CSharpWars.Processor.Middleware.Interfaces
+namespace CSharpWars.Processor.Middleware.Interfaces;
+
+public interface IBotProcessingFactory
 {
-    public interface IBotProcessingFactory
-    {
-        Task Process(BotDto bot, ProcessingContext context);
-    }
+    Task Process(BotDto bot, ProcessingContext context);
 }

@@ -1,95 +1,89 @@
-﻿using System;
-using CSharpWars.Common.Extensions;
-using FluentAssertions;
-using Xunit;
+﻿namespace CSharpWars.Tests.Common.Extensions;
 
-namespace CSharpWars.Tests.Common.Extensions
+public class SerializationExtensionsTests
 {
-    public class SerializationExtensionsTests
+    public class Data
     {
-        public class Data
+        public bool BooleanProperty { get; set; }
+        public string StringProperty { get; set; }
+        public int IntegerProperty { get; set; }
+    }
+
+    [Fact]
+    public void SerializationExtensions_Should_Be_Able_To_Serialize()
+    {
+        // Arrange
+        var input = new Data
         {
-            public bool BooleanProperty { get; set; }
-            public string StringProperty { get; set; }
-            public int IntegerProperty { get; set; }
-        }
+            BooleanProperty = true,
+            StringProperty = "Hello world!",
+            IntegerProperty = 42
+        };
+        var expectedOutput = "{\"BooleanProperty\":true,\"StringProperty\":\"Hello world!\",\"IntegerProperty\":42}";
 
-        [Fact]
-        public void SerializationExtensions_Should_Be_Able_To_Serialize()
+        // Act
+        var result = input.Serialize();
+
+        // Assert
+        result.Should().Be(expectedOutput);
+    }
+
+    [Fact]
+    public void SerializationExtensions_Should_Be_Able_To_Serialize_Null_Object()
+    {
+        // Arrange
+        Data input = null;
+        var expectedOutput = string.Empty;
+
+        // Act
+        var result = input.Serialize();
+
+        // Assert
+        result.Should().Be(expectedOutput);
+    }
+
+    [Fact]
+    public void SerializationExtensions_Should_Be_Able_To_Deserialize()
+    {
+        // Arrange
+        var input = "{\"BooleanProperty\":true,\"StringProperty\":\"Hello world!\",\"IntegerProperty\":42}";
+        var expectedOutput = new
         {
-            // Arrange
-            var input = new Data
-            {
-                BooleanProperty = true,
-                StringProperty = "Hello world!",
-                IntegerProperty = 42
-            };
-            var expectedOutput = "{\"BooleanProperty\":true,\"StringProperty\":\"Hello world!\",\"IntegerProperty\":42}";
+            BooleanProperty = true,
+            StringProperty = "Hello world!",
+            IntegerProperty = 42
+        };
 
-            // Act
-            var result = input.Serialize();
+        // Act
+        var result = input.Deserialize<Data>();
 
-            // Assert
-            result.Should().Be(expectedOutput);
-        }
+        // Assert
+        result.Should().BeEquivalentTo(expectedOutput);
+    }
 
-        [Fact]
-        public void SerializationExtensions_Should_Be_Able_To_Serialize_Null_Object()
-        {
-            // Arrange
-            Data input = null;
-            var expectedOutput = string.Empty;
+    [Fact]
+    public void SerializationExtensions_Should_Be_Able_To_Deserialize_Empty_String()
+    {
+        // Arrange
+        var input = "";
 
-            // Act
-            var result = input.Serialize();
+        // Act
+        var result = input.Deserialize<Data>();
 
-            // Assert
-            result.Should().Be(expectedOutput);
-        }
+        // Assert
+        result.Should().BeNull();
+    }
 
-        [Fact]
-        public void SerializationExtensions_Should_Be_Able_To_Deserialize()
-        {
-            // Arrange
-            var input = "{\"BooleanProperty\":true,\"StringProperty\":\"Hello world!\",\"IntegerProperty\":42}";
-            var expectedOutput = new
-            {
-                BooleanProperty = true,
-                StringProperty = "Hello world!",
-                IntegerProperty = 42
-            };
+    [Fact]
+    public void SerializationExtensions_Should_Be_Able_To_Deserialize_Null_String()
+    {
+        // Arrange
+        string input = null;
 
-            // Act
-            var result = input.Deserialize<Data>();
+        // Act
+        var result = input.Deserialize<Data>();
 
-            // Assert
-            result.Should().BeEquivalentTo(expectedOutput);
-        }
-
-        [Fact]
-        public void SerializationExtensions_Should_Be_Able_To_Deserialize_Empty_String()
-        {
-            // Arrange
-            var input = "";
-
-            // Act
-            var result = input.Deserialize<Data>();
-
-            // Assert
-            result.Should().BeNull();
-        }
-
-        [Fact]
-        public void SerializationExtensions_Should_Be_Able_To_Deserialize_Null_String()
-        {
-            // Arrange
-            string input = null;
-
-            // Act
-            var result = input.Deserialize<Data>();
-
-            // Assert
-            result.Should().BeNull();
-        }
+        // Assert
+        result.Should().BeNull();
     }
 }

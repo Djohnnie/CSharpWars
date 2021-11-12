@@ -1,19 +1,14 @@
-﻿using AutoMapper;
-using CSharpWars.DtoModel;
+﻿using CSharpWars.DtoModel;
 using CSharpWars.Model;
 
-namespace CSharpWars.Mapping
+namespace CSharpWars.Mapping;
+
+public class TemplateMapper : Mapper<Template, TemplateDto>
 {
-    public class TemplateMapper : Mapper<Template, TemplateDto>
+    public TemplateMapper() : base(config =>
     {
-        public TemplateMapper()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Template, TemplateDto>();
-                cfg.CreateMap<TemplateDto, Template>();
-            });
-            _mapper = config.CreateMapper();
-        }
-    }
+        config.CreateMap<Template, TemplateDto>();
+        config.CreateMap<TemplateDto, Template>();
+    })
+    { }
 }
