@@ -1,6 +1,8 @@
 using System.Net;
 using CSharpWars.Common.DependencyInjection;
-using CSharpWars.Web.Api.DependencyInjection;
+using CSharpWars.DtoModel;
+using CSharpWars.Logic.Interfaces;
+using CSharpWars.Web.Api;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,5 +51,19 @@ app.UseAuthorization();
 app.UseCors("AllowAll");
 app.MapControllers();
 app.MapMetrics();
+
+
+var apiPrefix = "/api";
+app.MapGet($"{apiPrefix}/status", () => Results.Ok());
+
+app.MapGet($"{apiPrefix}/arena", (IApiHelper<IArenaLogic> helper) => helper.Execute(l => l.GetArena()));
+app.MapGet($"{apiPrefix}/bots", (IApiHelper<IBotLogic> helper) => helper.Execute(l => l.GetAllActiveBots()));
+app.MapPost($"{apiPrefix}/bots", (BotToCreateDto bot, IApiHelper<IBotLogic> helper) => helper.Post(l => l.CreateBot(bot)));
+app.MapGet($"{apiPrefix}/players", (IApiHelper<IPlayerLogic> helper) => helper.Execute(l => l.GetAllPlayers()));
+app.MapGet($"{apiPrefix}/messages", (IApiHelper<IMessageLogic> helper) => helper.Execute(l => l.GetLastMessages()));
+app.MapDelete($"{apiPrefix}/danger/messages", (IApiHelper<IDangerLogic> helper) => helper.Execute(l => l.CleanupMessages()));
+app.MapDelete($"{apiPrefix}/danger/bots", (IApiHelper<IDangerLogic> helper) => helper.Execute(l => l.CleanupBots()));
+app.MapDelete($"{apiPrefix}/danger/players", (IApiHelper<IDangerLogic> helper) => helper.Execute(l => l.CleanupPlayers()));
+
 
 app.Run();

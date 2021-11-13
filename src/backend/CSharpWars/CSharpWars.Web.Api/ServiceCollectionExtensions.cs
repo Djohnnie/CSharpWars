@@ -3,7 +3,7 @@ using CSharpWars.Common.DependencyInjection;
 using CSharpWars.Logic.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace CSharpWars.Web.Api.DependencyInjection;
+namespace CSharpWars.Web.Api;
 
 public static class ServiceCollectionExtensions
 {
@@ -23,5 +23,7 @@ public static class ServiceCollectionExtensions
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "CSharpWars", Version = "v1" });
             c.IncludeXmlComments(Path.ChangeExtension(Assembly.GetEntryAssembly().Location, "xml"));
         });
+
+        services.AddScoped(typeof(IApiHelper<>), typeof(ApiHelper<>));
     }
 }
