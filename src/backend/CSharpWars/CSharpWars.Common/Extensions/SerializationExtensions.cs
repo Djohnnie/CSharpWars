@@ -13,7 +13,7 @@ public static class SerializationExtensions
 
     public static T Deserialize<T>(this string objectToDeserialize)
     {
-        if (objectToDeserialize == null) return default(T);
+        if (string.IsNullOrEmpty(objectToDeserialize)) return default(T);
 
         return JsonSerializer.Deserialize<T>(objectToDeserialize);
     }
