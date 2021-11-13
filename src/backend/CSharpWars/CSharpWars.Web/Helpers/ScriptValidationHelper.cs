@@ -10,11 +10,14 @@ namespace CSharpWars.Web.Helpers;
 public class ScriptValidationHelper : IScriptValidationHelper
 {
     private readonly IConfigurationHelper _configurationHelper;
+    private readonly ILogger<ScriptValidationHelper> _logger;
 
     public ScriptValidationHelper(
-        IConfigurationHelper configurationHelper)
+        IConfigurationHelper configurationHelper,
+        ILogger<ScriptValidationHelper> logger)
     {
         _configurationHelper = configurationHelper;
+        _logger = logger;
     }
 
     public async Task<ValidatedScriptDto> Validate(ScriptToValidateDto script)
@@ -32,9 +35,10 @@ public class ScriptValidationHelper : IScriptValidationHelper
                 new List<ScriptValidationMessage>(response.ValidationMessages.Select(x => new ScriptValidationMessage(x.Message, x.LocationStart, x.LocationEnd)))
             );
         }
-        catch
+        catch (Exception ex)
         {
-            return null;
+            _logger.LogError(ex, ex.Message);
+            return new ValidatedScriptDto(script.Script, 0, 0, new() { new(ex.Message, 0, 0) });
         }
     }
 }
