@@ -32,7 +32,7 @@ jobs:
       - name: Git LFS Pull
         run: |
           git lfs pull
-          git add src/frontend/CSharpWars
+          git add .
           git reset --hard
 
       - name: Restore Library cache
