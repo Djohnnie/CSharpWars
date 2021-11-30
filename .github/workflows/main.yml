@@ -30,6 +30,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectpath: src/frontend/CSharpWars
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Build
