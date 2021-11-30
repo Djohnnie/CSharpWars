@@ -38,7 +38,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: src/frontend/CSharpWars
           key: Library-test-project-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-test-project-
@@ -85,7 +85,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: src/frontend/CSharpWars
           key: Library-build-WebGL
           restore-keys: |
             Library-build-
@@ -129,7 +129,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: src/frontend/CSharpWars
           key: Library-build-StandaloneWindows64
           restore-keys: |
             Library-build-
@@ -173,7 +173,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: src/frontend/CSharpWars
           key: Library-build-Android
           restore-keys: |
             Library-build-
