@@ -16,22 +16,22 @@ jobs:
         with:
           lfs: true
 
-      # Cache
-      - uses: actions/cache@v2
-        with:
-          path: src/frontend/CSharpWars
-          key: Library-MyProjectName-TargetPlatform
-          restore-keys: |
-            Library-MyProjectName-
-            Library-
+      # # Cache
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: src/frontend/CSharpWars
+      #     key: Library-MyProjectName-TargetPlatform
+      #     restore-keys: |
+      #       Library-MyProjectName-
+      #       Library-
       # Test
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          projectpath: src/frontend/CSharpWars
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Run tests
+      #   uses: game-ci/unity-test-runner@v2
+      #   env:
+      #     UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      #   with:
+      #     projectpath: src/frontend/CSharpWars
+      #     githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Build
       - name: Build project
