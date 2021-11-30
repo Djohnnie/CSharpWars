@@ -35,7 +35,7 @@ jobs:
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
-          projectpath: src/frontend/CSharpWars
+        projectpath: src/frontend/CSharpWars
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
