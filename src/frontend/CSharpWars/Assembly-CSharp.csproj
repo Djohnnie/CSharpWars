@@ -371,10 +371,10 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.22f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
  </Reference>
  <Reference Include="RestSharp">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Assets/Packages/RestSharp.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Assets/Packages/RestSharp.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -725,34 +725,34 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PlasticSCM.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/_-_GITHUB_-_/CSharpWars/src/frontend/CSharpWars/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
