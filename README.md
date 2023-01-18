@@ -1,6 +1,6 @@
 # CSharpWars
 
-![CSharp Wars Logo](https://www.djohnnie.be/csharpwars/logo.png "CSharp Wars Logo")
+![CSharp Wars Logo](resources/images/logo.png "CSharp Wars Logo")
 
 | Build | Status | Tests | Coverage | Deployment |
 |-------|--------|-------|----------|------------|
@@ -22,7 +22,7 @@
 
 ## Part 1 - Forming the Idea
 
-![CSharpWars Banner](https://www.djohnnie.be/csharpwars/banner.jpg "CSharpWars Banner")
+![CSharpWars Banner](resources/images/banner.jpg "CSharpWars Banner")
 
 ### Context
 
@@ -87,13 +87,13 @@ CSharpWars is not a hardcore game that needs real-time server/client communicati
 
 The relational database will contain a list of robots, storing their state, and a list of players, grouping their deployed robots. When deploying a robot, a player needs to provide a C# script to define the behavior of the robot. This C# script is only needed once by the processing middleware and is therefore accessed using a separate entity. It is however stored in the same table as the robot state itself.
 
-![CSharpWars Entities](https://www.djohnnie.be/csharpwars/entities.png "CSharpWars Entities")
+![CSharpWars Entities](resources/images/entities.png "CSharpWars Entities")
 
 ### HTTP API
 
 Because I want to use this project to play around with .NET Core 3, ASP.NET Core WebAPI is my choice as the technology for the HTTP APIs. The only important component that will use the HTTP API for now, is the game front-end. Because of this, only an endpoint on the robot entity is required. This endpoint will return all active robots, which are robots that have not died, or that have died within the last 10 seconds. The game front-end needs these 10 seconds to animate the death of the robot because face it: we like to see virtual robots die! In the future, multiple arenas will be supported. Right now, the arena endpoint will always return a single arena instance with a predefined width and height.
 
-![API](https://www.djohnnie.be/csharpwars/api.png "API")
+![API](resources/images/api.png "API")
 
 The ASP.NET Core 3 application is dockerized and runs on a Linux based Synology NAS for demo purposes.
 
@@ -105,7 +105,7 @@ Just for the fun of it, Microsoft SQL Server from a Docker Container also runs o
 
 The scripting middleware is a .NET Core 3 Console application using The Microsoft Compiler Platform, also known as Roslyn, to compile and run robot scripts. If the Console application is running, it will trigger a processor once every two seconds to run all active robot scripts in parallel. Running a robot script will take place in three stages:
 
-![Middleware Processing](https://www.djohnnie.be/csharpwars/middleware-processing.png "Middleware Processing")
+![Middleware Processing](resources/images/middleware-processing.png "Middleware Processing")
 
 ```c#
 public async Task Process()
@@ -183,7 +183,7 @@ public void Talk(String message);
 
 My decision to create a 3D environment to visualize the arena and fighting robots made me look into the Unity Game Engine. As a professional .NET backend developer I should never need a game engine, so this is an opportunity to learn something new and challenging. Today, Unity is a very popular tool to create both small and large games. Unity uses the Mono project to offer a choice, next to JavaScript, to use C# as a programming language for its scripting. Because I am a C# developer since the start of .NET, this made my leap into Unity a lot more familiar.
 
-![Unity Project](https://www.djohnnie.be/csharpwars/unity-project.png "Unity Project")
+![Unity Project](resources/images/unity-project.png "Unity Project")
 
 ### Platform
 
